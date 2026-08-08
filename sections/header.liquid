@@ -98,11 +98,11 @@
     text-decoration: none;
   }
   .desktop-only {
-    display: none;
+    display: none !important;
   }
   @media(min-width: 768px) {
-    .desktop-only { display: flex; }
-    .mobile-menu-toggle { display: none; }
+    .desktop-only { display: flex !important; }
+    .mobile-menu-toggle { display: none !important; }
   }
   .header__menu {
     gap: var(--space-md);
