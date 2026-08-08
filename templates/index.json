@@ -20,7 +20,8 @@
     "featured": {
       "type": "featured-collection",
       "settings": {
-        "title": "Trending Now"
+        "title": "Trending Now",
+        "collection": "trending-picks"
       }
     }
   },
