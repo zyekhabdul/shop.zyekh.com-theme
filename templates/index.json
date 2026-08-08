@@ -14,7 +14,8 @@
       "settings": {
         "heading": "Viral Trending Products",
         "subheading": "Discover the most viral and winning products of the year.",
-        "button_label": "Shop Now"
+        "button_label": "Shop Now",
+        "button_link": "shopify://collections/all"
       }
     },
     "featured": {

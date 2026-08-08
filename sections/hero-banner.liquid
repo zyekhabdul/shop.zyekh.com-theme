@@ -3,17 +3,27 @@
     {{ section.settings.image | image_url: width: 1500 | image_tag: class: 'hero-banner-bg', widths: '750, 1100, 1500', sizes: '100vw', loading: 'eager' }}
   {% endif %}
   <div class="hero-content">
-    <h2 class="hero-title">{{ section.settings.heading | escape }}</h2>
+    <h1 class="hero-title">{{ section.settings.heading | escape }}</h1>
     <p class="hero-subtitle">{{ section.settings.subheading | escape }}</p>
     {% if section.settings.button_link != blank %}
       <a href="{{ section.settings.button_link }}" class="btn-primary hero-btn">{{ section.settings.button_label | escape }}</a>
     {% endif %}
+    <div class="hero-trust-signals">
+      <div class="hero-stars">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <span>Trusted by 10,000+ Customers Worldwide</span>
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
   .hero-banner-wrapper {
-    background: var(--bg-card);
+    background: linear-gradient(135deg, var(--bg-card) 0%, color-mix(in srgb, var(--bg-card) 90%, var(--color-primary)) 100%);
     color: var(--text-main);
     padding: 6rem var(--space-md);
     text-align: center;
@@ -90,6 +100,21 @@
   .hero-banner-wrapper.has-bg-image .hero-btn {
     background-color: var(--bg-card);
     color: var(--color-primary);
+  }
+  .hero-trust-signals {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--space-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+  .hero-stars {
+    display: flex;
+    gap: 4px;
+    color: var(--color-star);
   }
   @media (max-width: 767px) {
     .hero-title { font-size: 2.25rem; }
