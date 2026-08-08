@@ -3,7 +3,7 @@
     <div class="product-media">
       {% if product.images.size > 0 %}
         <div class="product-main-image">
-          {{ product.featured_image | image_url: width: 800 | image_tag: class: 'main-img', loading: 'eager', id: 'MainProductImage' }}
+          {{ product.featured_image | image_url: width: 800 | image_tag: class: 'main-img', loading: 'eager', fetchpriority: 'high', id: 'MainProductImage' }}
         </div>
         {% if product.images.size > 1 %}
           <div class="product-thumbnails">
@@ -119,6 +119,16 @@
 <script type="application/json" id="ProductJson-{{ section.id }}">
   {{ product.variants | json }}
 </script>
+<script type="application/json" id="VariantPrices-{{ section.id }}">
+  {
+    {% for variant in product.variants %}
+      "{{ variant.id }}": {
+        "price": {{ variant.price | money | json }},
+        "compare_at_price": {% if variant.compare_at_price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  }
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -150,10 +160,14 @@
 
     // Variant selector
     const variants = JSON.parse(document.getElementById('ProductJson-{{ section.id }}').textContent);
+    const variantPrices = JSON.parse(document.getElementById('VariantPrices-{{ section.id }}').textContent);
     const radios = document.querySelectorAll('.option-radio');
     const variantInput = document.getElementById('VariantSelector');
     const addBtn = document.getElementById('AddToCart');
     const addBtnText = document.getElementById('AddToCartText');
+    const priceDisplay = document.getElementById('ProductPrice');
+    const comparePriceDisplay = document.getElementById('ComparePrice');
+    const stickyPriceDisplay = document.getElementById('StickyATCPrice');
 
     function onVariantChange() {
       const selectedOptions = Array.from(document.querySelectorAll('.product-option')).map(fieldset => {
@@ -172,8 +186,21 @@
         url.searchParams.set('variant', matchedVariant.id);
         window.history.replaceState({}, '', url);
 
-        // Not touching innerHTML for price formatting directly to avoid currency bugs, 
-        // rely on variant selection for cart function primarily.
+        // Update price visually using Liquid mapping
+        const formattedPrices = variantPrices[matchedVariant.id];
+        if (formattedPrices) {
+          if (priceDisplay) priceDisplay.innerHTML = formattedPrices.price;
+          if (stickyPriceDisplay) stickyPriceDisplay.innerHTML = formattedPrices.price;
+          
+          if (comparePriceDisplay) {
+            if (formattedPrices.compare_at_price) {
+              comparePriceDisplay.innerHTML = formattedPrices.compare_at_price;
+              comparePriceDisplay.style.display = 'inline-block';
+            } else {
+              comparePriceDisplay.style.display = 'none';
+            }
+          }
+        }
 
         if (matchedVariant.available) {
           addBtn.disabled = false;
@@ -248,7 +275,7 @@
   .product-thumbnails {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-sm);
+    gap: var(--space-md);
   }
   .thumbnail-btn {
     border: 1px solid var(--border-color);

@@ -53,3 +53,14 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - Dev server berhasil dijalankan via Shopify CLI device code auth (bukan API token)
 - Theme preview: http://127.0.0.1:9292
 - Theme ID: 152405803086
+
+### Execution Batch 3 (Session bebde1e7... - Visual Polish & QA Audit Fixes)
+**Tasks Completed:**
+- **UI/UX Polish:** Menanamkan "Premium Bento Grid" CSS di `critical.css`, radius besar (12-16px), shadow lembut, negative letter-spacing untuk judul, dan efek tactile pada button (`scale: 0.96` saat `:active`).
+- **QA Audit Fix 1 (Critical):** Menyelesaikan bug harga varian yang tidak berubah di `sections/product.liquid` dengan menggunakan trik Liquid JSON mapping (`VariantPrices-{{ section.id }}`) yang sangat aman dari bug *currency*.
+- **QA Audit Fix 2 (Critical):** Benar-benar membuat file `snippets/product-card.liquid` (yang tadinya sempat dilaporkan "selesai" di sesi sebelumnya tapi ternyata filenya lenyap) dan mengintegrasikannya ke `sections/collection.liquid` dan `sections/featured-collection.liquid`.
+- **QA Audit Fix 3 (UI):** Mengubah *touch target* hamburger menu di `sections/header.liquid` menjadi area aman ibu jari (44x44px). Memperbaiki tata letak *desktop menu collision* dengan menambahkan `!important`.
+- **QA Audit Fix 4 (Performance):** Menambahkan `fetchpriority="high"` ke LCP image di `sections/product.liquid`.
+- **QA Audit Fix 5 (UX):** Mengaktifkan View Transitions API di `critical.css` (`@view-transition { navigation: auto; }`).
+- **Template Restructure:** Merombak total `sections/collection.liquid` dari bawaan *skeleton* yang jelek (gambar raksasa) menjadi Bento Grid yang setara dengan *Featured Collection*. Merombak total `sections/footer.liquid` menjadi struktur multi-kolom rapi.
+- Laporan QA Audit lengkap tersimpan di artifact `qa_audit_report.md`.

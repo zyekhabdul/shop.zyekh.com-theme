@@ -14,19 +14,7 @@
     {% paginate collection.products by 16 %}
       <div class="product-grid">
         {% for product in collection.products %}
-          <a href="{{ product.url }}" class="product-card">
-            <div class="product-image-wrapper">
-              {% if product.featured_image %}
-                {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw' }}
-              {% else %}
-                <div class="placeholder-image">No Image</div>
-              {% endif %}
-            </div>
-            <div class="product-info">
-              <h3 class="product-title">{{ product.title }}</h3>
-              <div class="product-price">{{ product.price | money }}</div>
-            </div>
-          </a>
+          {% render 'product-card', product: product %}
         {% endfor %}
       </div>
 
@@ -65,61 +53,7 @@
     }
   }
   
-  /* Premium Bento Cards */
-  .product-card {
-    text-decoration: none;
-    color: inherit;
-    background: var(--bg-card);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: transform var(--transition), box-shadow var(--transition);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-  }
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: transparent;
-  }
-  .product-card:hover .product-image {
-    transform: scale(1.05);
-  }
-  .product-image-wrapper {
-    aspect-ratio: 1 / 1;
-    background-color: var(--bg-main);
-    overflow: hidden;
-  }
-  .product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition);
-  }
-  .placeholder-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    height: 100%;
-    background-color: var(--bg-main);
-  }
-  .product-info {
-    padding: var(--space-md);
-  }
-  .product-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
-    color: var(--text-main);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .product-price {
-    font-weight: 800;
-    color: var(--color-primary);
-  }
+  /* Premium Bento Cards CSS is globally loaded from critical.css */
   
   /* Pagination */
   .pagination-wrapper {

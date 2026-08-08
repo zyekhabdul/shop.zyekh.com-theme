@@ -1,0 +1,19 @@
+{% comment %}
+  Renders a product card.
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+{% endcomment %}
+
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-image-wrapper">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw' }}
+    {% else %}
+      <div class="placeholder-image">No Image</div>
+    {% endif %}
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">{{ product.title }}</h3>
+    <div class="product-price">{{ product.price | money }}</div>
+  </div>
+</a>
