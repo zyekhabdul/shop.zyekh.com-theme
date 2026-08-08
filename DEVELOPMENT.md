@@ -1,0 +1,185 @@
+# DEVELOPMENT.md — shop.zyekh.com-theme
+
+Standard Operating Protocol untuk semua AI agents dan developer yang bekerja di repo ini.
+Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
+
+---
+
+## STATUS SAAT INI (Last Updated: 2026-08-08 06:25 WIB)
+
+### Apa yang SUDAH dikerjakan
+- CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
+- Anti-FOUC script di `theme.liquid`
+- `critical.css` zero hardcoded hex, light/dark card shadows
+- Mobile nav: hamburger + slide-out drawer di `header.liquid`
+- Product variant JS fungsional di `product.liquid`
+- `product-card.liquid` tanpa inline `<style>`, pakai `image_url` + `image_tag` + srcset
+- `footer.liquid` semua `var()`, dark mode overrides, translation keys
+- `hero-banner.liquid` fix inline style ke `{% stylesheet %}`, all var()
+- `featured-collection.liquid` fix inline style ke `{% stylesheet %}`, all var()
+- `cart.liquid` translation keys, quantity +/- buttons
+- `config/settings_schema.json` expanded: social media (WA, IG, TikTok)
+- `locales/en.default.json` semua keys lengkap
+- `locales/id.json` terjemahan Bahasa Indonesia (BARU)
+- `snippets/trust-badges.liquid` 4 badges SVG + translation keys (BARU)
+- `snippets/whatsapp-button.liquid` floating button, pre-fill product name (BARU)
+- DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md
+
+### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
+1. **`snippets/meta-tags.liquid`** — fix `http:` ke `https:` pada og:image, tambah favicon
+2. **`snippets/image.liquid`** — tambah responsive srcset, configurable sizes/loading
+3. **`sections/hero-banner.liquid`** — tambah image picker di schema
+4. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
+5. **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
+
+### Dev Server
+```bash
+shopify theme dev --store jdidjn-c3.myshopify.com
+# Login via device code saat diminta
+# Preview: http://127.0.0.1:9292
+# Theme ID: 152405803086
+```
+
+---
+
+### 1. Cari Dulu Baru Terapkan
+Sebelum mengubah APAPUN, AI agent WAJIB:
+- Membaca file yang akan diubah secara penuh
+- Memahami konteks kenapa file tersebut ditulis seperti itu
+- Membandingkan dengan standar yang ada (DESIGN_SYSTEM.md, file ini)
+- Baru kemudian menerapkan perubahan
+
+### 2. Catat Semua Keputusan
+Setiap keputusan arsitektural, design, atau teknis yang diambil HARUS dicatat di:
+- `CHANGELOG.md` — untuk perubahan kode
+- `DESIGN_SYSTEM.md` — untuk aturan UI/UX yang sudah difiksasi
+- File ini (`DEVELOPMENT.md`) — untuk aturan teknis/workflow
+
+### 3. Log Semua Aktivitas
+Setiap sesi kerja AI HARUS menghasilkan log berisi:
+- Apa yang dianalisis
+- Apa yang diubah (file + alasan)
+- Keputusan yang diambil dan reasoning-nya
+- Masalah yang ditemukan tapi belum diselesaikan
+
+---
+
+## Arsitektur: "Mesin" dan "Kulit"
+
+### Mesin (Backend/Teknologi) — IDENTIK dengan zyekh.com
+Standar teknologi yang HARUS sama di semua project ZYEKH:
+- Zero-dependency: Vanilla JS/CSS, no framework, no bloat
+- CSS Variables via `:root` di `snippets/css-variables.liquid` — SINGLE source of truth
+- NO hardcoded hex colors di file manapun — semua pakai `var()`
+- NO inline `<style>` blocks di snippets/sections
+- `font-display: swap` + preload untuk font
+- Anti-FOUC: sync script di `<head>` sebelum body render
+- `scrollbar-gutter: stable; overflow-x: clip;` di html
+- Transition: Apple fluid spring curve `0.2s cubic-bezier(0.16, 1, 0.3, 1)`
+- Spacing tokens: `--space-xs` (0.25rem), `--space-sm` (0.5rem), `--space-md` (1rem), `--space-lg` (1.5rem), `--space-xl` (2.5rem)
+- Radius tokens: `--radius-sm` (4px), `--radius-md` (6px), `--radius-lg` (8px)
+- Grid blowout prevention: `min-width: 0` pada grid children
+- Accessibility: skip-to-content link, semantic HTML, `<main id="MainContent">`
+
+### Kulit (UI/UX) — BERBEDA dari zyekh.com
+Tampilan visual menyesuaikan target market dropshipping Indonesia:
+- Warna dan layout dioptimasi untuk konversi e-commerce
+- Foto supplier langsung dipakai tanpa edit
+- Marketing copy dalam Bahasa Indonesia
+- Trust badges, urgency elements, social proof sesuai konteks Indo
+
+---
+
+## Keputusan yang Sudah Difiksasi (JANGAN DIULANGI)
+
+### KF-001: Light Mode Default + Dark Mode Toggle (Hybrid)
+**Tanggal**: 2026-08-08
+**Konteks**: Riset menunjukkan 85%+ store e-commerce sukses pakai light mode. Dark mode menyebabkan:
+- Drop konversi 10-18% pada general catalog
+- Foto supplier (background putih) jadi kotak putih jelek di dark background
+- Tidak familiar buat konsumen Indonesia (terbiasa Shopee/Tokopedia = putih)
+
+**Keputusan**: Light mode sebagai default, dark mode tersedia via toggle.
+- Default: off-white `#F9FAFB`, cards `#FFFFFF`, text `#111827`
+- Dark: `#09090b`, cards `#141417`, text `#fafafa`
+- Mesin CSS variable swap + anti-FOUC script sudah handle ini
+
+**JANGAN**: Mengubah ke full dark mode tanpa data konversi yang membuktikan sebaliknya.
+
+### KF-002: Shopify API Token Scope
+**Tanggal**: 2026-08-08
+**Konteks**: Token dari Partners Dashboard (`atkn_`) TIDAK bisa langsung dipakai sebagai Admin API token.
+
+**Solusi yang benar**: OAuth flow
+1. Generate authorize URL dengan client_id + scope yang dibutuhkan
+2. User buka di browser, klik Install/Update
+3. Copy callback URL (berisi `code=`)
+4. Exchange code via POST ke `/admin/oauth/access_token`
+5. Dapat `shpat_` token
+
+**Scope saat ini** (token `shpat_5c37d5fd...`): products, orders, inventory — BELUM ada `read_themes`, `write_themes`.
+**Client ID yang valid**: `08b4003ce586d8a4e69c3c764943db8b`
+
+**JANGAN**: Mencoba pakai `atkn_` token langsung — akan selalu 401.
+
+### KF-003: Shopify CLI Auth via Device Code
+**Tanggal**: 2026-08-08
+**Konteks**: Shopify CLI bisa login via akun Shopify langsung (bukan API token) menggunakan device code flow.
+
+**Cara**:
+```bash
+shopify auth logout
+shopify theme dev --store jdidjn-c3.myshopify.com
+```
+CLI akan generate verification code + URL. User buka URL, masukkan code, login.
+
+**JANGAN**: Menghabiskan waktu debug API token scope untuk theme dev. Langsung pakai device code flow.
+
+### KF-004: Repo Terpisah dari zyekh.com
+**Tanggal**: 2026-08-07
+**Konteks**: Shopify Liquid theme punya struktur directory yang incompatible dengan static HTML site.
+
+**Keputusan**: `shop.zyekh.com-theme` adalah repo terpisah, bukan subfolder dari `zyekh.com`.
+
+---
+
+## Anti-Pattern Register (JANGAN LAKUKAN)
+
+| ID | Anti-Pattern | Alasan |
+|----|-------------|--------|
+| AP-001 | Inline `<style>` di snippets/sections | Duplikasi CSS N kali di DOM |
+| AP-002 | Hardcoded hex color (misal `#dc2626`) | Harus pakai `var()` |
+| AP-003 | Duplikasi `:root` di `critical.css` | Single source: `css-variables.liquid` |
+| AP-004 | Campur bahasa (ID + EN) tanpa translation keys | Semua string UI via `{{ 'key' \| t }}` |
+| AP-005 | Edit tanpa baca file dulu | "Cari dulu baru terapkan" |
+| AP-006 | Pakai emoji di code/docs | Zyekh standard: zero emoji |
+| AP-007 | Verbose/fluff dalam komunikasi | Caveman protocol: terse, high-density |
+| AP-008 | Tanya "mau lanjut?" / passive dependency | Autonomous initiative |
+| AP-009 | Pakai deprecated Shopify filters (`img_url`) | Pakai `image_url` + `image_tag` |
+| AP-010 | Fake urgency counters (hardcoded) | Harus data-driven atau dihilangkan |
+
+---
+
+## Store Details
+
+| Key | Value |
+|-----|-------|
+| Store URL | jdidjn-c3.myshopify.com |
+| Custom Domain | shop.zyekh.com |
+| Plan | Advanced |
+| Currency | IDR |
+| Country | Indonesia |
+| Timezone | Asia/Jakarta |
+| Theme Base | Shopify Skeleton Theme |
+| Dev Command | `shopify theme dev --store jdidjn-c3.myshopify.com` |
+| Deploy Command | `shopify theme push --store jdidjn-c3.myshopify.com` |
+
+---
+
+## Komunikasi AI Agent
+
+- Ikuti caveman protocol: terse, high-density, zero pleasantries
+- Jangan gunakan emoji
+- Jangan tanya "mau lanjut?" — ambil inisiatif otonom
+- Kalau tidak yakin, analisis dulu baru tanya yang spesifik
+- Setiap perubahan harus di-log
