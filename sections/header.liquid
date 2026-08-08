@@ -18,16 +18,17 @@
 
     <div class="header__icons">
       {% if shop.customer_accounts_enabled %}
-        <shopify-account menu="{{ section.settings.customer_account_menu }}" class="desktop-only">
+        <a href="{{ routes.account_url }}" class="account-link desktop-only">
           {{ 'icon-account.svg' | inline_asset_content }}
-        </shopify-account>
+          <span class="visually-hidden">Account</span>
+        </a>
       {% endif %}
 
       <a href="{{ routes.cart_url }}" class="cart-link">
+        {{ 'icon-cart.svg' | inline_asset_content }}
         {% if cart.item_count > 0 %}
           <sup>{{ cart.item_count }}</sup>
         {% endif %}
-        {{ 'icon-cart.svg' | inline_asset_content }}
         <span class="visually-hidden">Cart</span>
       </a>
     </div>
@@ -119,12 +120,20 @@
     gap: var(--space-md);
     align-items: center;
   }
+  .header__icons svg {
+    width: 24px;
+    height: 24px;
+    --icon-stroke-width: 1.5px;
+  }
+  .account-link,
   .cart-link {
     position: relative;
     color: var(--text-main);
     display: flex;
     align-items: center;
     text-decoration: none;
+    border: none;
+    background: none;
   }
   .cart-link sup {
     position: absolute;
