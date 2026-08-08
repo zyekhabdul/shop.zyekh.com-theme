@@ -115,3 +115,9 @@ body {
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
+
+/* Zyekh Engine Standard Transitions */
+a, button {
+  transition: all var(--transition);
+}
+
