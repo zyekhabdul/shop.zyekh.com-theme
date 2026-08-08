@@ -1,33 +1,263 @@
-{% comment %}
-  This section is used in the cart template to render /cart page with an
-  overview of the items in customer's cart.
+<div class="shopify-section cart-section">
+  <div class="cart-container">
+    <h1 class="cart-title">Keranjang Belanja</h1>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
-{% endcomment %}
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-layout">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item">
+              <a href="{{ item.url }}" class="cart-item-image">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+                {% else %}
+                  <div class="placeholder-image">No Image</div>
+                {% endif %}
+              </a>
+              
+              <div class="cart-item-details">
+                <a href="{{ item.url }}" class="cart-item-title">{{ item.product.title }}</a>
+                {% unless item.variant.title contains 'Default' %}
+                  <p class="cart-item-variant">{{ item.variant.title }}</p>
+                {% endunless %}
+                
+                <p class="cart-item-price">{{ item.final_price | money }}</p>
 
-<h1>{{ 'cart.title' | t }}</h1>
+                <div class="cart-item-actions">
+                  <div class="quantity-selector">
+                    <button type="button" class="qty-btn qty-minus" data-id="updates_{{ item.key }}">-</button>
+                    <input type="number" 
+                           id="updates_{{ item.key }}" 
+                           name="updates[]" 
+                           value="{{ item.quantity }}" 
+                           min="0" 
+                           class="qty-input">
+                    <button type="button" class="qty-btn qty-plus" data-id="updates_{{ item.key }}">+</button>
+                  </div>
+                  
+                  <a href="{{ item.url_to_remove }}" class="cart-item-remove">Hapus</a>
+                </div>
+              </div>
+              
+              <div class="cart-item-total desktop-only">
+                <strong>{{ item.final_line_price | money }}</strong>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
 
-<form action="{{ routes.cart_url }}" method="post">
-  <table>
-    {% for item in cart.items %}
-      <tr>
-        <td>
-          {% render 'image', image: item.image, url: item.url %}
-        </td>
-        <td>
-          <p>{{ item.product.title }}</p>
-          {{ 'cart.remove' | t | link_to: item.url_to_remove }}
-        </td>
-        <td>
-          <input type="text" name="updates[]" value="{{ item.quantity }}">
-          <input type="submit" value="{{ 'cart.update' | t }}">
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+        <div class="cart-summary">
+          <div class="cart-summary-row">
+            <span>Subtotal</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <p class="cart-shipping-note">Pengiriman dan pajak dihitung saat checkout.</p>
+          
+          <button type="submit" name="checkout" class="btn-primary checkout-btn">
+            Checkout Sekarang
+          </button>
+          
+          <button type="submit" name="update" class="btn-secondary update-btn">
+            Update Keranjang
+          </button>
+        </div>
+      </form>
+    {% else %}
+      <div class="cart-empty">
+        <p>Keranjang Anda masih kosong.</p>
+        <a href="{{ routes.root_url }}" class="btn-primary continue-shopping">Belanja Sekarang</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
 
-  <input type="submit" name="checkout" value="{{ 'cart.checkout' | t }}">
-</form>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const minuses = document.querySelectorAll('.qty-minus');
+    const pluses = document.querySelectorAll('.qty-plus');
+    const form = document.getElementById('cart-form');
+
+    function updateCart() {
+      if(form) form.submit();
+    }
+
+    minuses.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.id);
+        let val = parseInt(input.value) || 0;
+        if(val > 0) {
+          input.value = val - 1;
+          updateCart();
+        }
+      });
+    });
+
+    pluses.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.id);
+        let val = parseInt(input.value) || 0;
+        input.value = val + 1;
+        updateCart();
+      });
+    });
+    
+    // Auto submit on input blur if changed
+    const inputs = document.querySelectorAll('.qty-input');
+    inputs.forEach(input => {
+      input.addEventListener('change', updateCart);
+    });
+  });
+</script>
+
+{% stylesheet %}
+  .cart-section {
+    padding: var(--space-xl) var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .cart-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: var(--space-xl);
+    color: var(--text-main);
+  }
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  @media(min-width: 992px) {
+    .cart-layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-color);
+  }
+  @media(min-width: 768px) {
+    .cart-item {
+      grid-template-columns: 120px 1fr 100px;
+    }
+  }
+  .cart-item-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+  }
+  .cart-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cart-item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    margin-bottom: var(--space-xs);
+    display: block;
+  }
+  .cart-item-variant {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+  }
+  .cart-item-price {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .cart-item-remove {
+    color: #ef4444;
+    text-decoration: underline;
+    font-size: 0.9rem;
+  }
+  .cart-item-total {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  /* Summary */
+  .cart-summary {
+    background: var(--bg-card);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    height: fit-content;
+  }
+  .cart-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-bottom: var(--space-sm);
+    color: var(--text-main);
+  }
+  .cart-shipping-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+  }
+  .checkout-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: var(--space-sm);
+  }
+  .update-btn {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+  .cart-empty {
+    text-align: center;
+    padding: var(--space-xl) 0;
+  }
+  .continue-shopping {
+    display: inline-block;
+    margin-top: var(--space-md);
+    padding: 12px 24px;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+  }
+  .desktop-only {
+    display: none;
+  }
+  @media(min-width: 768px) {
+    .desktop-only { display: flex; }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

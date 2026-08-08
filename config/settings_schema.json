@@ -85,5 +85,26 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number (format: 62812...)",
+        "info": "Used for floating chat button"
+      },
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "tiktok_url",
+        "label": "TikTok URL"
+      }
+    ]
   }
 ]

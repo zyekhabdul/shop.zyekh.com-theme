@@ -42,5 +42,9 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    {% if settings.whatsapp_number != blank %}
+      {% render 'whatsapp-button' %}
+    {% endif %}
   </body>
 </html>

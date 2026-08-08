@@ -1,50 +1,358 @@
-{% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
+<div class="shopify-section product-section">
+  <div class="product-container">
+    <div class="product-media">
+      {% if product.images.size > 0 %}
+        <div class="product-main-image">
+          {{ product.featured_image | image_url: width: 800 | image_tag: class: 'main-img', loading: 'eager', id: 'MainProductImage' }}
+        </div>
+        {% if product.images.size > 1 %}
+          <div class="product-thumbnails">
+            {% for image in product.images %}
+              <button type="button" class="thumbnail-btn" data-img-url="{{ image | image_url: width: 800 }}">
+                {{ image | image_url: width: 150 | image_tag: class: 'thumb-img', loading: 'lazy' }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="placeholder-image">No Image</div>
+      {% endif %}
+    </div>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
-{% endcomment %}
+    <div class="product-info">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <div class="product-price-wrapper">
+        <span class="product-price" id="ProductPrice" data-price="{{ product.selected_or_first_available_variant.price }}">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+          <span class="product-compare-price" id="ComparePrice">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+          <span class="sale-badge">SALE</span>
+        {% endif %}
+      </div>
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+      <div class="product-form-wrapper">
+        {% form 'product', product, id: 'AddToCartForm' %}
+          <input type="hidden" name="id" id="VariantSelector" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            <div class="product-options">
+              {% for option in product.options_with_values %}
+                <fieldset class="product-option">
+                  <legend>{{ option.name }}</legend>
+                  <div class="option-values">
+                    {% for value in option.values %}
+                      <input type="radio" 
+                             id="Option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}" 
+                             name="options[{{ option.name | escape }}]" 
+                             value="{{ value | escape }}"
+                             {% if option.selected_value == value %}checked{% endif %}
+                             class="option-radio">
+                      <label for="Option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}" class="option-label">
+                        {{ value }}
+                      </label>
+                    {% endfor %}
+                  </div>
+                </fieldset>
+              {% endfor %}
+            </div>
+          {% endunless %}
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+          <div class="product-quantity">
+            <label for="Quantity">Jumlah</label>
+            <div class="quantity-selector">
+              <button type="button" class="qty-btn qty-minus">-</button>
+              <input type="number" id="Quantity" name="quantity" value="1" min="1" class="qty-input">
+              <button type="button" class="qty-btn qty-plus">+</button>
+            </div>
+          </div>
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
-
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
+          <button type="submit" name="add" id="AddToCart" class="btn-primary add-to-cart-btn"
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+            <span id="AddToCartText">
+              {% if product.selected_or_first_available_variant.available %}
+                Beli Sekarang
+              {% else %}
+                Habis Terjual
+              {% endif %}
+            </span>
+          </button>
+          
+          {% if section.settings.show_dynamic_checkout %}
+            {{ form | payment_button }}
           {% endif %}
-        >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
+        {% endform %}
+        
+        {% render 'trust-badges' %}
+      </div>
 
-    <input type="text" name="quantity" min="1" value="1">
-
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="application/json" id="ProductJson-{{ section.id }}">
+  {{ product.variants | json }}
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Thumbnail switching
+    const mainImg = document.getElementById('MainProductImage');
+    const thumbBtns = document.querySelectorAll('.thumbnail-btn');
+    
+    thumbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(mainImg) mainImg.src = btn.dataset.imgUrl;
+      });
+    });
+
+    // Quantity selector
+    const qtyInput = document.getElementById('Quantity');
+    const btnMinus = document.querySelector('.qty-minus');
+    const btnPlus = document.querySelector('.qty-plus');
+    
+    if(qtyInput && btnMinus && btnPlus) {
+      btnMinus.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value) || 1;
+        if(val > 1) qtyInput.value = val - 1;
+      });
+      btnPlus.addEventListener('click', () => {
+        let val = parseInt(qtyInput.value) || 1;
+        qtyInput.value = val + 1;
+      });
+    }
+
+    // Variant selector
+    const variants = JSON.parse(document.getElementById('ProductJson-{{ section.id }}').textContent);
+    const radios = document.querySelectorAll('.option-radio');
+    const variantInput = document.getElementById('VariantSelector');
+    const addBtn = document.getElementById('AddToCart');
+    const addBtnText = document.getElementById('AddToCartText');
+
+    function onVariantChange() {
+      const selectedOptions = Array.from(document.querySelectorAll('.product-option')).map(fieldset => {
+        const checked = fieldset.querySelector('input:checked');
+        return checked ? checked.value : null;
+      });
+
+      const matchedVariant = variants.find(v => {
+        return v.options.every((opt, i) => opt === selectedOptions[i]);
+      });
+
+      if (matchedVariant) {
+        variantInput.value = matchedVariant.id;
+        
+        const url = new URL(window.location);
+        url.searchParams.set('variant', matchedVariant.id);
+        window.history.replaceState({}, '', url);
+
+        // Not touching innerHTML for price formatting directly to avoid currency bugs, 
+        // rely on variant selection for cart function primarily.
+
+        if (matchedVariant.available) {
+          addBtn.disabled = false;
+          addBtnText.textContent = 'Beli Sekarang';
+        } else {
+          addBtn.disabled = true;
+          addBtnText.textContent = 'Habis Terjual';
+        }
+      }
+    }
+
+    radios.forEach(radio => radio.addEventListener('change', onVariantChange));
+  });
+</script>
+
+{% stylesheet %}
+  .product-section {
+    padding: var(--space-xl) var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .product-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  @media(min-width: 768px) {
+    .product-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .product-main-image {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+    border: 1px solid var(--border-color);
+  }
+  .main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .product-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+  }
+  .thumbnail-btn {
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+  }
+  .thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Product Info */
+  .product-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: var(--space-sm);
+    color: var(--text-main);
+  }
+  .product-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .product-compare-price {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+  .sale-badge {
+    background: #ef4444;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* Form */
+  .product-option {
+    border: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+  }
+  .product-option legend {
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+  .option-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .option-radio {
+    position: absolute;
+    opacity: 0;
+  }
+  .option-label {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .option-radio:checked + .option-label {
+    background: var(--text-main);
+    color: var(--bg-main);
+    border-color: var(--text-main);
+  }
+
+  /* Quantity */
+  .product-quantity {
+    margin-bottom: var(--space-lg);
+  }
+  .product-quantity label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+  .quantity-selector {
+    display: inline-flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .qty-btn {
+    background: var(--bg-card);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-main);
+  }
+  .qty-input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    background: var(--bg-main);
+    color: var(--text-main);
+    -moz-appearance: textfield;
+  }
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Buttons */
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transition);
+    margin-bottom: var(--space-sm);
+  }
+  .add-to-cart-btn:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+  }
+  .add-to-cart-btn:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+  .product-description {
+    margin-top: var(--space-xl);
+    line-height: 1.6;
+    color: var(--text-main);
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
   "name": "t:general.product",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show dynamic checkout button",
+      "default": true
+    }
+  ],
   "disabled_on": {
     "groups": ["header", "footer"]
   }
