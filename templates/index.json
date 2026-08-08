@@ -9,12 +9,23 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Viral Trending Products",
+        "subheading": "Discover the most viral and winning products of the year.",
+        "button_label": "Shop Now"
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Trending Now"
+      }
     }
   },
   "order": [
-    "main"
+    "hero",
+    "featured"
   ]
 }
