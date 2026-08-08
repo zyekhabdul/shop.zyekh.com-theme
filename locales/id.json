@@ -1,0 +1,59 @@
+{
+  "404": {
+    "title": "404",
+    "not_found": "Halaman tidak ditemukan.",
+    "back_to_shopping": "Kembali belanja"
+  },
+  "blog": {
+    "article_comments": "Komentar",
+    "article_metadata_html": "{{ date }} oleh {{ author }}",
+    "comment_form_body": "Komentar",
+    "comment_form_email": "Email",
+    "comment_form_name": "Nama",
+    "comment_form_submit": "Kirim",
+    "comment_form_title": "Tambahkan komentar"
+  },
+  "cart": {
+    "checkout": "Checkout",
+    "title": "Keranjang",
+    "update": "Perbarui",
+    "remove": "Hapus"
+  },
+  "customers": {
+    "login": {
+      "email": "Email",
+      "password": "Kata Sandi",
+      "submit": "Masuk",
+      "title": "Login"
+    }
+  },
+  "collections": {
+    "title": "Koleksi"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Tambahkan ke Apple Wallet",
+    "card": "Kartu hadiah",
+    "expired": "Kartu hadiah ini sudah kedaluwarsa",
+    "expires_on": "Kedaluwarsa pada {{ expires_on }}",
+    "use_at_checkout": "Gunakan kartu hadiah ini saat checkout"
+  },
+  "password": {
+    "title": "Toko ini bersifat privat",
+    "password": "Kata Sandi",
+    "enter": "Masuk"
+  },
+  "search": {
+    "title": "Cari",
+    "placeholder": "Cari artikel, halaman, atau produk",
+    "submit": "Cari",
+    "no_results_html": "Tidak ada hasil untuk {{ terms }}",
+    "results_for_html": "Ditemukan {{ count }} hasil untuk {{ terms }}"
+  },
+  "products": {
+    "product": {
+      "whatsapp_message": "Halo, saya tertarik dengan produk {{ title }}.",
+      "on_sale": "Diskon",
+      "no_image": "Tanpa Gambar"
+    }
+  }
+}

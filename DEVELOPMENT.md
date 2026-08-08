@@ -5,32 +5,34 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 
 ---
 
-## STATUS SAAT INI (Last Updated: 2026-08-08 06:25 WIB)
+## STATUS SAAT INI (Last Updated: 2026-08-08 19:05 WIB)
 
 ### Apa yang SUDAH dikerjakan
 - CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
 - Anti-FOUC script di `theme.liquid`
-- `critical.css` zero hardcoded hex, light/dark card shadows
+- `critical.css` zero hardcoded hex, light/dark card shadows, sale badge/price CSS
 - Mobile nav: hamburger + slide-out drawer di `header.liquid`
 - Product variant JS fungsional di `product.liquid`
-- `product-card.liquid` tanpa inline `<style>`, pakai `image_url` + `image_tag` + srcset
+- `product-card.liquid` enhanced: sale badge, compare_at_price, srcset widths, translation keys
 - `footer.liquid` semua `var()`, dark mode overrides, translation keys
-- `hero-banner.liquid` fix inline style ke `{% stylesheet %}`, all var()
+- `hero-banner.liquid` fix inline style ke `{% stylesheet %}`, all var(), image_picker di schema
 - `featured-collection.liquid` fix inline style ke `{% stylesheet %}`, all var()
 - `cart.liquid` translation keys, quantity +/- buttons
 - `config/settings_schema.json` expanded: social media (WA, IG, TikTok)
-- `locales/en.default.json` semua keys lengkap
-- `locales/id.json` terjemahan Bahasa Indonesia (BARU)
-- `snippets/trust-badges.liquid` 4 badges SVG + translation keys (BARU)
-- `snippets/whatsapp-button.liquid` floating button, pre-fill product name (BARU)
+- `locales/en.default.json` semua keys lengkap (incl products.product.on_sale, no_image, whatsapp_message)
+- `locales/id.json` terjemahan Bahasa Indonesia
+- `snippets/trust-badges.liquid` 4 badges SVG + translation keys
+- `snippets/whatsapp-button.liquid` floating button, pre-fill product name
+- `snippets/meta-tags.liquid` sudah https + favicon support
+- `snippets/image.liquid` sudah responsive srcset + configurable sizes/loading
+- `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
+- Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
-1. **`snippets/meta-tags.liquid`** — fix `http:` ke `https:` pada og:image, tambah favicon
-2. **`snippets/image.liquid`** — tambah responsive srcset, configurable sizes/loading
-3. **`sections/hero-banner.liquid`** — tambah image picker di schema
-4. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
-5. **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
+1. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
+2. **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
+3. **Push to remote** — 14+ commits belum di-push ke origin/main
 
 ### Dev Server
 ```bash

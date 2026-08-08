@@ -64,3 +64,31 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - **QA Audit Fix 5 (UX):** Mengaktifkan View Transitions API di `critical.css` (`@view-transition { navigation: auto; }`).
 - **Template Restructure:** Merombak total `sections/collection.liquid` dari bawaan *skeleton* yang jelek (gambar raksasa) menjadi Bento Grid yang setara dengan *Featured Collection*. Merombak total `sections/footer.liquid` menjadi struktur multi-kolom rapi.
 - Laporan QA Audit lengkap tersimpan di artifact `qa_audit_report.md`.
+
+### Session: 03d41c1c-f910-4c10-8988-dde3b8df7a59
+
+**Analisis:**
+- Full project analysis: baca GEMINI.md, DEVELOPMENT.md, DESIGN_SYSTEM.md, CHANGELOG.md
+- Audit hardcoded hex/rgba across all sections
+- Discovered 3/5 "pending tasks" from DEVELOPMENT.md were already completed (meta-tags, image, hero-banner)
+- Discovered DESIGN_SYSTEM.md specifies tokens (--color-sale, --color-btn-bg, etc.) that didn't exist in css-variables.liquid
+- Discovered locales/id.json was missing despite DEVELOPMENT.md claiming it existed
+
+**File Diubah:**
+- `snippets/css-variables.liquid` -- added 5 missing tokens: --color-sale, --color-star, --color-btn-bg, --color-btn-text, --color-overlay (light + dark)
+- `snippets/product-card.liquid` -- enhanced: sale badge, compare_at_price, srcset widths '200,300,400,600', translation keys
+- `assets/critical.css` -- added .product-price-wrapper, .product-price-original, .product-price-sale, .product-badge, .badge-sale classes
+- `sections/hero-banner.liquid` -- replaced 6 hardcoded hex/rgba with var() tokens
+- `sections/product.liquid` -- replaced all hardcoded star fill #FBBF24 with currentColor + .star-icon class, sale badge to var(--color-sale), button to var(--color-btn-text), shadow to color-mix()
+- `sections/cart.liquid` -- replaced #ef4444 with var(--color-sale)
+- `sections/header.liquid` -- replaced rgba overlay and shadow with var(--color-overlay) and var(--shadow-lg)
+- `locales/id.json` -- CREATED: full Indonesian translations (was missing from disk)
+- `locales/en.default.json` -- added products.product.on_sale, no_image, whatsapp_message keys
+- `DEVELOPMENT.md` -- updated status: corrected completed tasks, reduced pending to 3
+- `CHANGELOG.md` -- this entry
+
+**Hasil:**
+- Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
+- Token system sekarang sinkron antara DESIGN_SYSTEM.md dan css-variables.liquid
+- Kedua locale files (en, id) sinkron dan lengkap
+
