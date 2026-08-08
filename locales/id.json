@@ -14,10 +14,13 @@
     "comment_form_title": "Tambahkan komentar"
   },
   "cart": {
-    "checkout": "Checkout",
-    "title": "Keranjang",
-    "update": "Perbarui",
-    "remove": "Hapus"
+    "checkout": "Checkout Sekarang",
+    "title": "Keranjang Belanja",
+    "update": "Perbarui Keranjang",
+    "remove": "Hapus",
+    "shipping_note": "Pengiriman dan pajak dihitung saat checkout.",
+    "empty": "Keranjang Anda masih kosong.",
+    "continue_shopping": "Belanja Sekarang"
   },
   "customers": {
     "login": {
@@ -53,7 +56,16 @@
     "product": {
       "whatsapp_message": "Halo, saya tertarik dengan produk {{ title }}.",
       "on_sale": "Diskon",
-      "no_image": "Tanpa Gambar"
+      "no_image": "Tanpa Gambar",
+      "sold_count": "Terjual 10.000+",
+      "add_to_cart": "Beli Sekarang",
+      "sold_out": "Habis Terjual"
     }
+  },
+  "trust": {
+    "fast_shipping": "Pengiriman Cepat",
+    "secure_payment": "Pembayaran Aman",
+    "money_back": "Garansi 100%",
+    "worldwide_shipping": "Pengiriman Seluruh Dunia"
   }
 }

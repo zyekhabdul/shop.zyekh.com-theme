@@ -83,12 +83,14 @@ Standar teknologi yang HARUS sama di semua project ZYEKH:
 - Grid blowout prevention: `min-width: 0` pada grid children
 - Accessibility: skip-to-content link, semantic HTML, `<main id="MainContent">`
 
-### Kulit (UI/UX) — BERBEDA dari zyekh.com
-Tampilan visual menyesuaikan target market dropshipping Indonesia:
-- Warna dan layout dioptimasi untuk konversi e-commerce
+### Kulit (UI/UX) — GLOBAL DROPSHIPPING MARKET
+Tampilan visual menyesuaikan target market global dropshipping (beli murah, jual lebih mahal):
+- English-first, multi-language via Shopify translation system
+- Warna dan layout dioptimasi untuk konversi e-commerce international
 - Foto supplier langsung dipakai tanpa edit
-- Marketing copy dalam Bahasa Indonesia
-- Trust badges, urgency elements, social proof sesuai konteks Indo
+- Trust badges global: Fast Shipping, Secure Payment, Money-Back Guarantee, Worldwide Shipping
+- Semua UI string via translation keys (`{{ 'key' | t }}`) -- zero hardcoded text
+- Multi-currency support via Shopify Markets
 
 ---
 

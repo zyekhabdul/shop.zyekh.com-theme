@@ -14,10 +14,13 @@
     "comment_form_title": "Add a comment"
   },
   "cart": {
-    "checkout": "Checkout",
-    "title": "Cart",
-    "update": "Update",
-    "remove": "Remove"
+    "checkout": "Checkout Now",
+    "title": "Shopping Cart",
+    "update": "Update Cart",
+    "remove": "Remove",
+    "shipping_note": "Shipping and taxes calculated at checkout.",
+    "empty": "Your cart is empty.",
+    "continue_shopping": "Shop Now"
   },
   "customers": {
     "login": {
@@ -53,7 +56,16 @@
     "product": {
       "whatsapp_message": "Hello, I am interested in {{ title }}.",
       "on_sale": "Sale",
-      "no_image": "No Image"
+      "no_image": "No Image",
+      "sold_count": "10,000+ Sold",
+      "add_to_cart": "Buy Now",
+      "sold_out": "Sold Out"
     }
+  },
+  "trust": {
+    "fast_shipping": "Fast Shipping",
+    "secure_payment": "Secure Payment",
+    "money_back": "Money-Back Guarantee",
+    "worldwide_shipping": "Worldwide Shipping"
   }
 }

@@ -184,7 +184,7 @@ img {
   padding: var(--space-md);
 }
 .product-title {
-  font-size: 0.95rem; /* ~15px */
+  font-size: 0.875rem; /* ~14px */
   font-weight: 500;
   margin-bottom: var(--space-xs);
   color: var(--text-main);
@@ -195,16 +195,16 @@ img {
   line-height: 1.4;
 }
 @media (min-width: 768px) {
-  .product-title { font-size: 1.05rem; /* ~16.8px */ }
+  .product-title { font-size: 0.95rem; /* ~15.2px */ }
 }
 .product-price {
-  font-size: 1.1rem; /* ~17.6px */
+  font-size: 1rem; /* ~16px */
   font-weight: 700;
   color: var(--color-primary);
   white-space: nowrap;
 }
 @media (min-width: 768px) {
-  .product-price { font-size: 1.25rem; /* 20px */ }
+  .product-price { font-size: 1.1rem; /* 17.6px */ }
 }
 
 .product-price-wrapper {
@@ -221,13 +221,13 @@ img {
 }
 
 .product-price-sale {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-sale);
 }
 
 @media (min-width: 768px) {
-  .product-price-sale { font-size: 1.25rem; }
+  .product-price-sale { font-size: 1.1rem; }
 }
 
 .product-badge {
@@ -245,4 +245,31 @@ img {
 .badge-sale {
   background-color: var(--color-sale);
   color: var(--color-btn-text);
+}
+
+/* Trust Badges */
+.trust-badges-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+.trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.trust-badge svg {
+  color: var(--color-primary);
+  width: 20px;
+  height: 20px;
 }

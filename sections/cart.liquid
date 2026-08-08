@@ -1,6 +1,6 @@
 <div class="shopify-section cart-section">
   <div class="cart-container">
-    <h1 class="cart-title">Keranjang Belanja</h1>
+    <h1 class="cart-title">{{ 'cart.title' | t | default: 'Shopping Cart' }}</h1>
 
     {% if cart.item_count > 0 %}
       <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-layout">
@@ -51,21 +51,21 @@
             <span>Subtotal</span>
             <strong>{{ cart.total_price | money }}</strong>
           </div>
-          <p class="cart-shipping-note">Pengiriman dan pajak dihitung saat checkout.</p>
+          <p class="cart-shipping-note">{{ 'cart.shipping_note' | t | default: 'Shipping and taxes calculated at checkout.' }}</p>
           
           <button type="submit" name="checkout" class="btn-primary checkout-btn">
-            Checkout Sekarang
+            {{ 'cart.checkout' | t | default: 'Checkout Now' }}
           </button>
           
           <button type="submit" name="update" class="btn-secondary update-btn">
-            Update Keranjang
+            {{ 'cart.update' | t | default: 'Update Cart' }}
           </button>
         </div>
       </form>
     {% else %}
       <div class="cart-empty">
-        <p>Keranjang Anda masih kosong.</p>
-        <a href="{{ routes.root_url }}" class="btn-primary continue-shopping">Belanja Sekarang</a>
+        <p>{{ 'cart.empty' | t | default: 'Your cart is empty.' }}</p>
+        <a href="{{ routes.root_url }}" class="btn-primary continue-shopping">{{ 'cart.continue_shopping' | t | default: 'Shop Now' }}</a>
       </div>
     {% endif %}
   </div>
