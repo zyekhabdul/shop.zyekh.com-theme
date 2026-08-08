@@ -57,6 +57,10 @@ h6 {
   overflow-wrap: break-word;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: var(--tracking-tight, -0.02em);
+}
+
 p:empty {
   display: none;
 }
@@ -116,8 +120,19 @@ body {
   grid-column: 1 / -1;
 }
 
-/* Zyekh Engine Standard Transitions */
+/* Zyekh Engine Standard Transitions & Interactions */
 a, button {
   transition: all var(--transition);
+  cursor: pointer;
+}
+
+button:active, 
+.btn-primary:active, 
+.btn-secondary:active {
+  transform: scale(0.96);
+}
+
+img {
+  transition: transform var(--transition), opacity var(--transition);
 }
 
