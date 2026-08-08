@@ -26,6 +26,12 @@
     "name": "t:general.layout",
     "settings": [
       {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 x 32px .png recommended"
+      },
+      {
         "type": "select",
         "id": "max_page_width",
         "label": "t:labels.page_width",

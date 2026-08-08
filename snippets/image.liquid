@@ -13,6 +13,9 @@
   @param {number} [width] - The highest resolution width of the image to be rendered
   @param {number} [height] - The highest resolution height of the image to be rendered
   @param {string} [crop] - The crop position of the image
+  @param {string} [sizes] - The sizes attribute for the image (default: 100vw)
+  @param {string} [widths] - The widths attribute for the image's srcset (e.g. '320, 640, 960')
+  @param {string} [loading] - The loading attribute for the image (default: lazy)
 
   @example
   {% render 'image', image: product.featured_image %}
@@ -37,6 +40,9 @@
   else
     assign wrapper = 'div'
   endif
+
+  assign img_sizes = sizes | default: '100vw'
+  assign img_loading = loading | default: 'lazy'
 %}
 
 <{{ wrapper }}
@@ -45,7 +51,11 @@
     href="{{ url }}"
   {% endif %}
 >
-  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
+  {%- if widths -%}
+    {{ image | image_url: width: width, height: height, crop: crop | image_tag: sizes: img_sizes, widths: widths, loading: img_loading }}
+  {%- else -%}
+    {{ image | image_url: width: width, height: height, crop: crop | image_tag: sizes: img_sizes, loading: img_loading }}
+  {%- endif -%}
 </{{ wrapper }}>
 
 {% stylesheet %}
