@@ -10,7 +10,8 @@
     </h2>
 
     <nav class="header__menu desktop-only">
-      {% for link in section.settings.menu.links %}
+      {% assign desktop_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
+      {% for link in desktop_menu %}
         {{ link.title | link_to: link.url }}
       {% endfor %}
     </nav>
@@ -42,7 +43,8 @@
         </button>
       </div>
       <nav class="nav-drawer-menu">
-        {% for link in section.settings.menu.links %}
+        {% assign mobile_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
+        {% for link in mobile_menu %}
           <a href="{{ link.url }}" class="nav-drawer-link">{{ link.title }}</a>
         {% endfor %}
       </nav>
@@ -231,7 +233,8 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "t:labels.menu",
+      "default": "main-menu"
     },
     {
       "type": "link_list",
