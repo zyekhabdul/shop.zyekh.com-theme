@@ -135,5 +135,9 @@
       "dispute_modal_cancel": "Cancel",
       "date": "Placed on {{ date }}"
     }
+  },
+  "labels": {
+    "menu": "Menu",
+    "customer_account_menu": "Customer Account Menu"
   }
 }

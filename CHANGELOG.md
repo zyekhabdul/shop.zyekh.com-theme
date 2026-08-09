@@ -1,5 +1,15 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: 133e922f-e2fd-4439-9278-d02c73ae105c
+
+**Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)**
+- Task 1.1: Re-strukturisasi Layout Induk dan Setup CSS Variables di `snippets/css-variables.liquid` dan `assets/critical.css` sesuai skema warna & spacing Bagisto 2.4.x (zero hardcoded hex, native CSS variables, light mode default).
+- Task 1.2: Rebuild `sections/header.liquid` dan buat `snippets/header-top.liquid` persis seperti Bagisto 2.4.x dengan Header Top Strip dan Header Bottom Bar (Search raksasa, Icons, Category dropdown).
+- Sinkronisasi translation keys baru di `locales/en.default.json` dan `locales/id.json`.
+- Menandai Task 1.1 & 1.2 sebagai [x] di PRD.md.
+- Update DEVELOPMENT.md dan CHANGELOG.md.
+
+
 ### Session: e953d054-c673-4052-8098-feaad001fb44
 
 **Tahap 1 & Tahap 2: Bagisto 2.4.x Exact Structural Replica Planning**

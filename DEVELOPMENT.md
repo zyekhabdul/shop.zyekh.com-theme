@@ -8,6 +8,8 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 ## STATUS SAAT INI (Last Updated: 2026-08-09 10:48 WIB)
 
 ### Apa yang SUDAH dikerjakan
+- Task 1.1: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
+- Task 1.2: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
 - CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
 - Anti-FOUC script di `theme.liquid`
 - `critical.css` zero hardcoded hex, light/dark card shadows, sale badge/price CSS

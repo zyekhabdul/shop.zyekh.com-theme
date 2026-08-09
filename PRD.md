@@ -62,8 +62,8 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 # 6. Self-Driven AI Execution Backlog (Roadmap Otonom)
 
 ### Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)
-- [ ] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
-- [ ] **Task 1.2**: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
+- [x] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
+- [x] **Task 1.2**: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
 - [ ] **Task 1.3**: Implementasi Mega Menu Navigation (`blocks/mega-menu.liquid`).
 - [ ] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
 

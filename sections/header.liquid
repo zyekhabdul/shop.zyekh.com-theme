@@ -1,38 +1,85 @@
+{%- render 'header-top' -%}
 <header class="shopify-section header-section" id="MainHeader">
   <div class="header-container">
-    <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="MobileNav">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      <span class="visually-hidden">Menu</span>
-    </button>
+    <div class="header__left">
+      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="MobileNav">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <span class="visually-hidden">Menu</span>
+      </button>
 
-    <h2 class="header__title">
-      {{ shop.name | link_to: routes.root_url }}
-    </h2>
+      <h1 class="header__logo">
+        <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+      </h1>
+    </div>
 
-    <nav class="header__menu desktop-only">
-      {% assign desktop_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
-      {% for link in desktop_menu %}
-        {{ link.title | link_to: link.url }}
-      {% endfor %}
-    </nav>
+    <div class="header__center desktop-only">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="header__search">
+        <div class="search-category-dropdown">
+          <select name="type" aria-label="Search Category">
+            <option value="product">All Categories</option>
+            {% for collection in collections %}
+              <option value="{{ collection.handle }}">{{ collection.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="Search" class="search-input">
+        <button type="submit" class="search-button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+      </form>
+    </div>
 
-    <div class="header__icons">
+    <div class="header__right header__icons">
+      <a href="#" class="header-icon compare-link desktop-only">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+        <span class="icon-counter" data-compare-count>0</span>
+        <span class="visually-hidden">Compare</span>
+      </a>
+      
+      <a href="#" class="header-icon wishlist-link desktop-only">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        <span class="icon-counter" data-wishlist-count>0</span>
+        <span class="visually-hidden">Wishlist</span>
+      </a>
+
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="account-link desktop-only">
+        <a href="{{ routes.account_url }}" class="header-icon account-link desktop-only">
           {{ 'icon-account.svg' | inline_asset_content }}
           <span class="visually-hidden">Account</span>
         </a>
       {% endif %}
 
-      <a href="{{ routes.cart_url }}" class="cart-link">
+      <a href="{{ routes.cart_url }}" class="header-icon cart-link">
         {{ 'icon-cart.svg' | inline_asset_content }}
-        {% if cart.item_count > 0 %}
-          <sup>{{ cart.item_count }}</sup>
-        {% endif %}
+        <span class="icon-counter cart-count">
+          {% if cart.item_count > 0 %}{{ cart.item_count }}{% else %}0{% endif %}
+        </span>
         <span class="visually-hidden">Cart</span>
       </a>
     </div>
   </div>
+
+  <nav class="header-nav-bottom desktop-only">
+    <div class="header-nav-container">
+      {% assign desktop_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
+      <ul class="main-menu-list">
+        {% for link in desktop_menu %}
+          <li class="menu-item {% if link.links != blank %}has-dropdown{% endif %}">
+            <a href="{{ link.url }}" class="menu-link">{{ link.title }}</a>
+            {% if link.links != blank %}
+              <div class="mega-menu">
+                <ul class="sub-menu-list">
+                  {% for childlink in link.links %}
+                    <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
 
   <div class="nav-drawer" id="MobileNav" aria-hidden="true">
     <div class="nav-drawer-overlay"></div>
@@ -43,12 +90,17 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
-      <nav class="nav-drawer-menu">
-        {% assign mobile_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
-        {% for link in mobile_menu %}
-          <a href="{{ link.url }}" class="nav-drawer-link">{{ link.title }}</a>
-        {% endfor %}
-      </nav>
+      <div class="nav-drawer-body">
+        <form action="{{ routes.search_url }}" method="get" class="mobile-search">
+          <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="search-input">
+        </form>
+        <nav class="nav-drawer-menu">
+          {% assign mobile_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
+          {% for link in mobile_menu %}
+            <a href="{{ link.url }}" class="nav-drawer-link">{{ link.title }}</a>
+          {% endfor %}
+        </nav>
+      </div>
     </div>
   </div>
 </header>
@@ -64,8 +116,9 @@
     function toggleMenu(force) {
       const isOpen = typeof force === 'boolean' ? force : !header.classList.contains('nav-open');
       header.classList.toggle('nav-open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen);
-      header.querySelector('#MobileNav').setAttribute('aria-hidden', !isOpen);
+      if(toggle) toggle.setAttribute('aria-expanded', isOpen);
+      const navDrawer = header.querySelector('#MobileNav');
+      if(navDrawer) navDrawer.setAttribute('aria-hidden', !isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     }
 
@@ -92,13 +145,13 @@
 {% stylesheet %}
   .header-section {
     background: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: var(--shadow-sm);
   }
   .header-container {
-    height: 4.5rem;
+    height: 5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -106,72 +159,214 @@
     max-width: var(--page-width);
     margin: 0 auto;
     padding: 0 var(--page-margin);
+    gap: var(--space-lg);
   }
-  .header__title a {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-main);
-    text-decoration: none;
-    margin-right: var(--space-xl);
-  }
-  .desktop-only {
-    display: none !important;
-  }
-  @media(min-width: 768px) {
-    .desktop-only { display: flex !important; }
-    .mobile-menu-toggle { display: none !important; }
-  }
-  .header__menu {
-    gap: var(--space-md);
-  }
-  .header__menu a {
-    color: var(--text-main);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .header__icons {
+  
+  .header__left {
     display: flex;
-    gap: var(--space-md);
     align-items: center;
+    gap: var(--space-md);
   }
-  .header__icons svg {
-    width: 24px;
-    height: 24px;
-    --icon-stroke-width: 1.5px;
+
+  .header__logo a {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: var(--tracking-tight);
   }
-  .account-link,
-  .cart-link {
+  
+  .header__center {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .header__search {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    height: 44px;
+    background: var(--bg-card);
+  }
+  
+  .search-category-dropdown {
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+    background: var(--bg-surface);
+  }
+  
+  .search-category-dropdown select {
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding: 0 var(--space-md);
+    font-size: 0.9rem;
+    color: var(--text-main);
+    cursor: pointer;
+  }
+  .search-category-dropdown select:focus {
+    outline: none;
+  }
+  
+  .header__search .search-input {
+    flex: 1;
+    border: none;
+    padding: 0 var(--space-md);
+    height: 100%;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .header__search .search-input:focus {
+    outline: none;
+  }
+  
+  .header__search .search-button {
+    background: var(--color-primary);
+    color: var(--color-btn-text);
+    border: none;
+    width: 50px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition);
+  }
+  .header__search .search-button:hover {
+    background: var(--color-primary-hover);
+  }
+  
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  
+  .header-icon {
     position: relative;
     color: var(--text-main);
     display: flex;
     align-items: center;
     text-decoration: none;
-    border: none;
-    background: none;
+    padding: var(--space-xs);
+    transition: color var(--transition);
   }
-  .cart-link sup {
+  .header-icon:hover {
+    color: var(--color-primary);
+  }
+  
+  .header-icon svg {
+    width: 28px;
+    height: 28px;
+    --icon-stroke-width: 1.5px;
+  }
+  
+  .icon-counter {
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -2px;
+    right: -4px;
     background: var(--color-primary);
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 10px;
+    color: var(--color-btn-text);
+    font-size: 0.7rem;
     font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
   }
+  
+  .desktop-only { display: none !important; }
+  
+  @media(min-width: 768px) {
+    .desktop-only { display: flex !important; }
+    .mobile-menu-toggle { display: none !important; }
+  }
+  
+  /* Bottom Nav */
+  .header-nav-bottom {
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+  }
+  .header-nav-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+  .main-menu-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--space-lg);
+  }
+  .menu-item {
+    position: relative;
+  }
+  .menu-link {
+    display: block;
+    padding: var(--space-sm) 0;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .menu-item:hover .menu-link {
+    color: var(--color-primary);
+  }
+  
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-sm);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all var(--transition);
+    z-index: 101;
+  }
+  .menu-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .sub-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-sm) 0;
+  }
+  .sub-menu-list li a {
+    display: block;
+    padding: var(--space-xs) var(--space-md);
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .sub-menu-list li a:hover {
+    background: var(--bg-surface);
+    color: var(--color-primary);
+  }
+
   .mobile-menu-toggle {
     background: none;
     border: none;
     cursor: pointer;
-    padding: var(--space-sm);
+    padding: var(--space-xs);
     color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
   }
+  
   .visually-hidden {
     position: absolute;
     width: 1px;
@@ -239,6 +434,21 @@
     color: var(--text-main);
     display: flex;
     align-items: center;
+  }
+  .nav-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+  }
+  .mobile-search {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .mobile-search .search-input {
+    width: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
   }
   .nav-drawer-menu {
     display: flex;
