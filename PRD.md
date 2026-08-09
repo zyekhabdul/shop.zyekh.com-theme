@@ -117,8 +117,8 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 - [x] **Task 1.6**: Setup Auto Geo-IP Currency Switcher & Speculative Rules API.
 
 ### Phase 2: PDP Trust, Admin API Metafields & Shipping
-- [ ] **Task 2.1**: Integrasi Data Supplier & Rating Seller via Admin API Metafields (`snippets/seller-info.liquid`).
-- [ ] **Task 2.2**: Quick View Modal Snippet (`snippets/quick-view.liquid`).
+- [x] **Task 2.1**: Integrasi Data Supplier & Rating Seller via Admin API Metafields (`snippets/seller-info.liquid`).
+- [x] **Task 2.2**: Quick View Modal Snippet (`snippets/quick-view.liquid`).
 - [ ] **Task 2.3**: Multi-Tier Shipping Estimator di `sections/product.liquid`.
 - [ ] **Task 2.4**: Dynamic Stock Thresholds dari Metafields.
 

@@ -4,26 +4,31 @@
   - product: {Object} Product Liquid object (required)
 {% endcomment %}
 
-<a href="{{ product.url }}" class="product-card">
-  {% if product.compare_at_price > product.price %}
-    <div class="product-badge badge-sale">{{ 'products.product.on_sale' | t | default: 'Sale' }}</div>
-  {% endif %}
-  <div class="product-image-wrapper">
-    {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', widths: '200, 300, 400, 600' }}
-    {% else %}
-      <div class="placeholder-image">{{ 'products.product.no_image' | t | default: 'No Image' }}</div>
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card-link">
+    {% if product.compare_at_price > product.price %}
+      <div class="product-badge badge-sale">{{ 'products.product.on_sale' | t | default: 'Sale' }}</div>
     {% endif %}
-  </div>
-  <div class="product-info">
-    <h3 class="product-title">{{ product.title }}</h3>
-    <div class="product-price-wrapper">
-      {% if product.compare_at_price > product.price %}
-        <span class="product-price-sale">{{ product.price | money }}</span>
-        <span class="product-price-original">{{ product.compare_at_price | money }}</span>
+    <div class="product-image-wrapper">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', widths: '200, 300, 400, 600' }}
       {% else %}
-        <span class="product-price">{{ product.price | money }}</span>
+        <div class="placeholder-image">{{ 'products.product.no_image' | t | default: 'No Image' }}</div>
       {% endif %}
     </div>
-  </div>
-</a>
+    <div class="product-info">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <div class="product-price-wrapper">
+        {% if product.compare_at_price > product.price %}
+          <span class="product-price-sale">{{ product.price | money }}</span>
+          <span class="product-price-original">{{ product.compare_at_price | money }}</span>
+        {% else %}
+          <span class="product-price">{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  <button type="button" class="quick-view-button" data-product-handle="{{ product.handle }}" aria-haspopup="dialog">
+    {{ 'products.product.quick_view' | t }}
+  </button>
+</div>

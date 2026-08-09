@@ -1,0 +1,22 @@
+{%- comment -%}
+  Snippet: seller-info.liquid
+  Displays supplier/seller information and ratings from Shopify Metafields.
+{%- endcomment -%}
+
+{%- if product.metafields.seller.name != blank -%}
+  <div class="seller-info">
+    <div class="seller-details">
+      <span class="seller-label">{{ 'products.product.seller_label' | t }}:</span>
+      <span class="seller-name">{{ product.metafields.seller.name }}</span>
+    </div>
+    {%- if product.metafields.seller.rating != blank -%}
+      <div class="seller-rating">
+        <span class="rating-star">★</span>
+        <span class="rating-value">{{ product.metafields.seller.rating }}</span>
+        {%- if product.metafields.seller.reviews_count != blank -%}
+          <span class="rating-count">({{ product.metafields.seller.reviews_count }})</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

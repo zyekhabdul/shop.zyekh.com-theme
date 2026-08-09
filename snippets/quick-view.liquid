@@ -1,0 +1,20 @@
+{%- comment -%}
+  Snippet: quick-view.liquid
+  Modal for instant product quick view without page reload.
+{%- endcomment -%}
+
+<div id="QuickViewModal" class="quick-view-modal" aria-hidden="true">
+  <div class="quick-view-overlay" data-quick-view-close></div>
+  <div class="quick-view-content" role="dialog" aria-modal="true" aria-labelledby="QuickViewTitle">
+    <button type="button" class="quick-view-close" data-quick-view-close aria-label="{{ 'general.accessibility.close_modal' | t }}">
+      {% render 'icon-close' %}
+      <span class="visually-hidden">Close</span>
+    </button>
+    <div class="quick-view-inner" id="QuickViewContainer">
+      <!-- Injected via JS -->
+      <div class="quick-view-loader">
+        <span class="spinner"></span>
+      </div>
+    </div>
+  </div>
+</div>

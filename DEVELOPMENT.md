@@ -33,6 +33,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `PRD.md` tersimpan di root project dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`)
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
+4. **Phase 2 (Selesai)** - Task 2.1 (Seller Info & Escrow Badge) dan Task 2.2 (Quick View) telah diimplementasikan.
 1. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
 2. **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
 3. **Push to remote** — 14+ commits belum di-push ke origin/main

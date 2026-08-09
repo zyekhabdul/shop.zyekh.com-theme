@@ -137,3 +137,9 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - Token system sekarang sinkron antara DESIGN_SYSTEM.md dan css-variables.liquid
 - Kedua locale files (en, id) sinkron dan lengkap
 
+
+### Execution Batch: Phase 2 (Task 2.1 & Task 2.2)
+**Tasks Completed:**
+- **Task 2.1:** Pembuatan snippet `snippets/seller-info.liquid` untuk memuat data *supplier* dan *rating* dari Metafields produk (`product.metafields.seller`). Pembuatan snippet `snippets/escrow-badge.liquid` yang menampilkan jaminan perlindungan dana (Escrow Shield). Menambahkan gaya CSS spesifik di `assets/critical.css`.
+- **Task 2.2:** Pembuatan snippet `snippets/quick-view.liquid` yang memberikan pratinjau instan (*modal*) 1-klik di `snippets/product-card.liquid` tanpa *page reload*. Modifikasi `layout/theme.liquid` untuk me-render `quick-view` di level kerangka tema. Menyinkronkan translation keys (`quick_view`, `seller_label`, `escrow_protection`, `escrow_badge_aria`) di `locales/en.default.json` & `locales/id.json`.
+- Memperbarui status eksekusi otomatis pada `PRD.md`.

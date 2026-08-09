@@ -67,7 +67,11 @@
       "no_image": "No Image",
       "sold_count": "10,000+ Sold",
       "add_to_cart": "Buy Now",
-      "sold_out": "Sold Out"
+      "sold_out": "Sold Out",
+      "quick_view": "Quick View",
+      "seller_label": "Supplier",
+      "escrow_badge_aria": "Escrow protection badge",
+      "escrow_protection": "Funds Secured via Escrow"
     }
   },
   "trust": {
@@ -79,5 +83,10 @@
   "localization": {
     "country_label": "Country/region",
     "language_label": "Language"
+  },
+  "general": {
+    "accessibility": {
+      "close_modal": "Close modal"
+    }
   }
 }
