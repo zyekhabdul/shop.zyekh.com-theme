@@ -53,8 +53,8 @@ Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan O
 - [x] Pemangkasan bloat RUM & Telemetry (YAGNI).
 
 ### Fase 2: Homepage Sections (Velocity Exact Visuals)
-- [ ] Implementasi Hero Carousel (`sections/hero-carousel.liquid`).
-- [ ] Implementasi Circle Category Carousel (`sections/category-carousel.liquid`).
+- [x] Implementasi Hero Carousel (`sections/hero-carousel.liquid`).
+- [x] Implementasi Circle Category Carousel (`sections/category-carousel.liquid`).
 - [ ] Implementasi Flash Sale Countdown Bar.
 - [x] Implementasi Services Grid / Merchant Trust Bar.
 - [ ] Implementasi Grid Kategori Bento.

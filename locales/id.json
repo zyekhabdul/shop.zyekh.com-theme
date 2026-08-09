@@ -137,6 +137,11 @@
     "no_products_found": "Produk tidak ditemukan",
     "search": {
       "placeholder": "Cari..."
+    },
+    "slider": {
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya",
+      "go_to_slide": "Ke slide {{ index }}"
     }
   },
   "customer": {

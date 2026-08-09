@@ -1,24 +1,27 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero": {
-      "type": "hero-banner",
+    "hero_carousel": {
+      "type": "hero-carousel",
       "settings": {
-        "heading": "Viral Trending Products",
-        "subheading": "Discover the most viral and winning products of the year.",
-        "button_label": "Shop Now",
-        "button_link": "shopify://collections/all"
+        "autoplay": true,
+        "autoplay_speed": 4
       }
     },
-    "featured": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Welcome to shop.zyekh.com - Free shipping on orders over $50!"
+      }
+    },
+    "category_carousel": {
+      "type": "category-carousel",
+      "settings": {}
+    },
+    "services": {
+      "type": "services-grid",
+      "settings": {}
+    },
+    "trending": {
       "type": "featured-collection",
       "settings": {
         "title": "Trending Now",
@@ -27,7 +30,10 @@
     }
   },
   "order": [
-    "hero",
-    "featured"
+    "hero_carousel",
+    "announcement",
+    "category_carousel",
+    "services",
+    "trending"
   ]
 }

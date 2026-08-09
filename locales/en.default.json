@@ -137,6 +137,11 @@
     "no_products_found": "No products found",
     "search": {
       "placeholder": "Search..."
+    },
+    "slider": {
+      "previous": "Previous",
+      "next": "Next",
+      "go_to_slide": "Go to slide {{ index }}"
     }
   },
   "customer": {

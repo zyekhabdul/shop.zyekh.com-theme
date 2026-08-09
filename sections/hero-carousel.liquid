@@ -1,6 +1,8 @@
 {% schema %}
 {
   "name": "Hero Carousel",
+  "tag": "section",
+  "class": "section",
   "settings": [
     {
       "type": "checkbox",
@@ -11,11 +13,11 @@
     {
       "type": "range",
       "id": "autoplay_speed",
-      "label": "Auto-play speed (seconds)",
-      "min": 3,
+      "label": "Auto-play interval (seconds)",
+      "min": 2,
       "max": 10,
       "step": 1,
-      "default": 5
+      "default": 4
     }
   ],
   "blocks": [
@@ -25,31 +27,36 @@
       "settings": [
         {
           "type": "image_picker",
-          "id": "image",
-          "label": "Image"
+          "id": "image_desktop",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Image"
         },
         {
           "type": "text",
-          "id": "title",
+          "id": "heading",
           "label": "Heading",
-          "default": "Welcome to our store"
+          "default": "Elevate Your Style"
         },
         {
           "type": "text",
-          "id": "subtitle",
+          "id": "subheading",
           "label": "Subheading",
-          "default": "Shop the latest trends"
+          "default": "Discover the new arrivals today."
         },
         {
           "type": "text",
-          "id": "button_label",
-          "label": "Button Label",
+          "id": "cta_text",
+          "label": "Button Text",
           "default": "Shop Now"
         },
         {
           "type": "url",
-          "id": "button_link",
-          "label": "Button Link"
+          "id": "link",
+          "label": "Slide Link"
         }
       ]
     }
@@ -58,12 +65,8 @@
     {
       "name": "Hero Carousel",
       "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
+        { "type": "slide" },
+        { "type": "slide" }
       ]
     }
   ]
@@ -74,128 +77,107 @@
   <div class="hero-carousel__track">
     {% for block in section.blocks %}
       <div class="hero-carousel__slide" {{ block.shopify_attributes }}>
-        <div class="hero-carousel__image-wrapper">
-          {% if block.settings.image != blank %}
-            {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'hero-carousel__image', loading: 'lazy' }}
-          {% else %}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg hero-carousel__image' }}
-          {% endif %}
-        </div>
+        {% if block.settings.link != blank %}<a href="{{ block.settings.link }}" class="hero-carousel__link-wrapper">{% endif %}
+          <picture class="hero-carousel__picture">
+            {% if block.settings.image_mobile != blank %}
+              <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
+            {% endif %}
+            {% if block.settings.image_desktop != blank %}
+              {{ block.settings.image_desktop | image_url: width: 2000 | image_tag: class: 'hero-carousel__image', loading: 'lazy', alt: block.settings.heading }}
+            {% else %}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg hero-carousel__image' }}
+            {% endif %}
+          </picture>
+        {% if block.settings.link != blank %}</a>{% endif %}
+        
         <div class="hero-carousel__content">
-          <div class="hero-carousel__content-inner page-width">
-            {% if block.settings.title != blank %}
-              <h2 class="hero-carousel__title">{{ block.settings.title | escape }}</h2>
-            {% endif %}
-            {% if block.settings.subtitle != blank %}
-              <p class="hero-carousel__subtitle">{{ block.settings.subtitle | escape }}</p>
-            {% endif %}
-            {% if block.settings.button_label != blank and block.settings.button_link != blank %}
-              <a href="{{ block.settings.button_link }}" class="btn btn--primary hero-carousel__btn">{{ block.settings.button_label | escape }}</a>
-            {% endif %}
-          </div>
+          {% if block.settings.heading != blank %}
+            <h2 class="hero-carousel__heading">{{ block.settings.heading | escape }}</h2>
+          {% endif %}
+          {% if block.settings.subheading != blank %}
+            <p class="hero-carousel__subheading">{{ block.settings.subheading | escape }}</p>
+          {% endif %}
+          {% if block.settings.cta_text != blank and block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="hero-carousel__btn">
+              {{ block.settings.cta_text | escape }}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
   </div>
 
-  <div class="hero-carousel__controls">
-    <button type="button" class="hero-carousel__nav hero-carousel__nav--prev" aria-label="Previous slide">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    <button type="button" class="hero-carousel__nav hero-carousel__nav--next" aria-label="Next slide">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-  </div>
-  
   <div class="hero-carousel__indicators">
     {% for block in section.blocks %}
-      <button type="button" class="hero-carousel__dot{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+      <button type="button" class="hero-carousel__dot{% if forloop.first %} is-active{% endif %}" aria-label="{{ 'general.slider.go_to_slide' | t: index: forloop.index | default: 'Go to slide' }}"></button>
     {% endfor %}
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const carousel = document.querySelector('.hero-carousel');
-    if (!carousel) return;
-
-    const track = carousel.querySelector('.hero-carousel__track');
-    const slides = Array.from(carousel.querySelectorAll('.hero-carousel__slide'));
-    const dots = Array.from(carousel.querySelectorAll('.hero-carousel__dot'));
-    const prevBtn = carousel.querySelector('.hero-carousel__nav--prev');
-    const nextBtn = carousel.querySelector('.hero-carousel__nav--next');
-    const autoplay = carousel.dataset.autoplay === 'true';
-    const speed = parseInt(carousel.dataset.speed, 10) || 5000;
+    const carousels = document.querySelectorAll('.hero-carousel');
     
-    let currentIndex = 0;
-    let autoPlayInterval;
+    carousels.forEach(carousel => {
+      const track = carousel.querySelector('.hero-carousel__track');
+      const slides = carousel.querySelectorAll('.hero-carousel__slide');
+      const dots = carousel.querySelectorAll('.hero-carousel__dot');
+      const autoplay = carousel.dataset.autoplay === 'true';
+      const speed = parseInt(carousel.dataset.speed, 10) || 4000;
+      
+      if (slides.length <= 1) {
+        carousel.querySelector('.hero-carousel__indicators')?.remove();
+        return;
+      }
 
-    function goToSlide(index) {
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
-      
-      track.style.transform = `translateX(-${index * 100}%)`;
-      
+      let currentIndex = 0;
+      let intervalId;
+
+      const goToSlide = (index) => {
+        currentIndex = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('is-active', i === currentIndex);
+        });
+      };
+
+      const startAutoplay = () => {
+        if (autoplay) {
+          stopAutoplay();
+          intervalId = setInterval(() => goToSlide(currentIndex + 1), speed);
+        }
+      };
+
+      const stopAutoplay = () => {
+        if (intervalId) clearInterval(intervalId);
+      };
+
       dots.forEach((dot, i) => {
-        dot.classList.toggle('is-active', i === index);
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+          startAutoplay();
+        });
       });
+
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
       
-      currentIndex = index;
-    }
-
-    function nextSlide() { goToSlide(currentIndex + 1); }
-    function prevSlide() { goToSlide(currentIndex - 1); }
-
-    function startAutoplay() {
-      if (!autoplay) return;
-      stopAutoplay();
-      autoPlayInterval = setInterval(nextSlide, speed);
-    }
-
-    function stopAutoplay() {
-      if (autoPlayInterval) clearInterval(autoPlayInterval);
-    }
-
-    if(prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prevSlide();
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+      }, { passive: true });
+      
+      carousel.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) goToSlide(currentIndex + 1);
+        if (touchEndX - touchStartX > 50) goToSlide(currentIndex - 1);
         startAutoplay();
-      });
-    }
+      }, { passive: true });
 
-    if(nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextSlide();
-        startAutoplay();
-      });
-    }
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        goToSlide(index);
-        startAutoplay();
-      });
-    });
-
-    carousel.addEventListener('mouseenter', stopAutoplay);
-    carousel.addEventListener('mouseleave', startAutoplay);
-    
-    // Touch support
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    carousel.addEventListener('touchstart', e => {
-      touchStartX = e.changedTouches[0].screenX;
-      stopAutoplay();
-    }, {passive: true});
-    
-    carousel.addEventListener('touchend', e => {
-      touchEndX = e.changedTouches[0].screenX;
-      if (touchStartX - touchEndX > 50) nextSlide();
-      if (touchEndX - touchStartX > 50) prevSlide();
       startAutoplay();
-    }, {passive: true});
-
-    startAutoplay();
+    });
   });
 </script>

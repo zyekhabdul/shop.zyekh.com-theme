@@ -1,0 +1,95 @@
+{% schema %}
+{
+  "name": "Category Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Name",
+          "default": "Category"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Carousel",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="category-carousel-wrapper">
+  <button class="category-carousel__nav category-carousel__nav--prev" aria-label="{{ 'general.slider.previous' | t | default: 'Previous' }}">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  
+  <div class="category-carousel">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.url | default: '#' }}" class="category-carousel__item" {{ block.shopify_attributes }}>
+        <div class="category-carousel__avatar">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 200 | image_tag: class: 'category-carousel__image', loading: 'lazy', alt: block.settings.title }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg category-carousel__image' }}
+          {% endif %}
+        </div>
+        <span class="category-carousel__title">{{ block.settings.title | escape }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <button class="category-carousel__nav category-carousel__nav--next" aria-label="{{ 'general.slider.next' | t | default: 'Next' }}">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('.category-carousel-wrapper');
+    if (!wrapper) return;
+
+    const carousel = wrapper.querySelector('.category-carousel');
+    const prevBtn = wrapper.querySelector('.category-carousel__nav--prev');
+    const nextBtn = wrapper.querySelector('.category-carousel__nav--next');
+
+    const scrollAmount = 200; // Adjust based on item width + gap
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+  });
+</script>

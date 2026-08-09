@@ -280,3 +280,11 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 ### Changed
 - Updated `PRD.md` to v5.1 (YAGNI Pruned Enterprise Bagisto Replica Standard). Focus strictly set on Visual Excellence (Bagisto Velocity) and Native Shopify Stability (Checkout & Payment).
 - Updated `DEVELOPMENT.md` to include AP-011 (Strict YAGNI, no over-engineered telemetry/analytics).
+
+## [Unreleased] - 2026-08-09
+### Added
+- Implemented `sections/hero-carousel.liquid` with auto-play and CSS variables.
+- Implemented `sections/category-carousel.liquid` with circle avatars and smooth horizontal scrolling.
+- Updated `templates/index.json` to render new sections in order.
+- Updated `assets/critical.css` for carousels.
+- Added i18n locales for slider navigation.
