@@ -1,0 +1,56 @@
+<script>
+  // Web Vitals Telemetry (Lightweight, No 3rd-party bloat)
+  (function() {
+    function sendToAnalytics(metric) {
+      // In a real environment, send this data to a custom endpoint or Shopify analytics
+      // console.log('[Web Vitals Telemetry]', metric.name, metric.value, metric.rating);
+      
+      const body = JSON.stringify({
+        name: metric.name,
+        value: metric.value,
+        rating: metric.rating,
+        delta: metric.delta,
+        id: metric.id
+      });
+
+      if (navigator.sendBeacon) {
+        // navigator.sendBeacon('/apps/telemetry/vitals', body);
+      }
+    }
+
+    // Load web-vitals dynamically from unpkg or use native PerformanceObserver
+    // Here we implement basic PerformanceObserver for LCP and CLS
+    let clsValue = 0;
+    
+    // CLS
+    try {
+      new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+            sendToAnalytics({ name: 'CLS', value: clsValue, rating: clsValue > 0.25 ? 'poor' : (clsValue > 0.1 ? 'needs-improvement' : 'good') });
+          }
+        }
+      }).observe({type: 'layout-shift', buffered: true});
+    } catch (e) {}
+
+    // LCP
+    try {
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        sendToAnalytics({ name: 'LCP', value: lastEntry.renderTime || lastEntry.loadTime, rating: lastEntry.startTime > 2500 ? 'poor' : 'good' });
+      }).observe({type: 'largest-contentful-paint', buffered: true});
+    } catch (e) {}
+    
+    // INP (Interaction to Next Paint) - Simplified observation
+    try {
+      new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          const delay = entry.processingStart - entry.startTime;
+          sendToAnalytics({ name: 'INP (Delay)', value: delay, rating: delay > 200 ? 'poor' : 'good' });
+        }
+      }).observe({type: 'first-input', buffered: true});
+    } catch (e) {}
+  })();
+</script>

@@ -1,0 +1,63 @@
+<div class="social-proof-toast" id="SocialProofToast" aria-hidden="true" role="status">
+  <div class="toast-content">
+    <div class="toast-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    </div>
+    <div class="toast-text">
+      <span class="toast-message" id="ToastMessage">
+        <!-- Text injected dynamically -->
+      </span>
+    </div>
+    <button class="toast-close" id="ToastClose" aria-label="{{ 'general.accessibility.close_modal' | t }}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Mocking Storefront API data for demonstration
+    const mockLocations = ['London', 'New York', 'Tokyo', 'Jakarta', 'Sydney'];
+    const toast = document.getElementById('SocialProofToast');
+    const toastMessage = document.getElementById('ToastMessage');
+    const toastClose = document.getElementById('ToastClose');
+
+    if (!toast || !toastMessage) return;
+
+    function showToast() {
+      const randomLocation = mockLocations[Math.floor(Math.random() * mockLocations.length)];
+      const randomTime = Math.floor(Math.random() * 59) + 1;
+      
+      // We would normally fetch this via Storefront API, using locale string dynamically:
+      // This is a simplified replacement for the mock demo. Liquid parsing happens server-side, 
+      // so we use a JS template approach if needed, or pass strings in a data object.
+      const templateStr = {{ 'products.social_proof.toast' | t | json }};
+      const message = templateStr.replace('{{ location }}', randomLocation).replace('{{ time }}', randomTime);
+      
+      toastMessage.innerHTML = message;
+      toast.setAttribute('aria-hidden', 'false');
+      toast.classList.add('visible');
+
+      setTimeout(() => {
+        hideToast();
+      }, 5000); // Hide after 5 seconds
+    }
+
+    function hideToast() {
+      toast.classList.remove('visible');
+      toast.setAttribute('aria-hidden', 'true');
+    }
+
+    if (toastClose) {
+      toastClose.addEventListener('click', hideToast);
+    }
+
+    // Show toast every 20-30 seconds
+    setInterval(() => {
+      showToast();
+    }, Math.floor(Math.random() * 10000) + 20000);
+    
+    // Initial delay
+    setTimeout(showToast, 5000);
+  });
+</script>

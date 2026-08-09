@@ -32,6 +32,8 @@
         {% endif %}
       </div>
 
+      {% render 'shipping-estimator' %}
+
       <div class="product-form-wrapper">
         {% form 'product', product, id: 'AddToCartForm' %}
           <input type="hidden" name="id" id="VariantSelector" value="{{ product.selected_or_first_available_variant.id }}">
@@ -58,6 +60,8 @@
               {% endfor %}
             </div>
           {% endunless %}
+
+          {% render 'stock-urgency' %}
 
           <div class="product-quantity">
             <label for="Quantity">Jumlah</label>

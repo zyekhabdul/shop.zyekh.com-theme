@@ -5,7 +5,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 
 ---
 
-## STATUS SAAT INI (Last Updated: 2026-08-09 10:17 WIB)
+## STATUS SAAT INI (Last Updated: 2026-08-09 10:28 WIB)
 
 ### Apa yang SUDAH dikerjakan
 - CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
@@ -28,6 +28,8 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/cart-drawer.liquid` Sliding AJAX Cart dengan Free Shipping Progress Bar, Vanilla JS, & Escrow Shield
 - `snippets/speculation-rules.liquid` & `snippets/localization-form.liquid` (Task 1.6)
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
+- `snippets/shipping-estimator.liquid` & `snippets/stock-urgency.liquid` untuk Multi-Tier Shipping & Dynamic Stock Thresholds (Task 2.3 & 2.4)
+- `snippets/social-proof-toast.liquid` & `snippets/web-vitals-telemetry.liquid` (Task 3.1 & 3.2)
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
 - `PRD.md` tersimpan di root project dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`)

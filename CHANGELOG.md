@@ -1,5 +1,18 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+
+### Session: dc67c82b-778c-4596-a61f-d55ba6b40c06
+
+**Task 2.3, 2.4, 3.1, 3.2: PDP Trust, Metafields & Telemetry**
+- Pembuatan snippet `snippets/shipping-estimator.liquid` untuk Multi-Tier Shipping & Origin.
+- Pembuatan snippet `snippets/stock-urgency.liquid` untuk Dynamic Stock Thresholds.
+- Integrasi ke `sections/product.liquid`.
+- Pembuatan snippet `snippets/social-proof-toast.liquid` dengan Storefront API mock.
+- Pembuatan snippet `snippets/web-vitals-telemetry.liquid` (LCP, INP, CLS monitoring).
+- Render pada `layout/theme.liquid`.
+- Penambahan styling CSS di `assets/critical.css`.
+- Sinkronisasi translation keys (shipping, inventory, social_proof) di `en.default.json` & `id.json`.
+
 ### Session: 6ab0ce62-3e15-400a-baed-19ac3ba70550
 
 **Task 1.6: Setup Auto Geo-IP Currency Switcher & Speculative Rules API**

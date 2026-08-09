@@ -1,0 +1,33 @@
+<div class="shipping-estimator">
+  <div class="shipping-header">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.188a2 2 0 0 1 1.962 1.606l1.328 6.64a2 2 0 0 0 1.962 1.606h3.12"/><path d="M12 18h2.09a2 2 0 0 0 1.962-1.606l1.328-6.64A2 2 0 0 0 15.418 8H12"/><circle cx="19" cy="18" r="2"/><circle cx="9" cy="18" r="2"/></svg>
+    <span class="shipping-title">{{ 'products.shipping.title' | t }}</span>
+  </div>
+  <div class="shipping-origin">
+    <span class="origin-label">{{ 'products.shipping.origin' | t }}</span>
+    <strong class="origin-value">{{ product.metafields.supplier.location | default: 'Global Warehouse' }}</strong>
+  </div>
+  <ul class="shipping-tiers">
+    <li class="tier-item">
+      <div class="tier-info">
+        <span class="tier-name">{{ 'products.shipping.economy' | t }}</span>
+        <span class="tier-time">20-30 {{ 'products.shipping.days' | t }}</span>
+      </div>
+      <span class="tier-price">{{ 'products.shipping.free' | t }}</span>
+    </li>
+    <li class="tier-item active">
+      <div class="tier-info">
+        <span class="tier-name">{{ 'products.shipping.standard' | t }}</span>
+        <span class="tier-time">10-15 {{ 'products.shipping.days' | t }}</span>
+      </div>
+      <span class="tier-price">{{ 500 | money }}</span>
+    </li>
+    <li class="tier-item">
+      <div class="tier-info">
+        <span class="tier-name">{{ 'products.shipping.express' | t }}</span>
+        <span class="tier-time">5-7 {{ 'products.shipping.days' | t }}</span>
+      </div>
+      <span class="tier-price">{{ 1500 | money }}</span>
+    </li>
+  </ul>
+</div>

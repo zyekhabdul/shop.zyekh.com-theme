@@ -1,0 +1,14 @@
+{% assign urgency_threshold = product.metafields.inventory.urgency_threshold | default: 5 %}
+{% assign current_stock = product.selected_or_first_available_variant.inventory_quantity | default: 10 %}
+
+{% if current_stock > 0 and current_stock <= urgency_threshold %}
+  <div class="stock-urgency" data-stock="{{ current_stock }}">
+    <div class="urgency-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e03131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
+    <div class="urgency-text">
+      <strong>{{ 'products.inventory.hurry' | t }}</strong>
+      <span>{{ 'products.inventory.only_left' | t: count: current_stock }}</span>
+    </div>
+  </div>
+{% endif %}

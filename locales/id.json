@@ -72,6 +72,22 @@
       "seller_label": "Pemasok",
       "escrow_badge_aria": "Lencana perlindungan Escrow",
       "escrow_protection": "Dana Aman via Escrow"
+    },
+    "shipping": {
+      "title": "Opsi Pengiriman",
+      "origin": "Dikirim dari:",
+      "economy": "Ekonomi",
+      "standard": "Standar",
+      "express": "Ekspres",
+      "days": "hari",
+      "free": "Gratis"
+    },
+    "inventory": {
+      "hurry": "Cepat!",
+      "only_left": "Tersisa {{ count }} stok."
+    },
+    "social_proof": {
+      "toast": "Seseorang di {{ location }} baru saja membeli ini {{ time }}m lalu"
     }
   },
   "trust": {

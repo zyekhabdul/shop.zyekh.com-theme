@@ -72,6 +72,22 @@
       "seller_label": "Supplier",
       "escrow_badge_aria": "Escrow protection badge",
       "escrow_protection": "Funds Secured via Escrow"
+    },
+    "shipping": {
+      "title": "Shipping Options",
+      "origin": "Ships from:",
+      "economy": "Economy",
+      "standard": "Standard",
+      "express": "Express",
+      "days": "days",
+      "free": "Free"
+    },
+    "inventory": {
+      "hurry": "Hurry!",
+      "only_left": "Only {{ count }} left in stock."
+    },
+    "social_proof": {
+      "toast": "Someone in {{ location }} just bought this {{ time }}m ago"
     }
   },
   "trust": {

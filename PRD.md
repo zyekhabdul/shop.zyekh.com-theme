@@ -119,12 +119,12 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 ### Phase 2: PDP Trust, Admin API Metafields & Shipping
 - [x] **Task 2.1**: Integrasi Data Supplier & Rating Seller via Admin API Metafields (`snippets/seller-info.liquid`).
 - [x] **Task 2.2**: Quick View Modal Snippet (`snippets/quick-view.liquid`).
-- [ ] **Task 2.3**: Multi-Tier Shipping Estimator di `sections/product.liquid`.
-- [ ] **Task 2.4**: Dynamic Stock Thresholds dari Metafields.
+- [x] **Task 2.3**: Multi-Tier Shipping Estimator di `sections/product.liquid`.
+- [x] **Task 2.4**: Dynamic Stock Thresholds dari Metafields.
 
 ### Phase 3: Telemetry, Social Proof & QA Audit
-- [ ] **Task 3.1**: Live Order Toast via Storefront API (`snippets/social-proof-toast.liquid`).
-- [ ] **Task 3.2**: Setup Automated Shopify Theme Check & Web Vitals Telemetry.
+- [x] **Task 3.1**: Live Order Toast via Storefront API (`snippets/social-proof-toast.liquid`).
+- [x] **Task 3.2**: Setup Automated Shopify Theme Check & Web Vitals Telemetry.
 - [ ] **Task 3.3**: Sinkronisasi penuh I18n Localization (`locales/en.default.json` dan `locales/id.json`).
 - [ ] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
 

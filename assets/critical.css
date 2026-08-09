@@ -769,3 +769,175 @@ img {
 [data-theme="dark"] .escrow-text {
   color: #e8f5e9;
 }
+
+/* ==========================================================================
+   Shipping Estimator
+   ========================================================================== */
+.shipping-estimator {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.shipping-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.shipping-origin {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.shipping-origin .origin-value {
+  color: var(--text-main);
+}
+
+.shipping-tiers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.tier-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all var(--transition);
+}
+
+.tier-item:not(.active) {
+  opacity: 0.7;
+}
+
+.tier-item.active {
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.tier-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tier-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.tier-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.tier-price {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Stock Urgency
+   ========================================================================== */
+.stock-urgency {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: #fff5f5;
+  color: #c92a2a;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border: 1px solid #ffc9c9;
+}
+
+[data-theme="dark"] .stock-urgency {
+  background: rgba(201, 42, 42, 0.1);
+  border-color: rgba(201, 42, 42, 0.2);
+  color: #ffc9c9;
+}
+
+.urgency-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Social Proof Toast
+   ========================================================================== */
+.social-proof-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  padding: var(--space-md);
+  max-width: 350px;
+  transform: translateY(150%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+}
+
+.social-proof-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-text {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
