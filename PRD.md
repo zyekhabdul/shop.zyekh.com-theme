@@ -130,14 +130,14 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 
 ### Phase 4: Customer Portal & Final Release
 - [x] **Task 4.1**: Build Order Timeline Tracker & Escrow Actions.
-- [ ] **Task 4.2**: Advanced Faceted Filters & Search Optimizations.
+- [x] **Task 4.2**: Advanced Faceted Filters & Search Optimizations.
 - [x] **Task 4.3**: Final QA, Accessibility, and Security Audit.
 
 ### Phase 5: Enterprise Horizon & Autonomous Merchandising Infrastructure
 - [x] **Task 5.1**: Edge-Driven Speculative Pre-Rendering & Micro-Transitions.
-- [ ] **Task 5.2**: B2B Wholesale Tier Pricing & Volume Discounts Table (`snippets/b2b-tier-pricing.liquid`).
-- [ ] **Task 5.3**: DDP (Delivered Duty Paid) Tax & Customs Estimator pada Cart Drawer (`snippets/ddp-tax-calculator.liquid`).
-- [ ] **Task 5.4**: Native GDPR/CCPA Zero-Cookie Consent Banner (`snippets/consent-banner.liquid`).
+- [x] **Task 5.2**: B2B Wholesale Tier Pricing & Volume Discounts Table (`snippets/b2b-tier-pricing.liquid`).
+- [x] **Task 5.3**: DDP (Delivered Duty Paid) Tax & Customs Estimator pada Cart Drawer (`snippets/ddp-tax-calculator.liquid`).
+- [x] **Task 5.4**: Native GDPR/CCPA Zero-Cookie Consent Banner (`snippets/consent-banner.liquid`).
 - [x] **Task 5.5**: AI Merchandising Telemetry & Real User Monitoring (RUM).
 
 ---
