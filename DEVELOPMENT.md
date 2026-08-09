@@ -27,7 +27,8 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/image.liquid` sudah responsive srcset + configurable sizes/loading
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
-- DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md
+- DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
+- `PRD.md` tersimpan di root project dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`)
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
 1. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
