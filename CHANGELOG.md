@@ -209,7 +209,6 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 ### Execution Batch: Phase 4.3 & 5.1 & 5.5
 **Tasks Completed:**
 - **Task 5.1:** Speculative Pre-Rendering Level 2 ditambahkan di `snippets/speculation-rules.liquid` bersamaan dengan CSS untuk `@view-transition` cross-document transitions.
-- **Task 5.5:** RUM (Real User Monitoring) dan AI Merchandising Telemetry diimplementasikan di `snippets/rum-telemetry.liquid` dan diletakkan pada `layout/theme.liquid`.
 - **Task 4.3:** QA & Security Audit Selesai:
   - Menyelesaikan zero-emoji check and clean up.
   - Fix focus trap dynamic query issue di `snippets/cart-drawer.liquid`.
@@ -264,3 +263,20 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 
 ### Fixed
 - Fixed unparsed liquid template leak in `snippets/social-proof-toast.liquid` causing `31LondonSomeone in {{ location }}...` issue by escaping regex patterns correctly in JS string replace.
+
+## [5.0.0-Planning] - 2026-08-09
+### Planning & Specs
+- Updated `PRD.md` to version 5.0 (Enterprise Bagisto Replica & Strategic Horizon Roadmap).
+- Added deeper comparative analysis of Bagisto 2.4.x / Velocity vs Shopify Theme (Homepage, PDP, Collection, Interactive UI, Core Engine).
+- Re-structured Long-Term Strategic Horizon Plan into 6 phases.
+- Synced PRD to Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).
+- Updated `DEVELOPMENT.md` Next Session Tasks to reflect new Phase 2 backlog.
+
+## [5.1.0-YAGNI-Prune] - 2026-08-09
+### Removed
+- Removed bloat/over-engineered RUM telemetry and speculative fetching features to strictly adhere to YAGNI principles.
+- Cleaned up `layout/theme.liquid` from telemetry scripts.
+
+### Changed
+- Updated `PRD.md` to v5.1 (YAGNI Pruned Enterprise Bagisto Replica Standard). Focus strictly set on Visual Excellence (Bagisto Velocity) and Native Shopify Stability (Checkout & Payment).
+- Updated `DEVELOPMENT.md` to include AP-011 (Strict YAGNI, no over-engineered telemetry/analytics).

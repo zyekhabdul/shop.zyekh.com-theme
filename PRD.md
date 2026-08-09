@@ -1,107 +1,81 @@
-# PRD v4.1 — shop.zyekh.com-theme (Bagisto Velocity Full Hero & Circle Category Carousel Specification)
+# PRD v5.1 — shop.zyekh.com-theme (YAGNI Pruned Enterprise Bagisto Replica Standard)
 
-Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com` dengan standarisasi struktur Bagisto 2.4.x.
+Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com` dengan standarisasi struktur Bagisto 2.4.x / Velocity.
 
 ---
 
 # 1. Project Overview & 2-Sided Marketplace Vision
 
 - **Nama Project**: `shop.zyekh.com-theme`
-- **Product Vision**: Theme Shopify 2.0 berkualifikasi **Enterprise Global Marketplace Standard** yang mendukung ekosistem **2-Sisi** (Buyer & Seller/Supplier Cross-Border) dengan UX sekelas AliExpress, Amazon, Gymshark, Temu, dan Apple Store. Tema ini menduplikasi secara presisi struktur UI/UX dari Bagisto 2.4.x ke dalam ekosistem Shopify Liquid 2.0.
-- **Core Engine**: **"Mesin Performance ZYEKH"** (100% Vanilla ES6+, CSS Variables native, Anti-FOUC, Apple fluid spring curves, Skeleton Shimmer Loading, View Transitions API) + **"Kulit Marketplace Cross-Border"** (Light mode default, Bento Grid Layout, Multi-Currency Shopify Markets, Instant Geo-Localization, Escrow Trust Badges, Multi-Tier Shipping Calculator).
-- **Architecture Upgrades**: Pemanfaatan Shopify Admin API & Metafields secara mendalam, Advanced CRO Engine dengan Speculative Rules, dan Web Vitals Telemetry otomatis, dipadukan dengan struktur komponen Bagisto 2.4.x.
+- **Product Vision**: Theme Shopify 2.0 berkualifikasi **Enterprise Global Marketplace Standard** yang mendukung ekosistem **2-Sisi** (Buyer & Seller/Supplier Cross-Border). Tema ini menduplikasi secara presisi struktur UI/UX dari Bagisto 2.4.x / Velocity.
+- **Core Engine (YAGNI / Ponytail Standard)**: 100% Vanilla ES6+, CSS Variables native, Anti-FOUC, Skeleton Shimmer Loading. Tidak ada telemetry berlebihan, script 3rd party bloat, atau framework JS berat. 
+- **Architecture Upgrades**: Pemanfaatan Shopify Admin API & Metafields secara mendalam, dipadukan dengan struktur komponen Bagisto 2.4.x / Velocity. Kestabilan Native Shopify System (Checkout & Payment) diutamakan.
 
 ---
 
-# 2. Standarisasi Struktur Bagisto 2.4.x (1-to-1 Mapping)
+# 2. Komparasi Mendalam: Bagisto 2.4.x / Velocity vs Shopify Theme
 
-Kami mengadopsi layout dan fungsionalitas dari Bagisto 2.4.x yang dimapping langsung ke Shopify Liquid 2.0 (referensi: `BAGISTO_SHOPIFY_STRUCTURAL_MAPPING.md`).
+### A. Homepage Sections
+- **Hero Carousel**: Zero-dependency Vanilla JS dengan CSS `scroll-snap`.
+- **Circle Category Carousel**: Custom section Liquid dengan JSON-based blocks.
+- **Flash Sale Countdown Bar**: Menggunakan Shopify Metafields (end date) dan Vanilla JS interval.
+- **Grid Kategori Bento**: CSS Grid native dengan *hover effects*.
+- **Featured Collection Carousel**: Flex-overflow dengan panah navigasi custom.
+- **Merchant Trust Bar**: Services Grid (Gratis Ongkir, Jaminan Uang Kembali).
 
-1. **Header Top / Header Bottom**: Multi-tier header layout.
-2. **Mega Menu**: Dropdown navigasi multi-level berbasis Vanilla JS.
-3. **Carousel (Hero Slider)**: Pure CSS / ringan Vanilla JS hero slider.
-4. **Services Grid**: Grid untuk value proposition toko.
-5. **Product Card**: Desain kartu produk yang presisi dengan hover action.
-6. **Mini Cart**: Off-canvas drawer (Cart Drawer).
-7. **PDP Gallery / Buy Box**: Layout produk detail yang komprehensif dengan gallery dan varian picker.
-8. **Faceted Filter Sidebar**: Filter pencarian dan koleksi di sidebar.
+### B. Product Page (PDP)
+- **Image Gallery Zoomer & Thumbnail Carousel**: *scroll-snap* thumbnail dan *hover-zoom* murni JS.
+- **Variant Swatches**: Metafields atau *option names*.
+- **Shipping Calculator**: Integrasi API kurir mock & origin logic.
+- **Stock Urgency & Escrow Trust Badge**: Trigger psikologis (X tersisa, Jaminan Escrow).
 
----
+### C. Collection & Catalog
+- **Faceted Filter Sidebar**: Form AJAX berbasis Shopify Search & Discovery.
+- **View Switcher Grid/List**: Vanilla JS pengubah kelas grid.
 
-# 3. Pemanfaatan Shopify Admin API & Metafields
+### D. Interactive UI & Micro-animations
+- **Off-canvas Cart Drawer**: AJAX Cart API Shopify.
+- **Skeleton Shimmer Loading**: Menghilangkan FOUC selama transisi AJAX.
 
-Untuk menunjang struktur data Marketplace berskala Enterprise:
-1. **Data Supplier**: Data identitas supplier/seller disimpan dalam namespace khusus metafields (`supplier.name`, `supplier.location`, `supplier.response_rate`).
-2. **Rating Seller**: Diintegrasikan melalui API atau Product Metafields (`seller.rating`, `seller.reviews_count`) untuk ditampilkan secara real-time pada halaman produk.
-3. **Dynamic Stock Thresholds**: Metafields produk/varian (`inventory.urgency_threshold`) untuk mengontrol pesan urgency.
-
----
-
-# 4. Psychological & Engagement Triggers (Strategi Hook Buyer)
-
-| Trigger | Strategi Psikologis & Visual | Implementasi Teknis UI/UX |
-|---------|------------------------------|---------------------------|
-| **1. Sub-Second Speed** | Halaman yang muncul instan (< 1.2s) | Speculative Rules API, Anti-FOUC, Skeleton loaders. |
-| **2. Zero-Risk Trust** | Jaminan uang kembali menghilangkan rasa takut | Floating Escrow Shield Badge. |
-| **3. Real Buyer Proof** | Pembeli percaya pada ulasan sesama pembeli | Live Order Toast, Verified buyer tag. |
-| **4. Instant Search** | Pembeli langsung mencari produk | Search Bar raksasa (Bagisto Style Header). |
-| **5. Gamified Conversion** | Progres visual mendorong checkout | Dynamic Free Shipping Progress Bar. |
-| **6. Frictionless Buy** | Mengurangi Cart Abandonment | Bagisto-style Mini Cart Drawer. |
+### E. Infrastructure & Core Engine (Strict YAGNI)
+- **Zero-dependency Vanilla JS & CSS Variables**: Menghilangkan Vue/jQuery dari Bagisto asli.
+- **WCAG 2.1 AA Compliance & 100% i18n**: Aksesibilitas dan dwibahasa penuh.
+- **No Bloat**: Segala RUM telemetry dan speculative fetching tidak stabil dibuang.
 
 ---
 
-# 5. Architecture & Code Standards (ZYEKH Engine)
+# 3. Long-Term Strategic Horizon Plan (Tahapan Backlog)
 
-1. **Zero-dependency**: No jQuery, no React, no Alpine.js. Just modern DOM APIs.
-2. **Single Source CSS Variables**: Theme dikonfigurasi via `settings_data.json` ke CSS Variables, Light Mode Default.
-3. **Accessibility**: WCAG 2.1 AA Compliance, no emoji.
-4. **Strict I18n Sync**: Tersinkronisasi penuh ke `en.default.json` dan `id.json`.
+### Fase 1: Infrastructure & Core Engine
+- [x] Konfigurasi Zero-dependency Vanilla JS & CSS Variables.
+- [x] WCAG 2.1 AA Compliance foundation.
+- [x] Setup 100% i18n English/Indonesian.
+- [x] Pemangkasan bloat RUM & Telemetry (YAGNI).
 
----
+### Fase 2: Homepage Sections (Velocity Exact Visuals)
+- [ ] Implementasi Hero Carousel (`sections/hero-carousel.liquid`).
+- [ ] Implementasi Circle Category Carousel (`sections/category-carousel.liquid`).
+- [ ] Implementasi Flash Sale Countdown Bar.
+- [x] Implementasi Services Grid / Merchant Trust Bar.
+- [ ] Implementasi Grid Kategori Bento.
+- [ ] Implementasi Featured Collection Carousel.
 
-# 6. Spesifikasi Teknis v4.1 (Velocity Enhancements)
+### Fase 3: Collection & Catalog
+- [x] Implementasi Faceted Filter Sidebar.
+- [ ] Implementasi View Switcher (Grid & List).
 
-Pembaruan v4.1 difokuskan pada replikasi visual Bagisto Velocity di Homepage:
+### Fase 4: Product Page / PDP
+- [x] Implementasi Shipping Calculator.
+- [x] Implementasi Stock Urgency & Escrow Trust Badge.
 
-### A. Full-Width Auto-Sliding Hero Carousel (`sections/hero-carousel.liquid`)
-- **Visual**: Gambar hero slider full-width layaknya Bagisto.
-- **Fungsi**: Auto-play bergeser ke kanan (timer-based auto-scroll).
-- **Elemen Tambahan**: CTA button overlay ("Shop Now ->"), slide indicator dots di tengah bawah, dan tautan gambar yang merujuk langsung ke halaman produk/koleksi terkait.
-- **Teknis**: Vanilla JS `setInterval` untuk auto-scroll, mendukung touch/swipe, Block Schema: `image_picker`, `url`, `cta_text`. Mengganti kartu hero statis saat ini.
+### Fase 5: Interactive UI & Micro-animations
+- [x] Off-canvas Cart Drawer.
+- [ ] Skeleton Shimmer Loading.
 
-### B. Circle Category Avatar Carousel (`sections/category-carousel.liquid`)
-- **Visual**: Avatar lingkaran berisi ikon/gambar kategori (Mens, Kids, Womens, Wellness, dll) dengan judul kategori di bawahnya.
-- **Fungsi**: Horizontal carousel dengan tombol navigasi Kiri/Kanan (< >) di luar area scroll.
-- **Teknis**: CSS `scroll-snap-type: x mandatory`, Vanilla JS untuk panah scroll (`scrollBy`). Schema settings untuk `image_picker`, `category_name`, dan `url`.
-
----
-
-# 7. Self-Driven AI Execution Backlog (Roadmap Otonom)
-
-### Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)
-- [x] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
-- [x] **Task 1.2**: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
-- [x] **Task 1.3**: Implementasi Mega Menu Navigation (`blocks/mega-menu.liquid`).
-- [x] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
-
-### Tahap 2: Homepage Components & Mini Cart
-- [ ] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`) v4.1 Spec.
-- [ ] **Task 2.2**: Implementasi Circle Category Carousel (`sections/category-carousel.liquid`) v4.1 Spec.
-- [x] **Task 2.3**: Implementasi Services Grid (`sections/services-grid.liquid`).
-- [x] **Task 2.4**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
-- [x] **Task 2.5**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
-
-### Tahap 3: PDP (Product Detail Page) & CRO Engine
-- [x] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
-- [x] **Task 3.2**: Integrasi Dynamic Stock Thresholds & Multi-Tier Shipping Estimator.
-- [x] **Task 3.3**: Integrasi Seller Info via Metafields.
-- [x] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
-
-### Tahap 4: Collection, Faceted Navigation & Checkout Prep
-- [x] **Task 4.1**: Implementasi Faceted Filter Sidebar (`sections/main-collection-product-grid.liquid`).
-- [x] **Task 4.2**: Integrasi Search Bar dengan Shopify Predictive Search API.
-- [x] **Task 4.3**: QA Audit: WCAG 2.1 AA, Lighthouse Performance (>=98 Desktop/95 Mobile), Zero-dependency check.
-- [x] **Task 4.4**: Sinkronisasi penuh I18n (`en.default.json`, `id.json`).
+### Fase 6: QA, Optimization & Launch
+- [ ] Audit Lighthouse.
+- [ ] Audit Aksesibilitas WCAG penuh.
+- [ ] Deployment ke Production.
 
 ---
-*PRD v4.1 (Bagisto Velocity Full Hero & Circle Category Carousel Specification) ini adalah pedoman baku bagi seluruh AI Agent.*
+*PRD v5.1 (YAGNI Pruned Enterprise Bagisto Replica Standard) ini adalah pedoman baku bagi seluruh AI Agent.*
