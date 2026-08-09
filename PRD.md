@@ -125,8 +125,8 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 ### Phase 3: Telemetry, Social Proof & QA Audit
 - [x] **Task 3.1**: Live Order Toast via Storefront API (`snippets/social-proof-toast.liquid`).
 - [x] **Task 3.2**: Setup Automated Shopify Theme Check & Web Vitals Telemetry.
-- [ ] **Task 3.3**: Sinkronisasi penuh I18n Localization (`locales/en.default.json` dan `locales/id.json`).
-- [ ] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
+- [x] **Task 3.3**: Sinkronisasi penuh I18n Localization (`locales/en.default.json` dan `locales/id.json`).
+- [x] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
 
 ---
 *PRD v3.0 Enterprise Global Marketplace ini adalah pedoman baku bagi seluruh AI Agent untuk menyempurnakan theme ini secara mandiri.*

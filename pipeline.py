@@ -39,7 +39,7 @@ def verify_shopify_connection():
                 data = json.loads(response.read().decode())
                 themes = data.get("themes", [])
                 
-                print("\n✅ KONEKSI BERHASIL! Token Valid.")
+                print("\nSUCCESS: KONEKSI BERHASIL! Token Valid.")
                 print("-" * 40)
                 print("Daftar Theme yang ada di toko Anda:")
                 for theme in themes:
@@ -52,12 +52,12 @@ def verify_shopify_connection():
             else:
                 print(f"Gagal: HTTP {response.status}")
     except urllib.error.HTTPError as e:
-        print(f"❌ KONEKSI GAGAL. Error: HTTP {e.code}")
+        print(f"ERROR: KONEKSI GAGAL. Error: HTTP {e.code}")
         print("Penyebab Umum:")
         print("1. Token salah/typo")
         print("2. Scope 'read_themes' belum dicentang di Custom App")
     except Exception as e:
-        print(f"❌ ERROR: {e}")
+        print(f"ERROR: ERROR: {e}")
 
 if __name__ == "__main__":
     verify_shopify_connection()

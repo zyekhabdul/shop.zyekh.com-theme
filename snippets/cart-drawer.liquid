@@ -3,7 +3,7 @@
   <div class="cart-drawer__content">
     <div class="cart-drawer__header">
       <h2 class="cart-drawer__title">{{ 'cart.drawer_title' | t }}</h2>
-      <button type="button" class="cart-drawer__close" onclick="closeCartDrawer()" aria-label="{{ 'general.accessibility.close' | t | default: 'Close' }}">
+      <button type="button" class="cart-drawer__close" onclick="closeCartDrawer()" aria-label="{{ 'general.accessibility.close_modal' | t | default: 'Close' }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
@@ -117,15 +117,60 @@
     moneyFormat: '{{ shop.money_format | default: "${{amount}}" }}'
   };
 
+  let activeElementBeforeCartOpen = null;
+
+  function trapFocus(element) {
+    const focusableElements = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusableElements.length === 0) return;
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    element.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    });
+  }
+
   function openCartDrawer() {
-    document.getElementById('CartDrawer').setAttribute('aria-hidden', 'false');
+    activeElementBeforeCartOpen = document.activeElement;
+    const cartDrawer = document.getElementById('CartDrawer');
+    cartDrawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    
+    // Focus the first focusable element inside the drawer
+    const focusable = cartDrawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusable.length) {
+      setTimeout(() => focusable[0].focus(), 100);
+    }
   }
 
   function closeCartDrawer() {
     document.getElementById('CartDrawer').setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    
+    // Restore focus
+    if (activeElementBeforeCartOpen) {
+      activeElementBeforeCartOpen.focus();
+    }
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartDrawer = document.getElementById('CartDrawer');
+    if (cartDrawer) {
+      trapFocus(cartDrawer);
+    }
+  });
 
   function formatMoney(cents, format) {
     if (typeof cents == 'string') { cents = cents.replace('.', ''); }

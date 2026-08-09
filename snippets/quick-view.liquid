@@ -18,3 +18,85 @@
     </div>
   </div>
 </div>
+<script>
+  let activeElementBeforeQuickView = null;
+  const quickViewModal = document.getElementById('QuickViewModal');
+  const quickViewContainer = document.getElementById('QuickViewContainer');
+  
+  if (quickViewModal) {
+    // Focus Trap
+    quickViewModal.addEventListener('keydown', function(e) {
+      const focusable = quickViewModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      const firstElement = focusable[0];
+      const lastElement = focusable[focusable.length - 1];
+
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      } else if (e.key === 'Escape') {
+        closeQuickView();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      // Open modal
+      const btn = e.target.closest('.quick-view-button');
+      if (btn) {
+        e.preventDefault();
+        const handle = btn.getAttribute('data-product-handle');
+        openQuickView(handle, btn);
+        return;
+      }
+
+      // Close modal
+      if (e.target.closest('[data-quick-view-close]')) {
+        closeQuickView();
+      }
+    });
+  }
+
+  async function openQuickView(handle, triggerElement) {
+    activeElementBeforeQuickView = triggerElement;
+    quickViewModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    quickViewContainer.innerHTML = '<div class="quick-view-loader"><span class="spinner"></span></div>';
+    
+    try {
+      const response = await fetch(`/products/${handle}?view=quick`);
+      if (response.ok) {
+        const html = await response.text();
+        quickViewContainer.innerHTML = html;
+        // Focus inside
+        setTimeout(() => {
+          const focusable = quickViewModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          if (focusable.length) {
+            focusable[0].focus();
+          }
+        }, 50);
+      } else {
+        quickViewContainer.innerHTML = '<p>Error loading product.</p>';
+      }
+    } catch (err) {
+      quickViewContainer.innerHTML = '<p>Error loading product.</p>';
+    }
+  }
+
+  function closeQuickView() {
+    quickViewModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    quickViewContainer.innerHTML = '';
+    if (activeElementBeforeQuickView) {
+      activeElementBeforeQuickView.focus();
+    }
+  }
+</script>

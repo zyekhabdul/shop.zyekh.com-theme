@@ -156,3 +156,14 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - **Task 2.1:** Pembuatan snippet `snippets/seller-info.liquid` untuk memuat data *supplier* dan *rating* dari Metafields produk (`product.metafields.seller`). Pembuatan snippet `snippets/escrow-badge.liquid` yang menampilkan jaminan perlindungan dana (Escrow Shield). Menambahkan gaya CSS spesifik di `assets/critical.css`.
 - **Task 2.2:** Pembuatan snippet `snippets/quick-view.liquid` yang memberikan pratinjau instan (*modal*) 1-klik di `snippets/product-card.liquid` tanpa *page reload*. Modifikasi `layout/theme.liquid` untuk me-render `quick-view` di level kerangka tema. Menyinkronkan translation keys (`quick_view`, `seller_label`, `escrow_protection`, `escrow_badge_aria`) di `locales/en.default.json` & `locales/id.json`.
 - Memperbarui status eksekusi otomatis pada `PRD.md`.
+
+### Execution Batch: Phase 3 (Task 3.3 & Task 3.4)
+**Tasks Completed:**
+- **Task 3.3:** Audit sinkronisasi 100% *translation keys* antara `locales/en.default.json` dan `locales/id.json`. Script audit memvalidasi bahwa kedua file memiliki *keys* yang persis sama (tidak ada *missing keys* di salah satu locale).
+- **Task 3.4:** Audit WCAG 2.1 AA Compliance pada seluruh snippet & section:
+  - Validasi *ARIA labels* (menambahkan dan memperbaiki beberapa *missing labels* dan *roles* pada SVG).
+  - Implementasi *keyboard focus trap* di `snippets/cart-drawer.liquid` dan `snippets/quick-view.liquid` (memastikan navigasi *keyboard/Tab* terkurung di dalam *modal/drawer* dan memulihkan fokus saat ditutup).
+  - Validasi *contrast ratio* pada variabel CSS (memenuhi standar >= 4.5:1 untuk warna teks vs *background* di *Light Mode* maupun *Dark Mode*).
+  - **Zero Emoji Check:** Menghapus emoji yang tersisa di `pipeline.py`, `CONTRIBUTING.md`, dan mengganti emoji/karakter bintang (`★`) di `snippets/seller-info.liquid` dengan ikon `<svg>`.
+- **Perbaikan Theme Check:** Memperbaiki *error MissingTemplate* untuk `icon-cart` dan `icon-close` dengan membuat snippet terpisah `snippets/icon-cart.liquid` dan `snippets/icon-close.liquid`.
+- Memperbarui status penyelesaian Task 3.3 dan Task 3.4 pada `PRD.md` dan `DEVELOPMENT.md`.
