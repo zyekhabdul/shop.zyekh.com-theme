@@ -5,7 +5,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 
 ---
 
-## STATUS SAAT INI (Last Updated: 2026-08-09 10:28 WIB)
+## STATUS SAAT INI (Last Updated: 2026-08-09 10:48 WIB)
 
 ### Apa yang SUDAH dikerjakan
 - CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
@@ -28,6 +28,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/cart-drawer.liquid` Sliding AJAX Cart dengan Free Shipping Progress Bar, Vanilla JS, & Escrow Shield
 - `snippets/speculation-rules.liquid` & `snippets/localization-form.liquid` (Task 1.6)
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
+- Customer Portal: Order Timeline Tracker, Escrow Release & Dispute Modal di `main-order.liquid` & `order.json` (Task 4.1)
 - `snippets/shipping-estimator.liquid` & `snippets/stock-urgency.liquid` untuk Multi-Tier Shipping & Dynamic Stock Thresholds (Task 2.3 & 2.4)
 - `snippets/social-proof-toast.liquid` & `snippets/web-vitals-telemetry.liquid` (Task 3.1 & 3.2)
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)

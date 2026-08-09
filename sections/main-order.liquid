@@ -1,0 +1,92 @@
+<section class="order-dashboard-section page-width">
+  <div class="order-dashboard-header">
+    <h1 class="order-dashboard-title">{{ 'customer.order.title' | t: name: order.name }}</h1>
+    <p class="order-dashboard-date">{{ 'customer.order.date' | t: date: order.created_at | date: "%B %d, %Y" }}</p>
+  </div>
+
+  <div class="order-timeline-tracker">
+    {% assign current_step = 1 %}
+    {% if order.fulfillment_status == 'fulfilled' %}
+      {% assign current_step = 5 %}
+    {% elsif order.fulfillment_status == 'partial' %}
+      {% assign current_step = 3 %}
+    {% elsif order.financial_status == 'paid' %}
+      {% assign current_step = 2 %}
+    {% endif %}
+
+    <div class="timeline-step {% if current_step >= 1 %}is-completed{% endif %}" data-step="1">
+      <div class="timeline-icon"></div>
+      <span class="timeline-label">{{ 'customer.order.timeline_processing' | t }}</span>
+    </div>
+    <div class="timeline-line {% if current_step >= 2 %}is-completed{% endif %}"></div>
+    <div class="timeline-step {% if current_step >= 2 %}is-completed{% endif %}" data-step="2">
+      <div class="timeline-icon"></div>
+      <span class="timeline-label">{{ 'customer.order.timeline_shipped' | t }}</span>
+    </div>
+    <div class="timeline-line {% if current_step >= 3 %}is-completed{% endif %}"></div>
+    <div class="timeline-step {% if current_step >= 3 %}is-completed{% endif %}" data-step="3">
+      <div class="timeline-icon"></div>
+      <span class="timeline-label">{{ 'customer.order.timeline_transit' | t }}</span>
+    </div>
+    <div class="timeline-line {% if current_step >= 4 %}is-completed{% endif %}"></div>
+    <div class="timeline-step {% if current_step >= 4 %}is-completed{% endif %}" data-step="4">
+      <div class="timeline-icon"></div>
+      <span class="timeline-label">{{ 'customer.order.timeline_arrived' | t }}</span>
+    </div>
+    <div class="timeline-line {% if current_step >= 5 %}is-completed{% endif %}"></div>
+    <div class="timeline-step {% if current_step >= 5 %}is-completed{% endif %}" data-step="5">
+      <div class="timeline-icon"></div>
+      <span class="timeline-label">{{ 'customer.order.timeline_delivered' | t }}</span>
+    </div>
+  </div>
+
+  <div class="order-escrow-actions">
+    <button type="button" class="btn btn-primary release-escrow-btn" {% if current_step < 5 %}disabled{% endif %}>
+      {{ 'customer.order.release_fund' | t }}
+    </button>
+    <button type="button" class="btn btn-secondary dispute-claim-btn" onclick="openDisputeModal()">
+      {{ 'customer.order.dispute_claim' | t }}
+    </button>
+  </div>
+
+  <!-- Dispute Modal -->
+  <div id="disputeModal" class="dispute-modal" aria-hidden="true">
+    <div class="dispute-modal-content">
+      <button type="button" class="dispute-modal-close" onclick="closeDisputeModal()" aria-label="Close">&times;</button>
+      <h2 class="dispute-modal-title">{{ 'customer.order.dispute_modal_title' | t }}</h2>
+      
+      <form class="dispute-form" action="/contact" method="post">
+        <input type="hidden" name="contact[order_number]" value="{{ order.name }}">
+        <div class="form-group">
+          <label for="DisputeReason">{{ 'customer.order.dispute_modal_reason' | t }}</label>
+          <textarea id="DisputeReason" name="contact[body]" rows="4" required class="form-input"></textarea>
+        </div>
+        <div class="dispute-modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeDisputeModal()">{{ 'customer.order.dispute_modal_cancel' | t }}</button>
+          <button type="submit" class="btn btn-primary">{{ 'customer.order.dispute_modal_submit' | t }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+function openDisputeModal() {
+  const modal = document.getElementById('disputeModal');
+  modal.setAttribute('aria-hidden', 'false');
+  modal.classList.add('is-open');
+}
+
+function closeDisputeModal() {
+  const modal = document.getElementById('disputeModal');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.classList.remove('is-open');
+}
+</script>
+
+{% schema %}
+{
+  "name": "Order Details",
+  "settings": []
+}
+{% endschema %}

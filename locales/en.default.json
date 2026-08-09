@@ -104,5 +104,22 @@
     "accessibility": {
       "close_modal": "Close modal"
     }
+  },
+  "customer": {
+    "order": {
+      "title": "Order {{ name }}",
+      "timeline_processing": "Processing",
+      "timeline_shipped": "Shipped by Seller",
+      "timeline_transit": "International Transit",
+      "timeline_arrived": "Arrived at Destination",
+      "timeline_delivered": "Delivered",
+      "release_fund": "Release Escrow Fund to Seller",
+      "dispute_claim": "Dispute / Claim Refund",
+      "dispute_modal_title": "Dispute Order",
+      "dispute_modal_reason": "Reason for dispute",
+      "dispute_modal_submit": "Submit Claim",
+      "dispute_modal_cancel": "Cancel",
+      "date": "Placed on {{ date }}"
+    }
   }
 }

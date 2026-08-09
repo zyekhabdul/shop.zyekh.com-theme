@@ -104,5 +104,22 @@
     "accessibility": {
       "close_modal": "Tutup modal"
     }
+  },
+  "customer": {
+    "order": {
+      "title": "Pesanan {{ name }}",
+      "timeline_processing": "Diproses",
+      "timeline_shipped": "Dikirim Seller",
+      "timeline_transit": "Transit Internasional",
+      "timeline_arrived": "Tiba Negara Tujuan",
+      "timeline_delivered": "Diterima",
+      "release_fund": "Lepas Dana Escrow ke Seller",
+      "dispute_claim": "Komplain / Klaim Refund",
+      "dispute_modal_title": "Komplain Pesanan",
+      "dispute_modal_reason": "Alasan komplain",
+      "dispute_modal_submit": "Ajukan Klaim",
+      "dispute_modal_cancel": "Batal",
+      "date": "Dibuat pada {{ date }}"
+    }
   }
 }

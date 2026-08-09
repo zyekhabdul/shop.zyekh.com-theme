@@ -1,5 +1,16 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: e11b27c4-d069-4fec-a7f7-ca39daba38c3
+
+**Task 4.1: Customer Portal & Order Timeline Tracker**
+- Dibuat JSON template `templates/customers/order.json`.
+- Dibuat section `sections/main-order.liquid` dengan 5-Step Visual Order Timeline Tracker.
+- Ditambahkan tombol "Release Escrow Fund to Seller" dan modal form "Dispute / Claim Refund".
+- Ditambahkan variabel CSS dan styling di `assets/critical.css` dengan CSS Variables murni (zero hardcoded hex, zero inline styles).
+- Disinkronisasikan locale key di `locales/en.default.json` dan `locales/id.json`.
+- Status Task 4.1 diperbarui menjadi Selesai.
+
+---
 ### Session: 9b232294-d5ec-4334-ba32-a49e77f33543
 
 **PRD & Strategic Horizon Updates:**

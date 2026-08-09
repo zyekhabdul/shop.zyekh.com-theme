@@ -941,3 +941,147 @@ img {
   background: var(--bg-main);
   color: var(--text-main);
 }
+
+/* Order Dashboard Variables */
+:root {
+  --color-timeline-bg: var(--color-background-secondary, #f4f4f4);
+  --color-timeline-active: var(--color-primary, #007bff);
+  --color-timeline-text: var(--color-text, #333);
+  --color-timeline-text-muted: var(--color-text-muted, #777);
+  --spacing-timeline-gap: 1rem;
+  
+  --color-modal-bg: var(--color-background, #fff);
+  --color-modal-overlay: rgba(0, 0, 0, 0.5);
+  --modal-border-radius: 8px;
+  --modal-z-index: 1000;
+}
+
+/* Order Dashboard Section */
+.order-dashboard-section {
+  padding: 2rem 0;
+}
+.order-dashboard-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.order-dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.order-dashboard-date {
+  color: var(--color-timeline-text-muted);
+}
+
+/* Timeline Tracker */
+.order-timeline-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0;
+  position: relative;
+}
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+.timeline-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-timeline-bg);
+  border: 2px solid var(--color-timeline-text-muted);
+  margin-bottom: var(--spacing-timeline-gap);
+  transition: all 0.3s ease;
+}
+.timeline-step.is-completed .timeline-icon {
+  background-color: var(--color-timeline-active);
+  border-color: var(--color-timeline-active);
+}
+.timeline-label {
+  font-size: 0.875rem;
+  color: var(--color-timeline-text-muted);
+  text-align: center;
+}
+.timeline-step.is-completed .timeline-label {
+  color: var(--color-timeline-text);
+  font-weight: bold;
+}
+.timeline-line {
+  flex: 2;
+  height: 4px;
+  background-color: var(--color-timeline-bg);
+  position: relative;
+  top: -16px;
+  z-index: 1;
+}
+.timeline-line.is-completed {
+  background-color: var(--color-timeline-active);
+}
+
+/* Escrow Actions */
+.order-escrow-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Modal Styling */
+.dispute-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-modal-overlay);
+  z-index: var(--modal-z-index);
+  align-items: center;
+  justify-content: center;
+}
+.dispute-modal.is-open {
+  display: flex;
+}
+.dispute-modal-content {
+  background-color: var(--color-modal-bg);
+  padding: 2rem;
+  border-radius: var(--modal-border-radius);
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.dispute-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-timeline-text);
+}
+.dispute-modal-title {
+  margin-bottom: 1.5rem;
+}
+.dispute-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.dispute-form .form-input {
+  padding: 0.75rem;
+  border: 1px solid var(--color-timeline-bg);
+  border-radius: 4px;
+  resize: vertical;
+}
+.dispute-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

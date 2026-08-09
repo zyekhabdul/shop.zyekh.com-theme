@@ -129,7 +129,7 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 - [x] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
 
 ### Phase 4: Customer Portal & Final Release
-- [ ] **Task 4.1**: Build Order Timeline Tracker & Escrow Actions.
+- [x] **Task 4.1**: Build Order Timeline Tracker & Escrow Actions.
 - [ ] **Task 4.2**: Advanced Faceted Filters & Search Optimizations.
 - [ ] **Task 4.3**: Final QA, Accessibility, and Security Audit.
 
