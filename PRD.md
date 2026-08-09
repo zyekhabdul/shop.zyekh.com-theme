@@ -1,34 +1,39 @@
-# PRD v3.0 — shop.zyekh.com-theme (Enterprise Global Marketplace)
+# PRD v4.0 — shop.zyekh.com-theme (Bagisto 2.4 Exact Structural Replica Standard)
 
-Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com`.
+Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com` dengan standarisasi struktur Bagisto 2.4.x.
 
 ---
 
 # 1. Project Overview & 2-Sided Marketplace Vision
 
 - **Nama Project**: `shop.zyekh.com-theme`
-- **Product Vision**: Theme Shopify 2.0 berkualifikasi **Enterprise Global Marketplace Standard** yang mendukung ekosistem **2-Sisi** (Buyer & Seller/Supplier Cross-Border) dengan UX sekelas AliExpress, Amazon, Gymshark, Temu, dan Apple Store.
+- **Product Vision**: Theme Shopify 2.0 berkualifikasi **Enterprise Global Marketplace Standard** yang mendukung ekosistem **2-Sisi** (Buyer & Seller/Supplier Cross-Border) dengan UX sekelas AliExpress, Amazon, Gymshark, Temu, dan Apple Store. Tema ini menduplikasi secara presisi struktur UI/UX dari Bagisto 2.4.x ke dalam ekosistem Shopify Liquid 2.0.
 - **Core Engine**: **"Mesin Performance ZYEKH"** (100% Vanilla ES6+, CSS Variables native, Anti-FOUC, Apple fluid spring curves, Skeleton Shimmer Loading, View Transitions API) + **"Kulit Marketplace Cross-Border"** (Light mode default, Bento Grid Layout, Multi-Currency Shopify Markets, Instant Geo-Localization, Escrow Trust Badges, Multi-Tier Shipping Calculator).
-- **Architecture Upgrades**: Pemanfaatan Shopify Admin API & Metafields secara mendalam, Advanced CRO Engine dengan Speculative Rules, dan Web Vitals Telemetry otomatis.
+- **Architecture Upgrades**: Pemanfaatan Shopify Admin API & Metafields secara mendalam, Advanced CRO Engine dengan Speculative Rules, dan Web Vitals Telemetry otomatis, dipadukan dengan struktur komponen Bagisto 2.4.x.
 
 ---
 
-# 2. Pemanfaatan Shopify Admin API & Metafields
+# 2. Standarisasi Struktur Bagisto 2.4.x (1-to-1 Mapping)
 
-Untuk menunjang struktur data Marketplace berskala Enterprise, kami mengandalkan **Shopify Admin API & Metafields**:
+Kami mengadopsi layout dan fungsionalitas dari Bagisto 2.4.x yang dimapping langsung ke Shopify Liquid 2.0 (referensi: `BAGISTO_SHOPIFY_STRUCTURAL_MAPPING.md`).
+
+1. **Header Top / Header Bottom**: Multi-tier header layout.
+2. **Mega Menu**: Dropdown navigasi multi-level berbasis Vanilla JS.
+3. **Carousel (Hero Slider)**: Pure CSS / ringan Vanilla JS hero slider.
+4. **Services Grid**: Grid untuk value proposition toko.
+5. **Product Card**: Desain kartu produk yang presisi dengan hover action.
+6. **Mini Cart**: Off-canvas drawer (Cart Drawer).
+7. **PDP Gallery / Buy Box**: Layout produk detail yang komprehensif dengan gallery dan varian picker.
+8. **Faceted Filter Sidebar**: Filter pencarian dan koleksi di sidebar.
+
+---
+
+# 3. Pemanfaatan Shopify Admin API & Metafields
+
+Untuk menunjang struktur data Marketplace berskala Enterprise:
 1. **Data Supplier**: Data identitas supplier/seller disimpan dalam namespace khusus metafields (`supplier.name`, `supplier.location`, `supplier.response_rate`).
 2. **Rating Seller**: Diintegrasikan melalui API atau Product Metafields (`seller.rating`, `seller.reviews_count`) untuk ditampilkan secara real-time pada halaman produk.
-3. **Dynamic Stock Thresholds**: Metafields produk/varian (`inventory.urgency_threshold`) untuk mengontrol pesan urgency (e.g., "Only 3 left in stock!") yang memicu FOMO (Fear Of Missing Out) secara terkalkulasi.
-
----
-
-# 3. Advanced CRO Engine (Conversion Rate Optimization)
-
-Pengembangan **Advanced CRO Engine** dalam iterasi ini difokuskan pada:
-1. **Speculative Rules API**: Pre-fetching halaman dan asset untuk mewujudkan *instant page load* (zero-delay navigation) saat pengguna melayang (hover) atau bersiap mengklik link.
-2. **Auto Geo-IP Currency Switcher**: Adaptasi instan terhadap mata uang dan harga lokal pembeli menggunakan Shopify Markets API & Geo-IP detection tanpa delay.
-3. **Live Order Toast via Storefront API**: Notifikasi pembelian real-time (*"Someone in London just bought this 4m ago"*) ditarik dan disinkronkan melalui koneksi Storefront API (GraphQL) untuk social proof akurat.
-4. **In-Cart Intelligent Cross-sell**: Algoritma rekomendasi produk aksesoris cerdas pada Sliding AJAX Cart Drawer berdasar cart line items yang ada.
+3. **Dynamic Stock Thresholds**: Metafields produk/varian (`inventory.urgency_threshold`) untuk mengontrol pesan urgency.
 
 ---
 
@@ -36,109 +41,49 @@ Pengembangan **Advanced CRO Engine** dalam iterasi ini difokuskan pada:
 
 | Trigger | Strategi Psikologis & Visual | Implementasi Teknis UI/UX |
 |---------|------------------------------|---------------------------|
-| **1. Sub-Second Speed** | Halaman yang muncul instan (< 1.2s) membuat situs terasa secepat native app. | Speculative Rules API, Anti-FOUC, Skeleton Shimmer loaders. |
-| **2. Zero-Risk Trust** | Jaminan uang kembali menghilangkan rasa takut rugi. | Floating Escrow Shield Badge. |
-| **3. Real Buyer Proof** | Pembeli percaya pada ulasan sesama pembeli. | Live Order Toast via Storefront API, Verified buyer tag. |
-| **4. Instant Search** | Pembeli marketplace langsung mencari produk. | Prominent Search Bar dengan Instant Predictive Search. |
-| **5. Gamified Conversion** | Progres visual mendorong checkout. | Dynamic Free Shipping Progress Bar, Flash Deal Countdown. |
-| **6. Frictionless One-Tap Buy** | Mengurangi Cart Abandonment. | Sliding AJAX Cart Drawer, Quick View Modal, Sticky Add to Cart. |
+| **1. Sub-Second Speed** | Halaman yang muncul instan (< 1.2s) | Speculative Rules API, Anti-FOUC, Skeleton loaders. |
+| **2. Zero-Risk Trust** | Jaminan uang kembali menghilangkan rasa takut | Floating Escrow Shield Badge. |
+| **3. Real Buyer Proof** | Pembeli percaya pada ulasan sesama pembeli | Live Order Toast, Verified buyer tag. |
+| **4. Instant Search** | Pembeli langsung mencari produk | Search Bar raksasa (Bagisto Style Header). |
+| **5. Gamified Conversion** | Progres visual mendorong checkout | Dynamic Free Shipping Progress Bar. |
+| **6. Frictionless Buy** | Mengurangi Cart Abandonment | Bagisto-style Mini Cart Drawer. |
 
 ---
 
-# 5. Problem Statement & Measurable Goals
+# 5. Architecture & Code Standards (ZYEKH Engine)
 
-## Problem Statement
-1. Buyer cross-border ragu bertransaksi karena tidak kenal seller dan minim *social proof*.
-2. Biaya tersembunyi memicu *Cart Abandonment* tinggi.
-3. Lambatnya loading halaman menyebabkan *Bounce Rate* naik.
-
-## Measurable Goals
-- **Core Web Vitals**: Google Lighthouse Performance **>= 98 (Desktop)** & **>= 95 (Mobile)**.
-- **Automated QA**: Automated Shopify Theme Check & Web Vitals Telemetry berjalan berkala.
-- **CRO Target**: Conversion Rate **>= 3.8%** melalui Escrow Shield, In-Cart Intelligent Cross-sell, Sticky Add to Cart, dan Multi-Tier Shipping.
-- **Pure Code**: 0% Tailwind, 0% jQuery. 100% Pure Vanilla ES6+.
-- **I18n Synchronization**: Selalu sync 100% antara `locales/en.default.json` dan `locales/id.json`.
+1. **Zero-dependency**: No jQuery, no React, no Alpine.js. Just modern DOM APIs.
+2. **Single Source CSS Variables**: Theme dikonfigurasi via `settings_data.json` ke CSS Variables, Light Mode Default.
+3. **Accessibility**: WCAG 2.1 AA Compliance, no emoji.
+4. **Strict I18n Sync**: Tersinkronisasi penuh ke `en.default.json` dan `id.json`.
 
 ---
 
-# 6. Detailed Page-by-Page Specifications
+# 6. Self-Driven AI Execution Backlog (Roadmap Otonom)
 
-### 6.1 Homepage (`templates/index.json`)
-- **Prominent Search-First Hero**: Search bar raksasa dengan Instant Predictive Search.
-- **Trust Banner Bar**: Escrow Protection, Fast Cross-Border Shipping, Verified Global Sellers.
-- **Visual Category Bento Grid**: Grid kategori dengan efek tactile.
-- **Flash Deals Section**: Grid produk dengan Countdown Timer.
+### Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)
+- [ ] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
+- [ ] **Task 1.2**: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
+- [ ] **Task 1.3**: Implementasi Mega Menu Navigation (`blocks/mega-menu.liquid`).
+- [ ] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
 
-### 6.2 Product Detail Page / PDP (`sections/product.liquid`)
-1. **Media Gallery**: LCP `fetchpriority="high"`, Speculative Rules for next images.
-2. **Product Title & Price Block**: Auto Geo-IP Currency Switcher applied.
-3. **Seller Reputation**: Data ditarik dari Admin API Metafields (`supplier.name`, `seller.rating`).
-4. **Multi-Tier Shipping Estimator**: Pilihan opsi kirim & Asal Barang.
-5. **Escrow Guarantee Block**: Shield icon badge.
-6. **Dynamic Stock Thresholds**: Urgency text dari Metafields.
-7. **Action Buttons**: CTA utama + Direct WhatsApp Order.
-8. **Sticky Mobile Buy Bar**: Bar melayang bawah layar.
+### Tahap 2: Homepage Components & Mini Cart
+- [ ] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`).
+- [ ] **Task 2.2**: Implementasi Services Grid (`sections/services-grid.liquid`).
+- [ ] **Task 2.3**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
+- [ ] **Task 2.4**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
 
-### 6.3 Search & Collection Listing Page (`sections/collection.liquid`, `sections/search.liquid`)
-- **Faceted Filters**: Berdasarkan Estimasi Waktu Kirim, Negara Asal, dan Rating Seller.
-- **Product Card Grid**: 2 kolom mobile, 4 kolom desktop dengan tombol Quick View.
+### Tahap 3: PDP (Product Detail Page) & CRO Engine
+- [ ] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
+- [ ] **Task 3.2**: Integrasi Dynamic Stock Thresholds & Multi-Tier Shipping Estimator.
+- [ ] **Task 3.3**: Integrasi Seller Info via Metafields.
+- [ ] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
 
-### 6.4 Sliding AJAX Cart Drawer & Cart Page (`snippets/cart-drawer.liquid`, `sections/cart.liquid`)
-- **Free Shipping Progress Bar**: Kalkulasi dinamis.
-- **In-Cart Intelligent Cross-sell**: Carousel rekomendasi aksesoris 1-klik.
-- **Transparent Fee Breakdown**: Zero Hidden Fees.
-
-### 6.5 Customer Portal & Order Tracking Page
-- **Order Timeline Tracker**: Progress visual multi-step.
-- **Release Escrow Fund Button**.
+### Tahap 4: Collection, Faceted Navigation & Checkout Prep
+- [ ] **Task 4.1**: Implementasi Faceted Filter Sidebar (`sections/main-collection-product-grid.liquid`).
+- [ ] **Task 4.2**: Integrasi Search Bar dengan Shopify Predictive Search API.
+- [ ] **Task 4.3**: QA Audit: WCAG 2.1 AA, Lighthouse Performance (>=98 Desktop/95 Mobile), Zero-dependency check.
+- [ ] **Task 4.4**: Sinkronisasi penuh I18n (`en.default.json`, `id.json`).
 
 ---
-
-# 7. Architecture & Code Standards
-
-1. **Single Source CSS Variables**: `snippets/css-variables.liquid`.
-2. **Dynamic Localization Comments**: Blok dinamis ditandai `// TODO: dynamic - localization`.
-3. **Strict I18n Sync**: Setiap penambahan string di UI harus tersinkronisasi ke `en.default.json` dan `id.json`.
-4. **Zero Inline Styles**.
-5. **Strict No-Emoji Rule**.
-
----
-
-# 8. Self-Driven AI Execution Backlog (Roadmap Otonom)
-
-AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
-
-### Phase 1: Core Marketplace, Cart & Advanced CRO (CURRENT)
-- [x] **Task 1.1**: Setup CSS Variables & Light Mode Default.
-- [x] **Task 1.2**: Header Navigation Drawer & Dynamic Variant Price JS.
-- [x] **Task 1.3**: Rebuild Product Card, Trust Badges, & WhatsApp Direct Order.
-- [x] **Task 1.4**: Sliding AJAX Cart Drawer (`snippets/cart-drawer.liquid`) dengan Free Shipping Progress Bar & In-Cart Intelligent Cross-sell.
-- [x] **Task 1.5**: Implementasi Sticky Add-to-Cart Bar di Mobile.
-- [x] **Task 1.6**: Setup Auto Geo-IP Currency Switcher & Speculative Rules API.
-
-### Phase 2: PDP Trust, Admin API Metafields & Shipping
-- [x] **Task 2.1**: Integrasi Data Supplier & Rating Seller via Admin API Metafields (`snippets/seller-info.liquid`).
-- [x] **Task 2.2**: Quick View Modal Snippet (`snippets/quick-view.liquid`).
-- [x] **Task 2.3**: Multi-Tier Shipping Estimator di `sections/product.liquid`.
-- [x] **Task 2.4**: Dynamic Stock Thresholds dari Metafields.
-
-### Phase 3: Telemetry, Social Proof & QA Audit
-- [x] **Task 3.1**: Live Order Toast via Storefront API (`snippets/social-proof-toast.liquid`).
-- [x] **Task 3.2**: Setup Automated Shopify Theme Check & Web Vitals Telemetry.
-- [x] **Task 3.3**: Sinkronisasi penuh I18n Localization (`locales/en.default.json` dan `locales/id.json`).
-- [x] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
-
-### Phase 4: Customer Portal & Final Release
-- [x] **Task 4.1**: Build Order Timeline Tracker & Escrow Actions.
-- [x] **Task 4.2**: Advanced Faceted Filters & Search Optimizations.
-- [x] **Task 4.3**: Final QA, Accessibility, and Security Audit.
-
-### Phase 5: Enterprise Horizon & Autonomous Merchandising Infrastructure
-- [x] **Task 5.1**: Edge-Driven Speculative Pre-Rendering & Micro-Transitions.
-- [x] **Task 5.2**: B2B Wholesale Tier Pricing & Volume Discounts Table (`snippets/b2b-tier-pricing.liquid`).
-- [x] **Task 5.3**: DDP (Delivered Duty Paid) Tax & Customs Estimator pada Cart Drawer (`snippets/ddp-tax-calculator.liquid`).
-- [x] **Task 5.4**: Native GDPR/CCPA Zero-Cookie Consent Banner (`snippets/consent-banner.liquid`).
-- [x] **Task 5.5**: AI Merchandising Telemetry & Real User Monitoring (RUM).
-
----
-*PRD v3.0 Enterprise Global Marketplace ini adalah pedoman baku bagi seluruh AI Agent untuk menyempurnakan theme ini secara mandiri.*
+*PRD v4.0 (Bagisto 2.4 Exact Structural Replica Standard) ini adalah pedoman baku bagi seluruh AI Agent.*

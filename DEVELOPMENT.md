@@ -33,7 +33,8 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/social-proof-toast.liquid` & `snippets/web-vitals-telemetry.liquid` (Task 3.1 & 3.2)
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
-- `PRD.md` tersimpan di root project dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`)
+- `PRD.md` tersimpan di root project (Versi 4.0 - Bagisto 2.4 Exact Structural Replica Standard) dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).
+- Dokumen baru: `BAGISTO_SHOPIFY_STRUCTURAL_MAPPING.md` untuk 1-to-1 komponen mapping.
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
 - **Phase 5 (Enterprise Horizon)** - Task 5.2 s/d 5.4: B2B Tier Pricing, DDP Tax Estimator, GDPR Consent Banner.

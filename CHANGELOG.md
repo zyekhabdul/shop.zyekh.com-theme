@@ -1,5 +1,14 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: e953d054-c673-4052-8098-feaad001fb44
+
+**Tahap 1 & Tahap 2: Bagisto 2.4.x Exact Structural Replica Planning**
+- Membuat dokumen mapping struktur `BAGISTO_SHOPIFY_STRUCTURAL_MAPPING.md` yang memetakan komponen Bagisto ke Liquid 2.0 & CSS Variables ZYEKH Engine.
+- Memperbarui `PRD.md` ke PRD v4.0 dengan roadmap backlog per-komponen (Header, Mega Menu, Carousel, dll).
+- Menyinkronkan PRD dan struktur mapping ke Obsidian Vault.
+- Memperbarui `DEVELOPMENT.md` dan `CHANGELOG.md` sesuai dengan standar terbaru.
+
+---
 ### Session: e11b27c4-d069-4fec-a7f7-ca39daba38c3
 
 **Task 4.1: Customer Portal & Order Timeline Tracker**
