@@ -1,6 +1,13 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: 9b232294-d5ec-4334-ba32-a49e77f33543
 
+**PRD & Strategic Horizon Updates:**
+- Ditambahkan Phase 4: Customer Portal & Final Release ke dalam `PRD.md`.
+- Ditambahkan Phase 5: Enterprise Horizon & Autonomous Merchandising Infrastructure ke dalam `PRD.md` sebagai panduan AI Agent jangka panjang.
+- Sinkronisasi perubahan PRD dengan Obsidian Vault.
+
+---
 ### Session: dc67c82b-778c-4596-a61f-d55ba6b40c06
 
 **Task 2.3, 2.4, 3.1, 3.2: PDP Trust, Metafields & Telemetry**

@@ -35,11 +35,13 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `PRD.md` tersimpan di root project dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`)
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
-4. **Phase 3 (Selesai)** - Task 3.3 (I18n Sync) dan Task 3.4 (WCAG Audit, Keyboard Trap, Zero Emoji) telah diimplementasikan.
-4. **Phase 2 (Selesai)** - Task 2.1 (Seller Info & Escrow Badge) dan Task 2.2 (Quick View) telah diimplementasikan.
-1. **Visual polish** — cek localhost, fine-tune spacing/typography/colors
-2. **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
-3. **Push to remote** — 14+ commits belum di-push ke origin/main
+- **Phase 5 (Enterprise Horizon)** - Task 5.1 s/d 5.5: Speculative Pre-Rendering, B2B Tier Pricing, DDP Tax Estimator, GDPR Consent Banner, RUM Telemetry.
+- **Phase 4 (Customer Portal)** - Task 4.1 s/d 4.3: Order Timeline Tracker, Advanced Faceted Filters, Final QA & Security Audit.
+- **Phase 3 (Selesai)** - Task 3.3 (I18n Sync) dan Task 3.4 (WCAG Audit, Keyboard Trap, Zero Emoji) telah diimplementasikan.
+- **Phase 2 (Selesai)** - Task 2.1 (Seller Info & Escrow Badge) dan Task 2.2 (Quick View) telah diimplementasikan.
+- **Visual polish** — cek localhost, fine-tune spacing/typography/colors
+- **Deploy** — `shopify theme push` via device code auth, test preview URL, matikan password mode
+- **Push to remote** — 14+ commits belum di-push ke origin/main
 
 ### Dev Server
 ```bash

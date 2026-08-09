@@ -128,5 +128,17 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 - [x] **Task 3.3**: Sinkronisasi penuh I18n Localization (`locales/en.default.json` dan `locales/id.json`).
 - [x] **Task 3.4**: Audit WCAG 2.1 AA Compliance.
 
+### Phase 4: Customer Portal & Final Release
+- [ ] **Task 4.1**: Build Order Timeline Tracker & Escrow Actions.
+- [ ] **Task 4.2**: Advanced Faceted Filters & Search Optimizations.
+- [ ] **Task 4.3**: Final QA, Accessibility, and Security Audit.
+
+### Phase 5: Enterprise Horizon & Autonomous Merchandising Infrastructure
+- [ ] **Task 5.1**: Edge-Driven Speculative Pre-Rendering & Micro-Transitions.
+- [ ] **Task 5.2**: B2B Wholesale Tier Pricing & Volume Discounts Table (`snippets/b2b-tier-pricing.liquid`).
+- [ ] **Task 5.3**: DDP (Delivered Duty Paid) Tax & Customs Estimator pada Cart Drawer (`snippets/ddp-tax-calculator.liquid`).
+- [ ] **Task 5.4**: Native GDPR/CCPA Zero-Cookie Consent Banner (`snippets/consent-banner.liquid`).
+- [ ] **Task 5.5**: AI Merchandising Telemetry & Real User Monitoring (RUM).
+
 ---
 *PRD v3.0 Enterprise Global Marketplace ini adalah pedoman baku bagi seluruh AI Agent untuk menyempurnakan theme ini secara mandiri.*
