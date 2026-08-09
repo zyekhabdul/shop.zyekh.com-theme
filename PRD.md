@@ -68,10 +68,10 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 - [x] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
 
 ### Tahap 2: Homepage Components & Mini Cart
-- [ ] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`).
-- [ ] **Task 2.2**: Implementasi Services Grid (`sections/services-grid.liquid`).
-- [ ] **Task 2.3**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
-- [ ] **Task 2.4**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
+- [x] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`).
+- [x] **Task 2.2**: Implementasi Services Grid (`sections/services-grid.liquid`).
+- [x] **Task 2.3**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
+- [x] **Task 2.4**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
 
 ### Tahap 3: PDP (Product Detail Page) & CRO Engine
 - [ ] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).

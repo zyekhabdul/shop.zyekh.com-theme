@@ -5,30 +5,58 @@
 {% endcomment %}
 
 <div class="product-card">
-  <a href="{{ product.url }}" class="product-card-link">
-    {% if product.compare_at_price > product.price %}
-      <div class="product-badge badge-sale">{{ 'products.product.on_sale' | t | default: 'Sale' }}</div>
-    {% endif %}
-    <div class="product-image-wrapper">
-      {% if product.featured_image %}
-        {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', widths: '200, 300, 400, 600' }}
-      {% else %}
-        <div class="placeholder-image">{{ 'products.product.no_image' | t | default: 'No Image' }}</div>
+  <div class="product-card__image-container">
+    <a href="{{ product.url }}" class="product-card__link">
+      {% if product.compare_at_price > product.price %}
+        {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+        <div class="product-badge badge-sale">{{ discount }}% OFF</div>
       {% endif %}
-    </div>
-    <div class="product-info">
-      <h3 class="product-title">{{ product.title }}</h3>
-      <div class="product-price-wrapper">
-        {% if product.compare_at_price > product.price %}
-          <span class="product-price-sale">{{ product.price | money }}</span>
-          <span class="product-price-original">{{ product.compare_at_price | money }}</span>
+      <div class="product-image-wrapper">
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', widths: '200, 300, 400, 600' }}
         {% else %}
-          <span class="product-price">{{ product.price | money }}</span>
+          <div class="placeholder-image">{{ 'products.product.no_image' | t | default: 'No Image' }}</div>
         {% endif %}
       </div>
+    </a>
+    
+    <div class="product-card__hover-actions">
+      <button type="button" class="quick-view-button action-btn" data-product-handle="{{ product.handle }}" aria-label="{{ 'products.product.quick_view' | t }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      </button>
+      <button type="button" class="wishlist-button action-btn" data-product-handle="{{ product.handle }}" aria-label="Add to wishlist">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      </button>
     </div>
-  </a>
-  <button type="button" class="quick-view-button" data-product-handle="{{ product.handle }}" aria-haspopup="dialog">
-    {{ 'products.product.quick_view' | t }}
-  </button>
+  </div>
+
+  <div class="product-info">
+    <h3 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    
+    <div class="product-card__rating">
+      <!-- Placeholder for rating, logic to be integrated with metafields -->
+      <span class="stars">★★★★★</span>
+      <span class="review-count">(0)</span>
+    </div>
+
+    <div class="product-price-wrapper">
+      {% if product.compare_at_price > product.price %}
+        <span class="product-price-sale">{{ product.price | money }}</span>
+        <span class="product-price-original">{{ product.compare_at_price | money }}</span>
+      {% else %}
+        <span class="product-price">{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+
+    <form method="post" action="/cart/add" class="product-card__atc-form">
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button type="submit" class="btn btn--primary btn--full product-card__atc-btn"{% unless product.available %} disabled{% endunless %}>
+        {% if product.available %}
+          {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
+        {% else %}
+          {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
+        {% endif %}
+      </button>
+    </form>
+  </div>
 </div>

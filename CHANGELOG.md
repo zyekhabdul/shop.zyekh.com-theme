@@ -223,3 +223,13 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - Mega Menu snippet (`snippets/mega-menu.liquid`) with multi-level hover navigation and visual promo banner.
 - Dynamic theme settings for header, announcement, logo, and mega menu colors in `config/settings_schema.json`.
 - Localization keys for Mega Menu in English and Indonesian.
+
+## [4.0.0-Stage2] - 2026-08-09
+### Added
+- Created `sections/hero-carousel.liquid` with pure JS/CSS slider.
+- Created `sections/services-grid.liquid` for 4-column value proposition.
+- Appended styling to `assets/critical.css` for new sections.
+### Changed
+- Refactored `snippets/product-card.liquid` to match Bagisto 2.4.x (discount badges, rating placeholder, direct ATC, hover buttons).
+- Verified `snippets/cart-drawer.liquid` implementation of Bagisto-style features (Free Shipping Progress, Escrow Badge, AJAX update).
+- Synced i18n logic (`en.default.json`, `id.json`).

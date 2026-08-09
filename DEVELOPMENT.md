@@ -202,3 +202,9 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 - Kalau tidak yakin, analisis dulu baru tanya yang spesifik
 - Setiap perubahan harus di-log
 - Implemented Faceted Filters, B2B Tier Pricing, DDP Tax Calculator, Consent Banner
+
+## Stage 2 Execution - 2026-08-09
+- Executed Stage 2 (Tasks 2.1 - 2.4).
+- Hero Carousel and Services Grid components created.
+- Refactored product-card snippet.
+- Verified cart-drawer.liquid features.
