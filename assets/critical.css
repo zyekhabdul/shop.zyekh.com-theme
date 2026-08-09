@@ -618,3 +618,28 @@ img {
   font-size: 0.9rem;
   margin-bottom: var(--space-sm);
 }
+
+/* Localization Form */
+.localization-wrapper {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
+}
+
+.localization-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.localization-selector {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--style-border-radius-inputs);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+}

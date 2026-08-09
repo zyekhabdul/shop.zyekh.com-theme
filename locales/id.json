@@ -75,5 +75,9 @@
     "secure_payment": "Pembayaran Aman",
     "money_back": "Garansi 100%",
     "worldwide_shipping": "Pengiriman Seluruh Dunia"
+  },
+  "localization": {
+    "country_label": "Negara/wilayah",
+    "language_label": "Bahasa"
   }
 }

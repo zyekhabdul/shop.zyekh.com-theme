@@ -75,5 +75,9 @@
     "secure_payment": "Secure Payment",
     "money_back": "Money-Back Guarantee",
     "worldwide_shipping": "Worldwide Shipping"
+  },
+  "localization": {
+    "country_label": "Country/region",
+    "language_label": "Language"
   }
 }

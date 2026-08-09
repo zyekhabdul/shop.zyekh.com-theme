@@ -1,0 +1,23 @@
+{% comment %}
+  Speculation Rules API for instant page navigation
+  Pre-renders links with moderate eagerness (usually on hover or pointerdown)
+{% endcomment %}
+
+<script type="speculationrules">
+  {
+    "prerender": [
+      {
+        "source": "document",
+        "where": {
+          "and": [
+            { "href_matches": "/*" },
+            { "not": { "href_matches": "/cart*" } },
+            { "not": { "href_matches": "/account*" } },
+            { "not": { "href_matches": "/search*" } }
+          ]
+        },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>

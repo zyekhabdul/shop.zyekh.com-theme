@@ -1,0 +1,55 @@
+{% comment %}
+  Localization Form
+  Provides Currency & Region switching native to Shopify Markets API
+{% endcomment %}
+
+{%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+  <localization-form>
+    {%- form 'localization', id: 'LocalizationForm', class: 'localization-form' -%}
+      {%- if localization.available_countries.size > 1 -%}
+        <div class="localization-form__country">
+          <h2 class="visually-hidden" id="CountryLabel">{{ 'localization.country_label' | t }}</h2>
+          <select class="localization-selector" name="country_code" aria-labelledby="CountryLabel">
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- endif -%}
+
+      {%- if localization.available_languages.size > 1 -%}
+        <div class="localization-form__language">
+          <h2 class="visually-hidden" id="LanguageLabel">{{ 'localization.language_label' | t }}</h2>
+          <select class="localization-selector" name="language_code" aria-labelledby="LanguageLabel">
+            {%- for language in localization.available_languages -%}
+              <option value="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                {{ language.endonym_name | capitalize }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </localization-form>
+
+  <script>
+    if (!customElements.get('localization-form')) {
+      class LocalizationForm extends HTMLElement {
+        constructor() {
+          super();
+          this.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', this.onSubmitHandler.bind(this));
+          });
+        }
+
+        onSubmitHandler(event) {
+          event.preventDefault();
+          this.querySelector('form').submit();
+        }
+      }
+      customElements.define('localization-form', LocalizationForm);
+    }
+  </script>
+{%- endif -%}

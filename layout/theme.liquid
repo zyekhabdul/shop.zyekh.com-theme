@@ -33,6 +33,7 @@
         }
       })();
     </script>
+    {% render 'speculation-rules' %}
     {{ content_for_header }}
   </head>
 
@@ -42,6 +43,10 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    <div class="localization-wrapper">
+      {% render 'localization-form' %}
+    </div>
 
     {% if settings.whatsapp_number != blank %}
       {% render 'whatsapp-button' %}

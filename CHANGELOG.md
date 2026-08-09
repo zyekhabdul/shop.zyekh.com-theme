@@ -1,5 +1,15 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: 6ab0ce62-3e15-400a-baed-19ac3ba70550
+
+**Task 1.6: Setup Auto Geo-IP Currency Switcher & Speculative Rules API**
+- Ditambahkan `snippets/speculation-rules.liquid` untuk instant page pre-render
+- Ditambahkan `snippets/localization-form.liquid` untuk Shopify Markets API
+- Render snippet pada `layout/theme.liquid`
+- Tambah styling di `assets/critical.css`
+- Sinkronisasi translation keys di `en.default.json` & `id.json`
+
+---
 Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 
 ### Session: 76291fdd-24b4-413e-bd72-b5cc458cec2f

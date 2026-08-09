@@ -114,7 +114,7 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 - [x] **Task 1.3**: Rebuild Product Card, Trust Badges, & WhatsApp Direct Order.
 - [x] **Task 1.4**: Sliding AJAX Cart Drawer (`snippets/cart-drawer.liquid`) dengan Free Shipping Progress Bar & In-Cart Intelligent Cross-sell.
 - [ ] **Task 1.5**: Implementasi Sticky Add-to-Cart Bar di Mobile.
-- [ ] **Task 1.6**: Setup Auto Geo-IP Currency Switcher & Speculative Rules API.
+- [x] **Task 1.6**: Setup Auto Geo-IP Currency Switcher & Speculative Rules API.
 
 ### Phase 2: PDP Trust, Admin API Metafields & Shipping
 - [ ] **Task 2.1**: Integrasi Data Supplier & Rating Seller via Admin API Metafields (`snippets/seller-info.liquid`).

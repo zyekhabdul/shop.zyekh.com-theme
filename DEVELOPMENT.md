@@ -26,6 +26,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/meta-tags.liquid` sudah https + favicon support
 - `snippets/image.liquid` sudah responsive srcset + configurable sizes/loading
 - `snippets/cart-drawer.liquid` Sliding AJAX Cart dengan Free Shipping Progress Bar, Vanilla JS, & Escrow Shield
+- `snippets/speculation-rules.liquid` & `snippets/localization-form.liquid` (Task 1.6)
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
