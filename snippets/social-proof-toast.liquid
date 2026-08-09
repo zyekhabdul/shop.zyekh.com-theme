@@ -32,7 +32,7 @@
       // This is a simplified replacement for the mock demo. Liquid parsing happens server-side, 
       // so we use a JS template approach if needed, or pass strings in a data object.
       const templateStr = {{ 'products.social_proof.toast' | t | json }};
-      const message = templateStr.replace('{{ location }}', randomLocation).replace('{{ time }}', randomTime);
+      const message = templateStr.replace(/\{\{\s*location\s*\}\}/g, randomLocation).replace(/\{\{\s*time\s*\}\}/g, randomTime);
       
       toastMessage.innerHTML = message;
       toast.setAttribute('aria-hidden', 'false');

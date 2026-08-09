@@ -254,3 +254,13 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 ### Fixed
 - Fixed trailing commas and syntax errors in `settings_schema.json` to ensure zero theme check errors.
 - Improved accessibility with ARIA attributes and focus management for search elements.
+
+## [4.1.0-Stage1] - 2026-08-09
+### Planning & Specs
+- Updated `PRD.md` to version 4.1 to include Bagisto Velocity visual upgrades.
+- Added technical specifications for `sections/hero-carousel.liquid` (Auto-scroll Vanilla JS, Schema blocks) and `sections/category-carousel.liquid` (Circular image cards, horizontal scroll snap/arrows).
+- Synced PRD to Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).
+- Updated `DEVELOPMENT.md` Next Session Tasks to reflect new v4.1 backlog.
+
+### Fixed
+- Fixed unparsed liquid template leak in `snippets/social-proof-toast.liquid` causing `31LondonSomeone in {{ location }}...` issue by escaping regex patterns correctly in JS string replace.

@@ -38,12 +38,13 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - [x] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
-- `PRD.md` tersimpan di root project (Versi 4.0 - Bagisto 2.4 Exact Structural Replica Standard) dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).
+- `PRD.md` tersimpan di root project (Versi 4.1 - Bagisto Velocity Full Hero & Circle Category Carousel Specification) dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).
 - Dokumen baru: `BAGISTO_SHOPIFY_STRUCTURAL_MAPPING.md` untuk 1-to-1 komponen mapping.
 
 ### Apa yang BELUM dikerjakan (NEXT SESSION TASKS)
 - **Phase 5 (Enterprise Horizon)** - Task 5.2 s/d 5.4: B2B Tier Pricing, DDP Tax Estimator, GDPR Consent Banner.
 - **Phase 4 (Customer Portal)** - Task 4.2: Advanced Faceted Filters & Search Optimizations.
+- **Velocity Homepage Upgrades**: Mengerjakan Task 2.1 (Full-Width Auto-Sliding Hero Carousel) dan Task 2.2 (Circle Category Avatar Carousel).
 - **Selesai Hari Ini**: Task 5.1 (Speculative Pre-Rendering), Task 5.5 (RUM Telemetry), Task 4.3 (Final QA & Security Audit).
 - **Phase 3 (Selesai)** - Task 3.3 (I18n Sync) dan Task 3.4 (WCAG Audit, Keyboard Trap, Zero Emoji) telah diimplementasikan.
 - **Phase 2 (Selesai)** - Task 2.1 (Seller Info & Escrow Badge) dan Task 2.2 (Quick View) telah diimplementasikan.

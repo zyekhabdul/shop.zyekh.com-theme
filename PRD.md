@@ -1,4 +1,4 @@
-# PRD v4.0 — shop.zyekh.com-theme (Bagisto 2.4 Exact Structural Replica Standard)
+# PRD v4.1 — shop.zyekh.com-theme (Bagisto Velocity Full Hero & Circle Category Carousel Specification)
 
 Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com` dengan standarisasi struktur Bagisto 2.4.x.
 
@@ -59,7 +59,24 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 
 ---
 
-# 6. Self-Driven AI Execution Backlog (Roadmap Otonom)
+# 6. Spesifikasi Teknis v4.1 (Velocity Enhancements)
+
+Pembaruan v4.1 difokuskan pada replikasi visual Bagisto Velocity di Homepage:
+
+### A. Full-Width Auto-Sliding Hero Carousel (`sections/hero-carousel.liquid`)
+- **Visual**: Gambar hero slider full-width layaknya Bagisto.
+- **Fungsi**: Auto-play bergeser ke kanan (timer-based auto-scroll).
+- **Elemen Tambahan**: CTA button overlay ("Shop Now ->"), slide indicator dots di tengah bawah, dan tautan gambar yang merujuk langsung ke halaman produk/koleksi terkait.
+- **Teknis**: Vanilla JS `setInterval` untuk auto-scroll, mendukung touch/swipe, Block Schema: `image_picker`, `url`, `cta_text`. Mengganti kartu hero statis saat ini.
+
+### B. Circle Category Avatar Carousel (`sections/category-carousel.liquid`)
+- **Visual**: Avatar lingkaran berisi ikon/gambar kategori (Mens, Kids, Womens, Wellness, dll) dengan judul kategori di bawahnya.
+- **Fungsi**: Horizontal carousel dengan tombol navigasi Kiri/Kanan (< >) di luar area scroll.
+- **Teknis**: CSS `scroll-snap-type: x mandatory`, Vanilla JS untuk panah scroll (`scrollBy`). Schema settings untuk `image_picker`, `category_name`, dan `url`.
+
+---
+
+# 7. Self-Driven AI Execution Backlog (Roadmap Otonom)
 
 ### Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)
 - [x] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
@@ -68,10 +85,11 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 - [x] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
 
 ### Tahap 2: Homepage Components & Mini Cart
-- [x] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`).
-- [x] **Task 2.2**: Implementasi Services Grid (`sections/services-grid.liquid`).
-- [x] **Task 2.3**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
-- [x] **Task 2.4**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
+- [ ] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`) v4.1 Spec.
+- [ ] **Task 2.2**: Implementasi Circle Category Carousel (`sections/category-carousel.liquid`) v4.1 Spec.
+- [x] **Task 2.3**: Implementasi Services Grid (`sections/services-grid.liquid`).
+- [x] **Task 2.4**: Refactoring Product Card sesuai standar visual Bagisto (`snippets/product-card.liquid`).
+- [x] **Task 2.5**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
 
 ### Tahap 3: PDP (Product Detail Page) & CRO Engine
 - [x] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
@@ -86,4 +104,4 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 - [x] **Task 4.4**: Sinkronisasi penuh I18n (`en.default.json`, `id.json`).
 
 ---
-*PRD v4.0 (Bagisto 2.4 Exact Structural Replica Standard) ini adalah pedoman baku bagi seluruh AI Agent.*
+*PRD v4.1 (Bagisto Velocity Full Hero & Circle Category Carousel Specification) ini adalah pedoman baku bagi seluruh AI Agent.*
