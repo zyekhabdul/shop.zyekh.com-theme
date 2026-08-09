@@ -197,3 +197,4 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 - Jangan tanya "mau lanjut?" — ambil inisiatif otonom
 - Kalau tidak yakin, analisis dulu baru tanya yang spesifik
 - Setiap perubahan harus di-log
+- Implemented Faceted Filters, B2B Tier Pricing, DDP Tax Calculator, Consent Banner

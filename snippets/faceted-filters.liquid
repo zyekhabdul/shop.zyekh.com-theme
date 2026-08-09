@@ -1,0 +1,43 @@
+<div class="faceted-filters" id="faceted-filters">
+  <form id="FacetedFiltersForm" class="facets__form">
+    {%- for filter in collection.filters -%}
+      <details class="facets__disclosure">
+        <summary class="facets__summary">
+          <span>{{ filter.label }}</span>
+        </summary>
+        <div class="facets__display">
+          {%- case filter.type -%}
+            {%- when 'list' -%}
+              <ul class="facets__list">
+                {%- for value in filter.values -%}
+                  <li>
+                    <label>
+                      <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %}>
+                      {{ value.label }}
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- when 'price_range' -%}
+              <div class="facets__price">
+                <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}">
+                <span>-</span>
+                <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}">
+              </div>
+          {%- endcase -%}
+        </div>
+      </details>
+    {%- endfor -%}
+  </form>
+  <div class="active-facets">
+    {%- for filter in collection.filters -%}
+      {%- for value in filter.active_values -%}
+        <facet-remove>
+          <a href="{{ value.url_to_remove }}" class="active-facets__button">
+            {{ value.label }} <span>&times;</span>
+          </a>
+        </facet-remove>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>

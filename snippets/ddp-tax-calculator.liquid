@@ -1,0 +1,12 @@
+<div class="ddp-tax-calculator" data-cart-total="{{ cart.total_price }}">
+  <label for="country-selector">{{ 'cart.taxes.estimate_for' | t }}:</label>
+  <select id="country-selector">
+    <option value="US">United States (No DDP)</option>
+    <option value="EU">European Union (VAT & Duties)</option>
+    <option value="ID">Indonesia (Bea Cukai)</option>
+  </select>
+  <div class="ddp-result">
+    <span>{{ 'cart.taxes.estimated_duties' | t }}: </span>
+    <strong id="ddp-amount">{{ 0 | money }}</strong>
+  </div>
+</div>

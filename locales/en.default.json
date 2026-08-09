@@ -28,7 +28,11 @@
     "cross_sell_title": "You might also like",
     "free_shipping_unlocked": "Congratulations! You've unlocked free shipping.",
     "free_shipping_away": "You are {{ amount }} away from free shipping.",
-    "escrow_shield": "Escrow Shield Protected"
+    "escrow_shield": "Escrow Shield Protected",
+    "taxes": {
+      "estimate_for": "Estimate DDP for",
+      "estimated_duties": "Estimated Duties"
+    }
   },
   "customers": {
     "login": {
@@ -88,6 +92,11 @@
     },
     "social_proof": {
       "toast": "Someone in {{ location }} just bought this {{ time }}m ago"
+    },
+    "b2b": {
+      "wholesale_pricing": "Wholesale Pricing",
+      "quantity": "Quantity",
+      "price_per_unit": "Price Per Unit"
     }
   },
   "trust": {
@@ -103,6 +112,11 @@
   "general": {
     "accessibility": {
       "close_modal": "Close modal"
+    },
+    "privacy": {
+      "consent_message": "We use cookies to improve your experience.",
+      "accept": "Accept",
+      "decline": "Decline"
     }
   },
   "customer": {

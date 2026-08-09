@@ -28,7 +28,11 @@
     "cross_sell_title": "Anda mungkin juga suka",
     "free_shipping_unlocked": "Selamat! Anda mendapatkan gratis ongkir.",
     "free_shipping_away": "Kurang {{ amount }} lagi untuk gratis ongkir.",
-    "escrow_shield": "Dilindungi Escrow Shield"
+    "escrow_shield": "Dilindungi Escrow Shield",
+    "taxes": {
+      "estimate_for": "Estimasi DDP untuk",
+      "estimated_duties": "Estimasi Bea"
+    }
   },
   "customers": {
     "login": {
@@ -88,6 +92,11 @@
     },
     "social_proof": {
       "toast": "Seseorang di {{ location }} baru saja membeli ini {{ time }}m lalu"
+    },
+    "b2b": {
+      "wholesale_pricing": "Harga Grosir",
+      "quantity": "Kuantitas",
+      "price_per_unit": "Harga Satuan"
     }
   },
   "trust": {
@@ -103,6 +112,11 @@
   "general": {
     "accessibility": {
       "close_modal": "Tutup modal"
+    },
+    "privacy": {
+      "consent_message": "Kami menggunakan cookie untuk meningkatkan pengalaman Anda.",
+      "accept": "Terima",
+      "decline": "Tolak"
     }
   },
   "customer": {

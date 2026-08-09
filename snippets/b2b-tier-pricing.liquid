@@ -1,0 +1,26 @@
+{% if product.tags contains 'b2b-enabled' %}
+<div class="b2b-tier-pricing">
+  <h3>{{ 'products.b2b.wholesale_pricing' | t }}</h3>
+  <table class="b2b-pricing-table">
+    <thead>
+      <tr>
+        <th>{{ 'products.b2b.quantity' | t }}</th>
+        <th>{{ 'products.b2b.price_per_unit' | t }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in product.tags %}
+        {% if tag contains 'tier-' %}
+          {% assign qty = tag | split: '-' | index: 1 %}
+          {% assign discount = tag | split: '-' | index: 2 | divided_by: 100.0 %}
+          {% assign price = product.price | times: discount %}
+          <tr>
+            <td>{{ qty }}+</td>
+            <td>{{ price | money }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}

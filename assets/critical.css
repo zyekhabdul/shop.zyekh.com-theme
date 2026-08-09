@@ -1085,3 +1085,12 @@ img {
   gap: 1rem;
   margin-top: 1.5rem;
 }
+:root {
+  --b2b-bg-color: #f9fafb;
+  --consent-banner-bg: #111827;
+  --consent-banner-text: #ffffff;
+}
+.b2b-tier-pricing { background: var(--b2b-bg-color); padding: 1rem; }
+.consent-banner { position: fixed; bottom: 0; width: 100%; background: var(--consent-banner-bg); color: var(--consent-banner-text); padding: 1rem; z-index: 50; }
+.faceted-filters { display: flex; gap: 1rem; flex-wrap: wrap; }
+.active-facets__button { padding: 0.5rem; background: #e5e7eb; border-radius: 4px; }
