@@ -1,0 +1,310 @@
+<div class="shopify-section section-main-collection">
+  <div class="collection-page-layout">
+    <!-- Sidebar / Faceted Filters -->
+    <aside class="collection-sidebar" id="CollectionSidebar" aria-label="{{ 'general.filters' | t }}">
+      <form id="CollectionFiltersForm" class="filter-form">
+        <div class="filter-header">
+          <h2>{{ 'general.filters' | t }}</h2>
+          <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" class="filter-clear-all">{{ 'general.clear_all' | t }}</a>
+        </div>
+        
+        <div class="active-filters">
+          {%- for filter in collection.filters -%}
+            {%- if filter.type == "price_range" -%}
+              {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                <a href="{{ filter.url_to_remove }}" class="active-filter-chip">
+                  {%- assign min_value = filter.min_value.value | default: 0 -%}
+                  {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                  {{ min_value | money }} - {{ max_value | money }} X
+                </a>
+              {%- endif -%}
+            {%- else -%}
+              {%- for filter_value in filter.active_values -%}
+                <a href="{{ filter_value.url_to_remove }}" class="active-filter-chip">
+                  {{ filter.label }}: {{ filter_value.label }} X
+                </a>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="filter-groups">
+          {%- for filter in collection.filters -%}
+            <details class="filter-group-accordion" open>
+              <summary class="filter-group-summary">
+                <span class="filter-group-label">{{ filter.label }}</span>
+                <span class="icon-caret"></span>
+              </summary>
+              <div class="filter-group-display">
+                {%- case filter.type -%}
+                  {%- when 'boolean' or 'list' -%}
+                    <ul class="filter-list">
+                      {%- for filter_value in filter.values -%}
+                        <li class="filter-list-item">
+                          <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                            <input type="checkbox"
+                              name="{{ filter_value.param_name }}"
+                              value="{{ filter_value.value }}"
+                              id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                              {% if filter_value.active -%}checked{%- endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                            >
+                            {{ filter_value.label }} ({{ filter_value.count }})
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- when 'price_range' -%}
+                    <div class="filter-price-range">
+                      <div class="field">
+                        <label for="Filter-{{ filter.min_value.param_name }}">Min</label>
+                        <input name="{{ filter.min_value.param_name }}"
+                          id="Filter-{{ filter.min_value.param_name }}"
+                          {% if filter.min_value.value -%}
+                            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                          {%- endif %}
+                          type="number"
+                          placeholder="0"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        >
+                      </div>
+                      <div class="field">
+                        <label for="Filter-{{ filter.max_value.param_name }}">Max</label>
+                        <input name="{{ filter.max_value.param_name }}"
+                          id="Filter-{{ filter.max_value.param_name }}"
+                          {% if filter.max_value.value -%}
+                            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                          {%- endif %}
+                          type="number"
+                          placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          min="0"
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        >
+                      </div>
+                    </div>
+                {%- endcase -%}
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </form>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="collection-main">
+      <div class="collection-header">
+        <h1 class="collection-title">{{ collection.title }}</h1>
+        <div class="collection-toolbar">
+          <div class="collection-product-count">
+            {{ collection.products_count }} {{ 'general.products' | t }}
+          </div>
+          <div class="collection-view-switcher">
+            <button type="button" class="view-btn view-grid active" aria-label="Grid View" data-view="grid">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </button>
+            <button type="button" class="view-btn view-list" aria-label="List View" data-view="list">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="collection-products" id="CollectionProductGrid">
+        {% paginate collection.products by 16 %}
+          <div class="product-grid view-mode-grid">
+            {% for product in collection.products %}
+              {% render 'product-card', product: product %}
+            {% else %}
+              <p>{{ 'general.no_products_found' | t }}</p>
+            {% endfor %}
+          </div>
+          <div class="pagination-wrapper">
+            {{ paginate | default_pagination }}
+          </div>
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // View Switcher
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const productGrid = document.querySelector('.product-grid');
+    
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        viewBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const view = btn.dataset.view;
+        if (view === 'list') {
+          productGrid.classList.remove('view-mode-grid');
+          productGrid.classList.add('view-mode-list');
+        } else {
+          productGrid.classList.remove('view-mode-list');
+          productGrid.classList.add('view-mode-grid');
+        }
+      });
+    });
+
+    // Auto-submit filter form
+    const filterForm = document.getElementById('CollectionFiltersForm');
+    if (filterForm) {
+      filterForm.addEventListener('change', (e) => {
+        filterForm.submit();
+      });
+    }
+  });
+</script>
+
+{% stylesheet %}
+  .section-main-collection {
+    padding: var(--space-xl) var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .collection-page-layout {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: flex-start;
+  }
+  .collection-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+  }
+  .collection-main {
+    flex-grow: 1;
+    min-width: 0;
+  }
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  .active-filter-chip {
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border-color);
+  }
+  .filter-group-accordion {
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--space-md) 0;
+  }
+  .filter-group-summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+  }
+  .filter-group-summary::-webkit-details-marker {
+    display: none;
+  }
+  .filter-group-display {
+    margin-top: var(--space-md);
+  }
+  .filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .filter-list-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .filter-price-range {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .filter-price-range .field {
+    flex: 1;
+  }
+  .filter-price-range input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+  }
+  .collection-header {
+    margin-bottom: var(--space-lg);
+  }
+  .collection-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-lg);
+  }
+  .view-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text-muted);
+  }
+  .view-btn.active {
+    color: var(--color-primary);
+  }
+  
+  .product-grid.view-mode-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  @media (min-width: 640px) {
+    .product-grid.view-mode-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .product-grid.view-mode-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+  
+  .product-grid.view-mode-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  /* For list view we might need the card to be horizontal if supported by product-card, but this is a structural base */
+
+  @media (max-width: 768px) {
+    .collection-page-layout {
+      flex-direction: column;
+    }
+    .collection-sidebar {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": []
+}
+{% endschema %}

@@ -211,3 +211,9 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 - Hero Carousel and Services Grid components created.
 - Refactored product-card snippet.
 - Verified cart-drawer.liquid features.
+
+## Phase 4 execution
+- Rebuilt `sections/main-collection-product-grid.liquid` with Bagisto 2.4.x layout (Faceted filter sidebar, Grid/List view switcher).
+- Integrated Shopify Predictive Search API in `snippets/predictive-search.liquid`.
+- QA Audit passed (Shopify theme check clear of errors, WCAG accessibility improved).
+- Localizations fully synced between `en.default.json` and `id.json`.

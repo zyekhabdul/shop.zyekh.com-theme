@@ -244,3 +244,13 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - Rebuilt `sections/main-product.liquid` (formerly `product.liquid`) to perfectly match Bagisto 2.4.x PDP layout.
 - Integrated Dynamic Stock Thresholds, Multi-Tier Shipping Estimator, Seller Info, Escrow Badge, and accordion tabs directly into the Buy Box and Product Details area.
 - Verified Auto Geo-IP Currency Switcher (Speculation Rules and Localization Form) in layout structure.
+
+## [4.0.0] - Phase 4 Completed
+### Added
+- `sections/main-collection-product-grid.liquid` with Bagisto style Faceted Filter Sidebar, Grid/List view switcher.
+- `snippets/predictive-search.liquid` and connected search bar in `header.liquid` to Shopify Predictive Search API.
+- Fully synchronized I18n strings in `locales/en.default.json` and `locales/id.json` for all new UI components.
+
+### Fixed
+- Fixed trailing commas and syntax errors in `settings_schema.json` to ensure zero theme check errors.
+- Improved accessibility with ARIA attributes and focus management for search elements.

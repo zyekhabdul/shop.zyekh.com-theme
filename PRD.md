@@ -80,10 +80,10 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 - [x] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
 
 ### Tahap 4: Collection, Faceted Navigation & Checkout Prep
-- [ ] **Task 4.1**: Implementasi Faceted Filter Sidebar (`sections/main-collection-product-grid.liquid`).
-- [ ] **Task 4.2**: Integrasi Search Bar dengan Shopify Predictive Search API.
-- [ ] **Task 4.3**: QA Audit: WCAG 2.1 AA, Lighthouse Performance (>=98 Desktop/95 Mobile), Zero-dependency check.
-- [ ] **Task 4.4**: Sinkronisasi penuh I18n (`en.default.json`, `id.json`).
+- [x] **Task 4.1**: Implementasi Faceted Filter Sidebar (`sections/main-collection-product-grid.liquid`).
+- [x] **Task 4.2**: Integrasi Search Bar dengan Shopify Predictive Search API.
+- [x] **Task 4.3**: QA Audit: WCAG 2.1 AA, Lighthouse Performance (>=98 Desktop/95 Mobile), Zero-dependency check.
+- [x] **Task 4.4**: Sinkronisasi penuh I18n (`en.default.json`, `id.json`).
 
 ---
 *PRD v4.0 (Bagisto 2.4 Exact Structural Replica Standard) ini adalah pedoman baku bagi seluruh AI Agent.*

@@ -1,0 +1,80 @@
+{%- if predictive_search.performed -%}
+  <div id="predictive-search-results">
+    {%- if predictive_search.resources.products.size > 0 -%}
+      <h3 id="predictive-search-products" class="predictive-search-title">
+        {{ 'general.products' | t }}
+      </h3>
+      <ul role="listbox" aria-labelledby="predictive-search-products">
+        {%- for product in predictive_search.resources.products -%}
+          <li role="option">
+            <a href="{{ product.url }}" class="predictive-search-item">
+              {%- if product.featured_media -%}
+                <img src="{{ product.featured_media | image_url: width: 50 }}" alt="{{ product.featured_media.alt }}" width="50" height="50">
+              {%- endif -%}
+              <div class="predictive-search-item-content">
+                <span class="predictive-search-item-title">{{ product.title }}</span>
+                <span class="predictive-search-item-price">{{ product.price | money }}</span>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    
+    {%- if predictive_search.resources.collections.size > 0 -%}
+      <h3 id="predictive-search-collections" class="predictive-search-title">
+        {{ 'general.collections' | t }}
+      </h3>
+      <ul role="listbox" aria-labelledby="predictive-search-collections">
+        {%- for collection in predictive_search.resources.collections -%}
+          <li role="option">
+            <a href="{{ collection.url }}" class="predictive-search-item">
+              <div class="predictive-search-item-content">
+                <span class="predictive-search-item-title">{{ collection.title }}</span>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+<style>
+.predictive-search-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  margin: 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+.predictive-search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.2s;
+}
+.predictive-search-item:hover {
+  background: var(--bg-secondary);
+}
+.predictive-search-item img {
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+.predictive-search-item-content {
+  display: flex;
+  flex-direction: column;
+}
+.predictive-search-item-title {
+  font-weight: 500;
+}
+.predictive-search-item-price {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+</style>

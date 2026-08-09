@@ -1,0 +1,139 @@
+<predictive-search class="predictive-search-wrapper">
+  <form action="{{ routes.search_url }}" method="get" role="search" class="header__search predictive-search-form">
+    <div class="search-category-dropdown">
+      <select name="type" aria-label="Search Category">
+        <option value="product">All Categories</option>
+        {% for collection in collections %}
+          <option value="{{ collection.handle }}">{{ collection.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <input
+      class="search-input"
+      id="Search-{{ section.id }}"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'search.placeholder' | t }}"
+      role="combobox"
+      aria-expanded="false"
+      aria-owns="predictive-search-results"
+      aria-controls="predictive-search-results"
+      aria-haspopup="listbox"
+      aria-autocomplete="list"
+      autocomplete="off"
+    >
+    <button type="submit" class="search-button" aria-label="{{ 'search.submit' | t }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </button>
+  </form>
+  
+  <div id="predictive-search-results" class="predictive-search-results" tabindex="-1"></div>
+</predictive-search>
+
+<script>
+if (!customElements.get('predictive-search')) {
+  class PredictiveSearch extends HTMLElement {
+    constructor() {
+      super();
+      this.input = this.querySelector('input[type="search"]');
+      this.results = this.querySelector('#predictive-search-results');
+      this.categorySelect = this.querySelector('select[name="type"]');
+
+      if (!this.input || !this.results) return;
+
+      this.input.addEventListener('input', this.debounce((event) => {
+        this.onChange(event);
+      }, 300).bind(this));
+
+      // Close on outside click
+      document.addEventListener('click', (event) => {
+        if (!this.contains(event.target)) {
+          this.close();
+        }
+      });
+    }
+
+    onChange() {
+      const searchTerm = this.input.value.trim();
+
+      if (!searchTerm.length) {
+        this.close();
+        return;
+      }
+
+      this.getSearchResults(searchTerm);
+    }
+
+    getSearchResults(searchTerm) {
+      // Base URL for predictive search
+      let url = `/search/suggest?q=${encodeURIComponent(searchTerm)}&resources[type]=product,collection&section_id=predictive-search`;
+      
+      // We could pass category if supported, but Shopify predictive search mostly does products/collections.
+      
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            var error = new Error(response.status);
+            this.close();
+            throw error;
+          }
+
+          return response.text();
+        })
+        .then((text) => {
+          const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
+          this.results.innerHTML = resultsMarkup;
+          this.open();
+        })
+        .catch((error) => {
+          this.close();
+          throw error;
+        });
+    }
+
+    open() {
+      this.results.style.display = 'block';
+      this.input.setAttribute('aria-expanded', true);
+    }
+
+    close() {
+      this.results.style.display = 'none';
+      this.input.setAttribute('aria-expanded', false);
+    }
+
+    debounce(fn, wait) {
+      let t;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+  }
+
+  customElements.define('predictive-search', PredictiveSearch);
+}
+</script>
+
+<style>
+.predictive-search-wrapper {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.predictive-search-results {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+  max-height: 60vh;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+</style>

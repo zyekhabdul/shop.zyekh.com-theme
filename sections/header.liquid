@@ -13,20 +13,7 @@
     </div>
 
     <div class="header__center desktop-only">
-      <form action="{{ routes.search_url }}" method="get" role="search" class="header__search">
-        <div class="search-category-dropdown">
-          <select name="type" aria-label="Search Category">
-            <option value="product">All Categories</option>
-            {% for collection in collections %}
-              <option value="{{ collection.handle }}">{{ collection.title }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="Search" class="search-input">
-        <button type="submit" class="search-button">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </button>
-      </form>
+      {% render 'predictive-search' %}
     </div>
 
     <div class="header__right header__icons">
@@ -85,9 +72,9 @@
         </button>
       </div>
       <div class="nav-drawer-body">
-        <form action="{{ routes.search_url }}" method="get" class="mobile-search">
-          <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="search-input">
-        </form>
+        <div class="mobile-search">
+          {% render 'predictive-search' %}
+        </div>
         <nav class="nav-drawer-menu">
           {% assign mobile_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
           {% for link in mobile_menu %}

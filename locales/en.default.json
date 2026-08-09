@@ -129,6 +129,14 @@
       "consent_message": "We use cookies to improve your experience.",
       "accept": "Accept",
       "decline": "Decline"
+    },
+    "filters": "Filters",
+    "clear_all": "Clear all",
+    "products": "Products",
+    "collections": "Collections",
+    "no_products_found": "No products found",
+    "search": {
+      "placeholder": "Search..."
     }
   },
   "customer": {
