@@ -1,4 +1,4 @@
-<div class="header-top">
+<div class="header-top" style="background-color: {{ settings.announcement_bg_color | default: 'var(--bg-main)' }}; color: {{ settings.announcement_text_color | default: 'var(--text-muted)' }};">
   <div class="header-top__container">
     <div class="header-top__left">
       {%- if settings.announcement_text != blank -%}
@@ -49,10 +49,8 @@
 
 <style>
   .header-top {
-    background: var(--bg-main);
     border-bottom: 1px solid var(--border-color);
     font-size: 0.8rem;
-    color: var(--text-muted);
   }
   .header-top__container {
     display: flex;
@@ -75,7 +73,7 @@
     background: transparent;
     border: none;
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: inherit;
     cursor: pointer;
     padding-right: var(--space-md);
   }

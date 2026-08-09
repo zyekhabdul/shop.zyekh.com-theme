@@ -55,7 +55,53 @@
         "step": 1,
         "unit": "px",
         "label": "t:labels.page_margin",
-        "default": 20
+      }
+    ]
+  },
+  {
+    "name": "Header & Navigation Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "header_bg",
+        "label": "Header Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "header_text",
+        "label": "Header Text",
+        "default": "#111827"
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg_color",
+        "label": "Announcement Background",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Announcement Text Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "logo_color",
+        "label": "Logo Color",
+        "default": "#2563EB"
+      },
+      {
+        "type": "color",
+        "id": "mega_menu_bg",
+        "label": "Mega Menu Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "mega_menu_text",
+        "label": "Mega Menu Text",
+        "default": "#374151"
       }
     ]
   },

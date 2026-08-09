@@ -110,6 +110,11 @@
     "language_label": "Language"
   },
   "general": {
+    "mega_menu": {
+      "promo_badge": "New",
+      "explore": "Explore",
+      "promo_desc": "Discover our latest collection."
+    },
     "accessibility": {
       "close_modal": "Close modal"
     },

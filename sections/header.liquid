@@ -1,14 +1,14 @@
 {%- render 'header-top' -%}
-<header class="shopify-section header-section" id="MainHeader">
+<header class="shopify-section header-section" id="MainHeader" style="background-color: {{ settings.header_bg | default: 'var(--bg-card)' }}; color: {{ settings.header_text | default: 'var(--text-main)' }};">
   <div class="header-container">
     <div class="header__left">
-      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="MobileNav">
+      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="MobileNav" style="color: inherit;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         <span class="visually-hidden">Menu</span>
       </button>
 
       <h1 class="header__logo">
-        <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+        <a href="{{ routes.root_url }}" style="color: {{ settings.logo_color | default: 'var(--color-primary)' }};">{{ shop.name }}</a>
       </h1>
     </div>
 
@@ -59,21 +59,15 @@
     </div>
   </div>
 
-  <nav class="header-nav-bottom desktop-only">
+  <nav class="header-nav-bottom desktop-only" style="background-color: {{ settings.header_bg | default: 'var(--bg-card)' }};">
     <div class="header-nav-container">
       {% assign desktop_menu = section.settings.menu.links | default: linklists['main-menu'].links %}
       <ul class="main-menu-list">
         {% for link in desktop_menu %}
           <li class="menu-item {% if link.links != blank %}has-dropdown{% endif %}">
-            <a href="{{ link.url }}" class="menu-link">{{ link.title }}</a>
+            <a href="{{ link.url }}" class="menu-link" style="color: {{ settings.header_text | default: 'var(--text-main)' }};">{{ link.title }}</a>
             {% if link.links != blank %}
-              <div class="mega-menu">
-                <ul class="sub-menu-list">
-                  {% for childlink in link.links %}
-                    <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              </div>
+              {% render 'mega-menu', link: link %}
             {% endif %}
           </li>
         {% endfor %}
@@ -319,42 +313,7 @@
     color: var(--color-primary);
   }
   
-  .mega-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-sm);
-    min-width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all var(--transition);
-    z-index: 101;
-  }
-  .menu-item:hover .mega-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .sub-menu-list {
-    list-style: none;
-    margin: 0;
-    padding: var(--space-sm) 0;
-  }
-  .sub-menu-list li a {
-    display: block;
-    padding: var(--space-xs) var(--space-md);
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-  .sub-menu-list li a:hover {
-    background: var(--bg-surface);
-    color: var(--color-primary);
-  }
+  /* Mega menu CSS moved to snippet */
 
   .mobile-menu-toggle {
     background: none;

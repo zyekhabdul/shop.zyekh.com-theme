@@ -1,0 +1,155 @@
+{% comment %}
+  Mega Menu snippet
+  Accepts:
+  - link: {Object} Link object.
+{% endcomment %}
+
+<div class="mega-menu" style="background-color: {{ settings.mega_menu_bg | default: 'var(--bg-card)' }}; color: {{ settings.mega_menu_text | default: 'var(--text-main)' }};">
+  <div class="mega-menu-inner">
+    <div class="mega-menu-columns">
+      {% for childlink in link.links %}
+        <div class="mega-menu-column">
+          <h4 class="mega-menu-column-title">
+            <a href="{{ childlink.url }}" style="color: inherit; text-decoration: none;">{{ childlink.title }}</a>
+          </h4>
+          {% if childlink.links != blank %}
+            <ul class="mega-menu-sub-links">
+              {% for grandchildlink in childlink.links %}
+                <li>
+                  <a href="{{ grandchildlink.url }}" style="color: inherit;">{{ grandchildlink.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    
+    {% comment %} Optional: visual banner promo area {% endcomment %}
+    <div class="mega-menu-promo">
+      <a href="{{ link.url }}" class="promo-banner">
+        <div class="promo-content">
+          <span class="promo-badge">{{ 'general.mega_menu.promo_badge' | t | default: 'New' }}</span>
+          <h3>{{ 'general.mega_menu.explore' | t | default: 'Explore' }} {{ link.title }}</h3>
+          <p>{{ 'general.mega_menu.promo_desc' | t | default: 'Discover our latest collection.' }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+    z-index: 101;
+    padding: var(--space-xl) 0;
+    pointer-events: none;
+  }
+  
+  .menu-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  
+  .mega-menu-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+    display: flex;
+    gap: var(--space-2xl);
+  }
+  
+  .mega-menu-columns {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+  }
+  
+  .mega-menu-column {
+    flex: 1;
+    min-width: 150px;
+  }
+  
+  .mega-menu-column-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .mega-menu-sub-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .mega-menu-sub-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+  }
+  
+  .mega-menu-sub-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+  
+  .mega-menu-promo {
+    width: 300px;
+    flex-shrink: 0;
+  }
+  
+  .promo-banner {
+    display: block;
+    background: linear-gradient(135deg, var(--color-surface-hover), var(--bg-card));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    transition: transform var(--transition);
+  }
+  
+  .promo-banner:hover {
+    transform: translateY(-4px);
+  }
+  
+  .promo-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-btn-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .promo-content h3 {
+    font-size: 1.2rem;
+    margin: 0 0 var(--space-xs);
+  }
+  
+  .promo-content p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.8;
+  }
+</style>

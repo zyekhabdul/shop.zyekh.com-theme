@@ -110,6 +110,11 @@
     "language_label": "Bahasa"
   },
   "general": {
+    "mega_menu": {
+      "promo_badge": "Baru",
+      "explore": "Jelajahi",
+      "promo_desc": "Temukan koleksi terbaru kami."
+    },
     "accessibility": {
       "close_modal": "Tutup modal"
     },
