@@ -16,11 +16,19 @@
   "cart": {
     "checkout": "Checkout Now",
     "title": "Shopping Cart",
+    "drawer_title": "Your Cart",
     "update": "Update Cart",
     "remove": "Remove",
     "shipping_note": "Shipping and taxes calculated at checkout.",
     "empty": "Your cart is empty.",
-    "continue_shopping": "Shop Now"
+    "continue_shopping": "Shop Now",
+    "subtotal": "Subtotal",
+    "taxes_and_shipping": "Taxes and shipping calculated at checkout",
+    "fee_breakdown_title": "Fee Breakdown",
+    "cross_sell_title": "You might also like",
+    "free_shipping_unlocked": "Congratulations! You've unlocked free shipping.",
+    "free_shipping_away": "You are {{ amount }} away from free shipping.",
+    "escrow_shield": "Escrow Shield Protected"
   },
   "customers": {
     "login": {

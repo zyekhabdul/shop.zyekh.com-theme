@@ -1,0 +1,254 @@
+<div id="CartDrawer" class="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer__overlay" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer__content">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">{{ 'cart.drawer_title' | t }}</h2>
+      <button type="button" class="cart-drawer__close" onclick="closeCartDrawer()" aria-label="{{ 'general.accessibility.close' | t | default: 'Close' }}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="cart-drawer__body" id="CartDrawerBody">
+      <form action="{{ routes.cart_url }}" method="post" id="CartDrawerForm" class="cart-drawer__form">
+        <div class="cart-drawer__items-wrapper">
+          {% assign free_shipping_threshold = 50000 | plus: 0 %}
+          <div class="cart-drawer__shipping-bar">
+            <div class="shipping-bar__message" id="ShippingBarMessage">
+              {% if cart.total_price >= free_shipping_threshold %}
+                {{ 'cart.free_shipping_unlocked' | t }}
+              {% else %}
+                {% assign amount_away = free_shipping_threshold | minus: cart.total_price | money %}
+                {{ 'cart.free_shipping_away' | t: amount: amount_away }}
+              {% endif %}
+            </div>
+            <div class="shipping-bar__progress">
+              {% assign progress_pct = cart.total_price | times: 100 | divided_by: free_shipping_threshold %}
+              {% if progress_pct > 100 %}{% assign progress_pct = 100 %}{% endif %}
+              <div class="shipping-bar__progress-fill" id="ShippingBarFill" style="width: {{ progress_pct }}%;"></div>
+            </div>
+          </div>
+
+          <div class="cart-drawer__items" id="CartDrawerItems">
+            {% if cart.empty? %}
+              <div class="cart-drawer__empty">
+                <p>{{ 'cart.empty' | t }}</p>
+                <button type="button" class="btn btn--primary" onclick="closeCartDrawer()">{{ 'cart.continue_shopping' | t }}</button>
+              </div>
+            {% else %}
+              {% for item in cart.items %}
+                <div class="cart-item" data-key="{{ item.key }}">
+                  <a href="{{ item.url }}" class="cart-item__image">
+                    {% if item.image %}
+                      <img src="{{ item.image | image_url: width: 150 }}" alt="{{ item.title | escape }}" loading="lazy" width="75" height="75">
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </a>
+                  <div class="cart-item__details">
+                    <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                    {% unless item.product.has_only_default_variant %}
+                      <p class="cart-item__variant">{{ item.variant.title }}</p>
+                    {% endunless %}
+                    <div class="cart-item__price">{{ item.final_line_price | money }}</div>
+                    <div class="cart-item__quantity">
+                      <button type="button" class="qty-btn qty-minus" onclick="updateCartItem('{{ item.key }}', {{ item.quantity | minus: 1 }})">-</button>
+                      <input type="number" class="qty-input" value="{{ item.quantity }}" min="0" onchange="updateCartItem('{{ item.key }}', this.value)">
+                      <button type="button" class="qty-btn qty-plus" onclick="updateCartItem('{{ item.key }}', {{ item.quantity | plus: 1 }})">+</button>
+                    </div>
+                  </div>
+                  <button type="button" class="cart-item__remove" onclick="updateCartItem('{{ item.key }}', 0)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="cart-drawer__cross-sell">
+          <h3 class="cross-sell__title">{{ 'cart.cross_sell_title' | t }}</h3>
+          <div class="cross-sell__items" id="CartDrawerCrossSell">
+            <!-- Dynamically populated via JS or liquid if available. For now, skeleton. -->
+          </div>
+        </div>
+
+        <div class="cart-drawer__footer">
+          <div class="cart-drawer__fee-breakdown">
+            <h4>{{ 'cart.fee_breakdown_title' | t }}</h4>
+            <div class="fee-row">
+              <span>{{ 'cart.subtotal' | t }}</span>
+              <span id="CartDrawerSubtotal">{{ cart.total_price | money }}</span>
+            </div>
+            <div class="fee-row text-muted">
+              <small>{{ 'cart.taxes_and_shipping' | t }}</small>
+            </div>
+          </div>
+          
+          <button type="submit" name="checkout" class="btn btn--primary btn--full cart-drawer__checkout">
+            {{ 'cart.checkout' | t }}
+          </button>
+          
+          <div class="cart-drawer__escrow-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            {{ 'cart.escrow_shield' | t }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.CartDrawerConfig = {
+    freeShippingThreshold: {{ free_shipping_threshold }},
+    routes: {
+      cart: '{{ routes.cart_url }}',
+      cart_add: '{{ routes.cart_add_url }}',
+      cart_change: '{{ routes.cart_change_url }}',
+      cart_update: '{{ routes.cart_update_url }}',
+      cart_clear: '{{ routes.cart_clear_url }}'
+    },
+    strings: {
+      freeShippingUnlocked: `{{ 'cart.free_shipping_unlocked' | t }}`,
+      freeShippingAway: `{{ 'cart.free_shipping_away' | t: amount: '[amount]' }}`,
+      empty: `{{ 'cart.empty' | t }}`,
+      continueShopping: `{{ 'cart.continue_shopping' | t }}`
+    },
+    moneyFormat: '{{ shop.money_format | default: "${{amount}}" }}'
+  };
+
+  function openCartDrawer() {
+    document.getElementById('CartDrawer').setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCartDrawer() {
+    document.getElementById('CartDrawer').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function formatMoney(cents, format) {
+    if (typeof cents == 'string') { cents = cents.replace('.', ''); }
+    let value = '';
+    let placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+    let formatString = format || window.CartDrawerConfig.moneyFormat;
+    
+    function defaultOption(opt, def) { return (typeof opt == 'undefined' ? def : opt); }
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = defaultOption(precision, 2);
+      thousands = defaultOption(thousands, ',');
+      decimal = defaultOption(decimal, '.');
+      if (isNaN(number) || number == null) return 0;
+      number = (number / 100.0).toFixed(precision);
+      let parts = number.split('.');
+      let dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands);
+      let cents = parts[1] ? (decimal + parts[1]) : '';
+      return dollars + cents;
+    }
+
+    switch(formatString.match(placeholderRegex)[1]) {
+      case 'amount': value = formatWithDelimiters(cents, 2); break;
+      case 'amount_no_decimals': value = formatWithDelimiters(cents, 0); break;
+      case 'amount_with_comma_separator': value = formatWithDelimiters(cents, 2, '.', ','); break;
+      case 'amount_no_decimals_with_comma_separator': value = formatWithDelimiters(cents, 0, '.', ','); break;
+    }
+    return formatString.replace(placeholderRegex, value);
+  }
+
+  async function updateCartItem(key, quantity) {
+    try {
+      const response = await fetch(window.CartDrawerConfig.routes.cart_change + '.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: quantity })
+      });
+      const cart = await response.json();
+      renderCartDrawer(cart);
+      updateCartIcon(cart.item_count);
+    } catch(err) {
+      console.error('Failed to update cart', err);
+    }
+  }
+
+  async function fetchCart() {
+    try {
+      const response = await fetch(window.CartDrawerConfig.routes.cart + '.js');
+      const cart = await response.json();
+      renderCartDrawer(cart);
+      updateCartIcon(cart.item_count);
+    } catch(err) {
+      console.error('Failed to fetch cart', err);
+    }
+  }
+
+  function renderCartDrawer(cart) {
+    const itemsContainer = document.getElementById('CartDrawerItems');
+    const subtotalEl = document.getElementById('CartDrawerSubtotal');
+    const msgEl = document.getElementById('ShippingBarMessage');
+    const fillEl = document.getElementById('ShippingBarFill');
+    
+    subtotalEl.innerHTML = formatMoney(cart.total_price);
+    
+    let progress = (cart.total_price / window.CartDrawerConfig.freeShippingThreshold) * 100;
+    if (progress > 100) progress = 100;
+    fillEl.style.width = progress + '%';
+    
+    if (cart.total_price >= window.CartDrawerConfig.freeShippingThreshold) {
+      msgEl.innerHTML = window.CartDrawerConfig.strings.freeShippingUnlocked;
+    } else {
+      let away = window.CartDrawerConfig.freeShippingThreshold - cart.total_price;
+      msgEl.innerHTML = window.CartDrawerConfig.strings.freeShippingAway.replace('[amount]', formatMoney(away));
+    }
+
+    if (cart.items.length === 0) {
+      itemsContainer.innerHTML = `
+        <div class="cart-drawer__empty">
+          <p>${window.CartDrawerConfig.strings.empty}</p>
+          <button type="button" class="btn btn--primary" onclick="closeCartDrawer()">${window.CartDrawerConfig.strings.continueShopping}</button>
+        </div>
+      `;
+    } else {
+      let itemsHtml = '';
+      cart.items.forEach(item => {
+        itemsHtml += `
+          <div class="cart-item" data-key="${item.key}">
+            <a href="${item.url}" class="cart-item__image">
+              ${item.image ? `<img src="${item.image}" alt="${item.title}" loading="lazy" width="75" height="75">` : ''}
+            </a>
+            <div class="cart-item__details">
+              <a href="${item.url}" class="cart-item__title">${item.product_title}</a>
+              ${item.variant_title ? `<p class="cart-item__variant">${item.variant_title}</p>` : ''}
+              <div class="cart-item__price">${formatMoney(item.final_line_price)}</div>
+              <div class="cart-item__quantity">
+                <button type="button" class="qty-btn qty-minus" onclick="updateCartItem('${item.key}', ${item.quantity - 1})">-</button>
+                <input type="number" class="qty-input" value="${item.quantity}" min="0" onchange="updateCartItem('${item.key}', this.value)">
+                <button type="button" class="qty-btn qty-plus" onclick="updateCartItem('${item.key}', ${item.quantity + 1})">+</button>
+              </div>
+            </div>
+            <button type="button" class="cart-item__remove" onclick="updateCartItem('${item.key}', 0)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
+        `;
+      });
+      itemsContainer.innerHTML = itemsHtml;
+    }
+  }
+
+  function updateCartIcon(count) {
+    const cartLink = document.querySelector('.cart-link');
+    if (!cartLink) return;
+    let sup = cartLink.querySelector('sup');
+    if (count > 0) {
+      if (sup) {
+        sup.textContent = count;
+      } else {
+        sup = document.createElement('sup');
+        sup.textContent = count;
+        cartLink.appendChild(sup);
+      }
+    } else {
+      if (sup) sup.remove();
+    }
+  }
+</script>

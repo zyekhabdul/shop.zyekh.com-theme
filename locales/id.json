@@ -16,11 +16,19 @@
   "cart": {
     "checkout": "Checkout Sekarang",
     "title": "Keranjang Belanja",
+    "drawer_title": "Keranjang Anda",
     "update": "Perbarui Keranjang",
     "remove": "Hapus",
     "shipping_note": "Pengiriman dan pajak dihitung saat checkout.",
     "empty": "Keranjang Anda masih kosong.",
-    "continue_shopping": "Belanja Sekarang"
+    "continue_shopping": "Belanja Sekarang",
+    "subtotal": "Subtotal",
+    "taxes_and_shipping": "Pajak dan ongkir dihitung saat checkout",
+    "fee_breakdown_title": "Rincian Biaya",
+    "cross_sell_title": "Anda mungkin juga suka",
+    "free_shipping_unlocked": "Selamat! Anda mendapatkan gratis ongkir.",
+    "free_shipping_away": "Kurang {{ amount }} lagi untuk gratis ongkir.",
+    "escrow_shield": "Dilindungi Escrow Shield"
   },
   "customers": {
     "login": {

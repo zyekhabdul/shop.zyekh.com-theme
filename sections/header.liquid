@@ -72,6 +72,20 @@
     if(toggle) toggle.addEventListener('click', () => toggleMenu());
     if(closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
+
+    // Cart Drawer Integration
+    const cartLink = document.querySelector('.cart-link');
+    if (cartLink) {
+      cartLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof openCartDrawer === 'function') {
+          openCartDrawer();
+          if (typeof fetchCart === 'function') fetchCart();
+        } else {
+          window.location.href = cartLink.href;
+        }
+      });
+    }
   });
 </script>
 

@@ -5,7 +5,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 
 ---
 
-## STATUS SAAT INI (Last Updated: 2026-08-08 19:05 WIB)
+## STATUS SAAT INI (Last Updated: 2026-08-09 10:17 WIB)
 
 ### Apa yang SUDAH dikerjakan
 - CSS variable system: light mode default, dark mode via `[data-theme="dark"]` (KF-001)
@@ -25,6 +25,7 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `snippets/whatsapp-button.liquid` floating button, pre-fill product name
 - `snippets/meta-tags.liquid` sudah https + favicon support
 - `snippets/image.liquid` sudah responsive srcset + configurable sizes/loading
+- `snippets/cart-drawer.liquid` Sliding AJAX Cart dengan Free Shipping Progress Bar, Vanilla JS, & Escrow Shield
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)

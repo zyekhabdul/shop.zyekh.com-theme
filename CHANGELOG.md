@@ -2,6 +2,17 @@
 
 Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 
+### Session: 76291fdd-24b4-413e-bd72-b5cc458cec2f
+
+**Task 1.4: Sliding AJAX Cart Drawer & Localization**
+- Pembuatan snippet `snippets/cart-drawer.liquid` dengan Vanilla JS.
+- Implementasi *Free Shipping Progress Bar* dan *Escrow Shield*.
+- Integrasi *CSS Custom Properties* di `assets/critical.css` tanpa inline style.
+- Integrasi event handler di `sections/header.liquid` dan render snippet di `layout/theme.liquid`.
+- Sinkronisasi *translation keys* terkait keranjang pada `locales/en.default.json` dan `locales/id.json`.
+- Memperbarui PRD.md dan menyinkronkan ke Obsidian Vault.
+
+---
 ## 2026-08-09
 
 ### Session: 466d0992-d6b2-49d2-ba88-51b2ebba7c4e
