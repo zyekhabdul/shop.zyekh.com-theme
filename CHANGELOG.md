@@ -218,3 +218,8 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
   - Hapus snippet yatim (`seller-info.liquid`, `icon-cart.liquid`) dan membersihkan false positive pada theme check (100% bebas error/warning Shopify CLI).
 - Memperbarui `PRD.md`, `DEVELOPMENT.md`, `CHANGELOG.md`, dan Obsidian Vault untuk menandai tugas-tugas di atas.
 
+
+### Added
+- Mega Menu snippet (`snippets/mega-menu.liquid`) with multi-level hover navigation and visual promo banner.
+- Dynamic theme settings for header, announcement, logo, and mega menu colors in `config/settings_schema.json`.
+- Localization keys for Mega Menu in English and Indonesian.
