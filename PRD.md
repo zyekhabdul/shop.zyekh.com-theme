@@ -64,8 +64,8 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 ### Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)
 - [x] **Task 1.1**: Re-strukturisasi Layout Induk dan Setup CSS Variables berbasis Bagisto 2.4.x.
 - [x] **Task 1.2**: Implementasi Header Top & Header Bottom (`sections/header.liquid`).
-- [ ] **Task 1.3**: Implementasi Mega Menu Navigation (`blocks/mega-menu.liquid`).
-- [ ] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
+- [x] **Task 1.3**: Implementasi Mega Menu Navigation (`blocks/mega-menu.liquid`).
+- [x] **Task 1.4**: Sinkronisasi awal schema Shopify `settings_schema.json` untuk Header.
 
 ### Tahap 2: Homepage Components & Mini Cart
 - [ ] **Task 2.1**: Implementasi Hero Carousel murni Vanilla JS/CSS (`sections/hero-carousel.liquid`).
