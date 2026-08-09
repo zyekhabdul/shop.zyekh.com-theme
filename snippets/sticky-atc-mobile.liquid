@@ -1,0 +1,11 @@
+<div class="sticky-atc-bar" id="StickyATC">
+  <div class="sticky-atc-content">
+    <div class="sticky-atc-info">
+      <div class="sticky-atc-title">{{ product.title }}</div>
+      <div class="sticky-atc-price" id="StickyATCPrice">{{ product.selected_or_first_available_variant.price | money }}</div>
+    </div>
+    <button type="button" class="btn-primary sticky-atc-btn" id="TriggerMainATC">
+      {{ 'products.product.add_to_cart' | t | default: 'Buy Now' }}
+    </button>
+  </div>
+</div>

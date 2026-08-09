@@ -107,7 +107,7 @@ AI Agent WAJIB mengeksekusi urutan tugas ini secara otonom:
 - [x] **Task 1.2**: Header Navigation Drawer & Dynamic Variant Price JS.
 - [x] **Task 1.3**: Rebuild Product Card, Trust Badges, & WhatsApp Direct Order.
 - [ ] **Task 1.4**: Implementasi Sliding Cart Drawer (`snippets/cart-drawer.liquid`) dengan Free Shipping Progress Bar & Fee Breakdown Transparan.
-- [ ] **Task 1.5**: Implementasi Sticky Add-to-Cart Bar di Mobile Product Page (`sections/product.liquid`).
+- [x] **Task 1.5**: Implementasi Sticky Add-to-Cart Bar di Mobile Product Page (`snippets/sticky-atc-mobile.liquid` & `sections/product.liquid`).
 
 ### Phase 2: PDP Trust, Quick View & Multi-Tier Shipping
 - [ ] **Task 2.1**: Buat Snippet Profile Seller & Escrow Guarantee Shield (`snippets/seller-info.liquid` & `snippets/escrow-badge.liquid`).

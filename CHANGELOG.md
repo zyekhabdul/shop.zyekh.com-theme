@@ -4,6 +4,17 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 
 ## 2026-08-09
 
+### Session: 466d0992-d6b2-49d2-ba88-51b2ebba7c4e
+
+**Audit & Refactoring Komponen PDP:**
+- Audit komponen *Sticky Add-to-Cart* & *Social Proof* yang ditulis *inline* di `sections/product.liquid`.
+- Ekstraksi *Social Proof* ke [pdp-social-proof.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/snippets/pdp-social-proof.liquid) menggunakan SVG murni dan *translation keys*.
+- Ekstraksi *Sticky ATC* ke [sticky-atc-mobile.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/snippets/sticky-atc-mobile.liquid) dengan sinkronisasi harga berbasis vanilla JS `IntersectionObserver`.
+- Pemindahan blok gaya spesifik dari `<style>` bawaan di dalam `product.liquid` (sebelumnya `{% stylesheet %}`) ke [critical.css](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/assets/critical.css).
+- Pembuatan laporan spesifikasi arsitektur PDP di Artifact Obsidian RAG.
+
+---
+
 ### Session: 0e11dc92-5282-4b8e-b8b5-4f24a276e300
 
 **Analisis & Perbaikan System Prompt:**

@@ -22,17 +22,7 @@
     <div class="product-info">
       <h1 class="product-title">{{ product.title }}</h1>
       
-      <div class="product-social-proof">
-        <div class="stars">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="star-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="star-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="star-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="star-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="star-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span class="rating-text">4.9/5</span>
-        </div>
-        <span class="sold-count">{{ 'products.product.sold_count' | t | default: '10,000+ Sold' }}</span>
-      </div>
+      {% render 'pdp-social-proof' %}
 
       <div class="product-price-wrapper">
         <span class="product-price" id="ProductPrice" data-price="{{ product.selected_or_first_available_variant.price }}">{{ product.selected_or_first_available_variant.price | money }}</span>
@@ -106,17 +96,7 @@
   </div>
 </div>
 
-<div class="sticky-atc-bar" id="StickyATC">
-  <div class="sticky-atc-content">
-    <div class="sticky-atc-info">
-      <div class="sticky-atc-title">{{ product.title }}</div>
-      <div class="sticky-atc-price" id="StickyATCPrice">{{ product.selected_or_first_available_variant.price | money }}</div>
-    </div>
-    <button type="button" class="btn-primary sticky-atc-btn" id="TriggerMainATC">
-      {{ 'products.product.add_to_cart' | t | default: 'Buy Now' }}
-    </button>
-  </div>
-</div>
+{% render 'sticky-atc-mobile' %}
 
 <script type="application/json" id="ProductJson-{{ section.id }}">
   {{ product.variants | json }}
@@ -454,95 +434,6 @@
     color: var(--text-main);
   }
   
-  /* Social Proof */
-  .product-social-proof {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-    font-size: 0.9rem;
-  }
-  .stars {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    color: var(--color-star);
-  }
-  .rating-text {
-    font-weight: 700;
-    margin-left: 4px;
-    color: var(--text-main);
-  }
-  .sold-count {
-    color: var(--text-muted);
-    font-weight: 500;
-    padding-left: var(--space-md);
-    border-left: 1px solid var(--border-color);
-  }
-
-  /* Sticky ATC */
-  .sticky-atc-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--bg-main);
-    padding: var(--space-sm) var(--page-margin);
-    box-shadow: var(--shadow-md);
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 999;
-    visibility: hidden;
-  }
-  .sticky-atc-bar.visible {
-    transform: translateY(0);
-    visibility: visible;
-  }
-  .sticky-atc-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: var(--page-width);
-    margin: 0 auto;
-    gap: var(--space-md);
-  }
-  .sticky-atc-info {
-    display: none;
-  }
-  @media(min-width: 768px) {
-    .sticky-atc-info {
-      display: block;
-    }
-    .sticky-atc-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 300px;
-    }
-    .sticky-atc-price {
-      font-weight: 700;
-      color: var(--color-primary);
-    }
-  }
-  .sticky-atc-btn {
-    flex: 1;
-    padding: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--radius-md);
-    background: var(--color-primary);
-    color: white;
-    cursor: pointer;
-  }
-  @media(min-width: 768px) {
-    .sticky-atc-btn {
-      flex: 0 0 auto;
-      padding: 12px 30px;
-    }
-  }
 {% endstylesheet %}
 
 {% schema %}
