@@ -23,6 +23,7 @@
       <h1 class="product-title">{{ product.title }}</h1>
       
       {% render 'pdp-social-proof' %}
+      {% render 'seller-info' %}
 
       <div class="product-price-wrapper">
         <span class="product-price" id="ProductPrice" data-price="{{ product.selected_or_first_available_variant.price }}">{{ product.selected_or_first_available_variant.price | money }}</span>
@@ -88,13 +89,37 @@
           {% if section.settings.show_dynamic_checkout %}
             {{ form | payment_button }}
           {% endif %}
+          
+          {% render 'whatsapp-button' %}
         {% endform %}
         
         {% render 'trust-badges' %}
+        {% render 'escrow-badge' %}
       </div>
 
-      <div class="product-description">
-        {{ product.description }}
+      <div class="product-accordion">
+        <details class="accordion-item" open>
+          <summary class="accordion-title">{{ 'products.product.description' | t | default: 'Description' }}</summary>
+          <div class="accordion-content">
+            {{ product.description }}
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary class="accordion-title">{{ 'products.product.specifications' | t | default: 'Specifications' }}</summary>
+          <div class="accordion-content">
+            <!-- Specification list here -->
+            <ul class="spec-list">
+              <li><strong>SKU:</strong> {{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</li>
+              <li><strong>Vendor:</strong> {{ product.vendor }}</li>
+            </ul>
+          </div>
+        </details>
+        <details class="accordion-item">
+          <summary class="accordion-title">{{ 'products.product.reviews' | t | default: 'Reviews' }}</summary>
+          <div class="accordion-content">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -432,10 +457,52 @@
   .add-to-cart-btn:hover:not(:disabled) {
     opacity: 0.9;
   }
-  .product-description {
+  .product-accordion {
     margin-top: var(--space-xl);
-    line-height: 1.6;
+  }
+  .accordion-item {
+    border-bottom: 1px solid var(--border-color);
+  }
+  .accordion-item:first-child {
+    border-top: 1px solid var(--border-color);
+  }
+  .accordion-title {
+    padding: var(--space-md) 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
     color: var(--text-main);
+  }
+  .accordion-title::-webkit-details-marker {
+    display: none;
+  }
+  .accordion-title::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    font-size: 1.5rem;
+    transition: transform var(--transition);
+  }
+  details[open] .accordion-title::after {
+    content: '-';
+  }
+  .accordion-content {
+    padding-bottom: var(--space-md);
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+  .spec-list {
+    list-style: none;
+    padding: 0;
+  }
+  .spec-list li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px dashed var(--border-color);
+  }
+  .spec-list li:last-child {
+    border-bottom: none;
   }
   
 {% endstylesheet %}

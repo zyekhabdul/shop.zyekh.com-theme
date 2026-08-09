@@ -75,7 +75,14 @@
       "quick_view": "Quick View",
       "seller_label": "Supplier",
       "escrow_badge_aria": "Escrow protection badge",
-      "escrow_protection": "Funds Secured via Escrow"
+      "escrow_protection": "Funds Secured via Escrow",
+      "seller_response_rate": "Response Rate",
+      "description": "Description",
+      "specifications": "Specifications",
+      "reviews": "Reviews",
+      "stock_urgency": "Only {{ quantity }} left in stock!",
+      "in_stock": "In Stock",
+      "out_of_stock": "Out of Stock"
     },
     "shipping": {
       "title": "Shipping Options",

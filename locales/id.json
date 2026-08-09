@@ -75,7 +75,14 @@
       "quick_view": "Lihat Cepat",
       "seller_label": "Pemasok",
       "escrow_badge_aria": "Lencana perlindungan Escrow",
-      "escrow_protection": "Dana Aman via Escrow"
+      "escrow_protection": "Dana Aman via Escrow",
+      "seller_response_rate": "Tingkat Respons",
+      "description": "Deskripsi",
+      "specifications": "Spesifikasi",
+      "reviews": "Ulasan",
+      "stock_urgency": "Sisa {{ quantity }} stok!",
+      "in_stock": "Tersedia",
+      "out_of_stock": "Habis"
     },
     "shipping": {
       "title": "Opsi Pengiriman",

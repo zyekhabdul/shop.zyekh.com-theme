@@ -32,7 +32,10 @@ Dokumen ini WAJIB dibaca sebelum melakukan perubahan apapun.
 - `css-variables.liquid` token lengkap: --color-sale, --color-star, --color-btn-bg/text, --color-overlay
 - Customer Portal: Order Timeline Tracker, Escrow Release & Dispute Modal di `main-order.liquid` & `order.json` (Task 4.1)
 - `snippets/shipping-estimator.liquid` & `snippets/stock-urgency.liquid` untuk Multi-Tier Shipping & Dynamic Stock Thresholds (Task 2.3 & 2.4)
-- `snippets/social-proof-toast.liquid` & `snippets/web-vitals-telemetry.liquid` (Task 3.1 & 3.2)
+- [x] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
+- [x] **Task 3.2**: Integrasi Dynamic Stock Thresholds & Multi-Tier Shipping Estimator.
+- [x] **Task 3.3**: Integrasi Seller Info via Metafields.
+- [x] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
 - Zero hardcoded hex/rgba di semua sections (kecuali hello-world.liquid bawaan Shopify)
 - DESIGN_SYSTEM.md (10 laws), DEVELOPMENT.md (ini), CHANGELOG.md, PRD.md (Product Requirement Document & Otonom AI Backlog)
 - `PRD.md` tersimpan di root project (Versi 4.0 - Bagisto 2.4 Exact Structural Replica Standard) dan disinkronkan ke Obsidian Vault (`01-Dokumen/PRD-shop.zyekh.com-theme.md`).

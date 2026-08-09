@@ -74,10 +74,10 @@ Untuk menunjang struktur data Marketplace berskala Enterprise:
 - [x] **Task 2.4**: Implementasi Bagisto-style Mini Cart / Sliding Drawer (`sections/cart-drawer.liquid`).
 
 ### Tahap 3: PDP (Product Detail Page) & CRO Engine
-- [ ] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
-- [ ] **Task 3.2**: Integrasi Dynamic Stock Thresholds & Multi-Tier Shipping Estimator.
-- [ ] **Task 3.3**: Integrasi Seller Info via Metafields.
-- [ ] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
+- [x] **Task 3.1**: Rebuild PDP Gallery & Buy Box layout (`sections/main-product.liquid`).
+- [x] **Task 3.2**: Integrasi Dynamic Stock Thresholds & Multi-Tier Shipping Estimator.
+- [x] **Task 3.3**: Integrasi Seller Info via Metafields.
+- [x] **Task 3.4**: Setup Auto Geo-IP Currency Switcher.
 
 ### Tahap 4: Collection, Faceted Navigation & Checkout Prep
 - [ ] **Task 4.1**: Implementasi Faceted Filter Sidebar (`sections/main-collection-product-grid.liquid`).

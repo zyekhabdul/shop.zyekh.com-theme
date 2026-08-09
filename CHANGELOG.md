@@ -233,3 +233,14 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - Refactored `snippets/product-card.liquid` to match Bagisto 2.4.x (discount badges, rating placeholder, direct ATC, hover buttons).
 - Verified `snippets/cart-drawer.liquid` implementation of Bagisto-style features (Free Shipping Progress, Escrow Badge, AJAX update).
 - Synced i18n logic (`en.default.json`, `id.json`).
+
+## [4.0.0-Stage3] - 2026-08-09
+### Added
+- Created `snippets/seller-info.liquid` and `snippets/stock-urgency.liquid`.
+- Appended styling to `assets/critical.css` for new seller widget, escrow badge, and accordion.
+- Added translation keys in `en.default.json` and `id.json` for description, specifications, reviews, seller response rate, and stock urgency.
+
+### Changed
+- Rebuilt `sections/main-product.liquid` (formerly `product.liquid`) to perfectly match Bagisto 2.4.x PDP layout.
+- Integrated Dynamic Stock Thresholds, Multi-Tier Shipping Estimator, Seller Info, Escrow Badge, and accordion tabs directly into the Buy Box and Product Details area.
+- Verified Auto Geo-IP Currency Switcher (Speculation Rules and Localization Form) in layout structure.
