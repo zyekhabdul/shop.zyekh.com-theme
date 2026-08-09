@@ -11,8 +11,9 @@
     <tbody>
       {% for tag in product.tags %}
         {% if tag contains 'tier-' %}
-          {% assign qty = tag | split: '-' | index: 1 %}
-          {% assign discount = tag | split: '-' | index: 2 | divided_by: 100.0 %}
+          {% assign parts = tag | split: '-' %}
+          {% assign qty = parts[1] %}
+          {% assign discount = parts[2] | divided_by: 100.0 %}
           {% assign price = product.price | times: discount %}
           <tr>
             <td>{{ qty }}+</td>

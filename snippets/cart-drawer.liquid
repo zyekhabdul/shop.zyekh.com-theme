@@ -121,13 +121,14 @@
   let activeElementBeforeCartOpen = null;
 
   function trapFocus(element) {
-    const focusableElements = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    if (focusableElements.length === 0) return;
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
     element.addEventListener('keydown', function(e) {
       if (e.key === 'Tab') {
+        const focusableElements = element.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
             e.preventDefault();
@@ -266,12 +267,12 @@
               ${item.variant_title ? `<p class="cart-item__variant">${item.variant_title}</p>` : ''}
               <div class="cart-item__price">${formatMoney(item.final_line_price)}</div>
               <div class="cart-item__quantity">
-                <button type="button" class="qty-btn qty-minus" onclick="updateCartItem('${item.key}', ${item.quantity - 1})">-</button>
-                <input type="number" class="qty-input" value="${item.quantity}" min="0" onchange="updateCartItem('${item.key}', this.value)">
-                <button type="button" class="qty-btn qty-plus" onclick="updateCartItem('${item.key}', ${item.quantity + 1})">+</button>
+                <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity" onclick="updateCartItem('${item.key}', ${item.quantity - 1})">-</button>
+                <input type="number" class="qty-input" aria-label="Quantity" value="${item.quantity}" min="0" onchange="updateCartItem('${item.key}', this.value)">
+                <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity" onclick="updateCartItem('${item.key}', ${item.quantity + 1})">+</button>
               </div>
             </div>
-            <button type="button" class="cart-item__remove" onclick="updateCartItem('${item.key}', 0)">
+            <button type="button" class="cart-item__remove" aria-label="Remove item" onclick="updateCartItem('${item.key}', 0)">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             </button>
           </div>

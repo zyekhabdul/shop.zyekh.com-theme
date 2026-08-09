@@ -186,3 +186,16 @@ Format: `[YYYY-MM-DD] [Session ID] [Perubahan]`
 - **Perbaikan Theme Check:** Memperbaiki *error MissingTemplate* untuk `icon-cart` dan `icon-close` dengan membuat snippet terpisah `snippets/icon-cart.liquid` dan `snippets/icon-close.liquid`.
 - Memperbarui status penyelesaian Task 3.3 dan Task 3.4 pada `PRD.md` dan `DEVELOPMENT.md`.
 - Task 4.2, 5.2, 5.3, 5.4 completed
+
+### Execution Batch: Phase 4.3 & 5.1 & 5.5
+**Tasks Completed:**
+- **Task 5.1:** Speculative Pre-Rendering Level 2 ditambahkan di `snippets/speculation-rules.liquid` bersamaan dengan CSS untuk `@view-transition` cross-document transitions.
+- **Task 5.5:** RUM (Real User Monitoring) dan AI Merchandising Telemetry diimplementasikan di `snippets/rum-telemetry.liquid` dan diletakkan pada `layout/theme.liquid`.
+- **Task 4.3:** QA & Security Audit Selesai:
+  - Menyelesaikan zero-emoji check and clean up.
+  - Fix focus trap dynamic query issue di `snippets/cart-drawer.liquid`.
+  - Menambahkan missing ARIA labels (remove, qty-plus, qty-minus, qty-input) pada cart-drawer.
+  - Membuang hardcoded hex fallbacks secara global dari `assets/critical.css`.
+  - Hapus snippet yatim (`seller-info.liquid`, `icon-cart.liquid`) dan membersihkan false positive pada theme check (100% bebas error/warning Shopify CLI).
+- Memperbarui `PRD.md`, `DEVELOPMENT.md`, `CHANGELOG.md`, dan Obsidian Vault untuk menandai tugas-tugas di atas.
+

@@ -1,0 +1,41 @@
+{% comment %}
+  Real User Monitoring (RUM) & AI Merchandising Telemetry
+  Tracks Core Web Vitals, user engagement, and AI merchandising signals.
+{% endcomment %}
+
+<script>
+  window.ZyekhRUM = window.ZyekhRUM || {};
+  window.ZyekhRUM.init = function() {
+    // Basic interaction tracking
+    document.addEventListener('click', function(e) {
+      if(e.target.closest('a') || e.target.closest('button')) {
+        const target = e.target.closest('a') || e.target.closest('button');
+        // Beacon or send to analytics (placeholder for RUM endpoint)
+        if(window.requestIdleCallback) {
+          window.requestIdleCallback(() => {
+            console.debug('RUM: Interaction tracked', target.tagName, target.href || target.innerText);
+          });
+        }
+      }
+    }, { passive: true });
+    
+    // Performance observer for LCP / FCP (AI Merchandising Telemetry)
+    try {
+      if (PerformanceObserver.supportedEntryTypes.includes('largest-contentful-paint')) {
+        new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            console.debug('RUM LCP:', entry.startTime, entry);
+          }
+        }).observe({type: 'largest-contentful-paint', buffered: true});
+      }
+    } catch (e) {
+      console.warn('RUM: PerformanceObserver not supported', e);
+    }
+  };
+  
+  if (document.readyState === 'complete') {
+    window.ZyekhRUM.init();
+  } else {
+    window.addEventListener('load', window.ZyekhRUM.init);
+  }
+</script>

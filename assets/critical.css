@@ -744,7 +744,7 @@ img {
   gap: 4px;
 }
 .rating-star {
-  color: var(--color-star, #f59e0b);
+  color: var(--color-star);
 }
 
 /* Escrow Badge */
@@ -752,22 +752,22 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #e8f5e9;
+  background: var(--color-success-bg);
   padding: 4px 10px;
   border-radius: 20px;
-  border: 1px solid #c8e6c9;
+  border: 1px solid var(--color-success-border);
 }
 .escrow-text {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #2e7d32;
+  color: var(--color-success-text);
 }
 [data-theme="dark"] .escrow-badge {
-  background: #1b5e20;
-  border-color: #2e7d32;
+  background: var(--color-success-dark);
+  border-color: var(--color-success-text);
 }
 [data-theme="dark"] .escrow-text {
-  color: #e8f5e9;
+  color: var(--color-success-bg);
 }
 
 /* ==========================================================================
@@ -856,18 +856,18 @@ img {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  background: #fff5f5;
-  color: #c92a2a;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-md);
-  border: 1px solid #ffc9c9;
+  border: 1px solid var(--color-error-border);
 }
 
 [data-theme="dark"] .stock-urgency {
   background: rgba(201, 42, 42, 0.1);
   border-color: rgba(201, 42, 42, 0.2);
-  color: #ffc9c9;
+  color: var(--color-error-border);
 }
 
 .urgency-text {
@@ -944,13 +944,13 @@ img {
 
 /* Order Dashboard Variables */
 :root {
-  --color-timeline-bg: var(--color-background-secondary, #f4f4f4);
-  --color-timeline-active: var(--color-primary, #007bff);
-  --color-timeline-text: var(--color-text, #333);
-  --color-timeline-text-muted: var(--color-text-muted, #777);
+  --color-timeline-bg: var(--color-background-secondary);
+  --color-timeline-active: var(--color-primary);
+  --color-timeline-text: var(--color-text);
+  --color-timeline-text-muted: var(--color-text-muted);
   --spacing-timeline-gap: 1rem;
   
-  --color-modal-bg: var(--color-background, #fff);
+  --color-modal-bg: var(--color-background);
   --color-modal-overlay: rgba(0, 0, 0, 0.5);
   --modal-border-radius: 8px;
   --modal-z-index: 1000;
@@ -1086,11 +1086,11 @@ img {
   margin-top: 1.5rem;
 }
 :root {
-  --b2b-bg-color: #f9fafb;
-  --consent-banner-bg: #111827;
-  --consent-banner-text: #ffffff;
+  --b2b-bg-color: var(--bg-main);
+  --consent-banner-bg: var(--text-main);
+  --consent-banner-text: var(--bg-card);
 }
 .b2b-tier-pricing { background: var(--b2b-bg-color); padding: 1rem; }
 .consent-banner { position: fixed; bottom: 0; width: 100%; background: var(--consent-banner-bg); color: var(--consent-banner-text); padding: 1rem; z-index: 50; }
 .faceted-filters { display: flex; gap: 1rem; flex-wrap: wrap; }
-.active-facets__button { padding: 0.5rem; background: #e5e7eb; border-radius: 4px; }
+.active-facets__button { padding: 0.5rem; background: var(--border-color); border-radius: 4px; }
