@@ -1,7 +1,7 @@
 # PRD — shop.zyekh.com-theme (Global Dropshipping Marketplace Standard Shopify 2.0 Theme)
 
 Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan Otonom Pengembangan Theme Shopify `shop.zyekh.com`.
-*(Mengintegrasikan spesifikasi `marketplace-design-spec.md` + Marketplace Engagement & Hook Strategy)*
+*(Mengintegrasikan spesifikasi `marketplace-design-spec.md` + Marketplace Engagement & Page-by-Page Specs)*
 
 ---
 
@@ -15,9 +15,7 @@ Dokumen Spesifikasi Produk, Standar Marketplace Internasional 2-Sisi & Panduan O
 
 # 2. Benchmark, Standar & Marketplace Hook Strategy
 
-## 2.1 Psychological & Engagement Triggers (Strategi Membuat Buyer Tertarik & Betah)
-
-Berdasarkan analisis perilaku pembeli di marketplace global (Amazon, AliExpress, Shopee, Temu, StockX):
+## 2.1 Psychological & Engagement Triggers (Strategi Hook Buyer)
 
 | Trigger | Strategi Psikologis & Visual | Implementasi Teknis UI/UX |
 |---------|------------------------------|---------------------------|
@@ -44,32 +42,46 @@ Berdasarkan analisis perilaku pembeli di marketplace global (Amazon, AliExpress,
 
 ---
 
-# 4. Scope & Feature Requirements
+# 4. Detailed Page-by-Page Specifications (Spesifikasi Detail Per-Halaman)
 
-## 1. Homepage & Navigation (Search-First & Discovery)
-- **Prominent Search Bar**: Bar pencarian raksasa di atas fold dengan Instant Predictive Search & Trending Tags.
-- **Bento Category Grid**: Grid visual kategori berbasis gambar produk dengan efek tactile active state.
-- **Flash Deals & Trust Header**: Counter promo terbatas + rating platform terverifikasi.
+Sesuai standar PRD industri (Atlassian/Productboard & PRD Master Template Obsidian), berikut breakdown teknis elemen UI, data, dan interaksi per halaman:
 
-## 2. Listing & Search Results Page
-- **Faceted Filters**: Filter Kategori, Harga, Rating Seller, **Estimasi Kirim**, dan **Negara Asal Produk**.
-- **Quick View Modal**: Tombol preview instan di setiap product card untuk melihat foto, harga, dan varian tanpa pindah halaman.
-- **Product Card Component**: Gambar, harga (currency lokal buyer), estimasi shipping tercepat, badge "Verified Seller".
+### 4.1 Homepage (`templates/index.json`)
+- **Prominent Search-First Hero**: Search bar raksasa di bagian paling atas fold + Trending Keyword Tags + Live Seller Count.
+- **Trust Banner Bar**: Maksimal 3 badge (Escrow Protection, Fast Cross-Border Shipping, Verified Global Sellers).
+- **Visual Category Bento Grid**: Grid kategori berbasis gambar produk dengan efek hover tactile (`scale: 0.97`).
+- **Flash Deals Section (`sections/flash-deals.liquid`)**: Grid produk berdurasi dengan live JS Countdown Timer & progress bar stok tersisa.
+- **Featured Collection Bento**: Product cards dengan badge Verified Seller, rating bintang, harga lokal, dan tombol Quick View.
 
-## 3. Product Detail Page (PDP) — Hierarki Kritis
-1. Galeri Gambar / Video (responsive LCP `srcset` + hover zoom / modal fullscreen).
-2. Nama produk, harga dalam currency buyer, badge diskon.
-3. **Block Seller Info**: Nama toko, rating seller, lokasi pengiriman, response time, badge *"Top Rated Seller"*.
-4. **Estimasi Pengiriman Multi-Tier**: Pilihan tier (Economic 20-30 hari, Standard 10-15 hari, Express 5-7 hari) + Negara Asal Barang (*"Ships from China / Indonesia / US"*).
-5. **Trust Block & Escrow**: Badge *"Jaminan Pembayaran Aman — Dana ditahan sampai barang Anda terima"*, logo metode pembayaran (Visa, MasterCard, PayPal, E-Wallet), garansi retur.
-6. Deskripsi & Spesifikasi Produk.
-7. Review & Rating Buyer (foto ulasan pembeli asli).
-8. **Sticky Mobile Buy Buttons**: CTA "Add to Cart" dan "Buy Now" melayang di mobile viewport saat scroll.
+### 4.2 Product Detail Page / PDP (`sections/product.liquid`) — Halaman Paling Kritis
+Hierarki elemen visual berurutan dari atas ke bawah:
+1. **Media Gallery**: Responsive image slider dengan `srcset`, LCP `fetchpriority="high"`, thumbnail strip, dan modal fullscreen zoom.
+2. **Product Title & Price Block**: Judul produk, harga lokal buyer, harga coret (`compare_at_price`), persentase diskon, rating bintang.
+3. **Seller Reputation Snippet (`snippets/seller-info.liquid`)**: Nama toko supplier, lokasi pengiriman, rating seller (misal: 4.9/5), response rate, badge *"Top Rated Seller"*.
+4. **Multi-Tier Shipping Estimator**: Pilihan opsi kirim (Ekonomi 20-30 hari, Standar 10-15 hari, Express 5-7 hari) + Negara Asal Barang (*"Ships from China / Indonesia / US"*).
+5. **Escrow Guarantee Block (`snippets/escrow-badge.liquid`)**: Shield icon + Teks *"Jaminan Pembayaran Aman — Dana ditahan platform sampai barang diterima"*.
+6. **Interactive Variant Selector**: Pill/Dropdown selector varian dengan update harga, stok status (*In Stock / Only 3 left*), URL param, dan image gallery sync tanpa reload.
+7. **Action Buttons**: CTA utama "Add to Cart" + "Buy Now" + Direct WhatsApp Order Button dengan pre-filled product URL.
+8. **Sticky Mobile Buy Bar**: Bar melayang di bagian bawah layar saat user me-scroll melewati tombol utama PDP.
+9. **Rich Accordions & Reviews**: Deskripsi, Spesifikasi, Kebijakan Retur, dan Section Ulasan Pembeli asli lengkap dengan foto.
 
-## 4. Cart & Checkout System
-- **Sliding Cart Drawer**: Free Shipping Progress Bar threshold + In-cart 1-click upsells + Express Pay (Shop Pay, Apple Pay, Google Pay, PayPal).
-- **Transparent Fee Breakdown**: Rincian transparan (Harga Produk + Ongkir + Estimasi Bea Cukai/Pajak + Total). Zero hidden fees.
-- **Guest Checkout Enabled**: Tidak memaksa pembeli untuk signup sebelum checkout.
+### 4.3 Search & Collection Listing Page (`sections/collection.liquid`, `sections/search.liquid`)
+- **Faceted Filters (Sidebar / Mobile Drawer)**: Filter berdasarkan Kategori, Rentang Harga, Rating Seller, **Estimasi Waktu Kirim**, dan **Negara Asal Produk**.
+- **Active Filter Chips**: Tag filter aktif yang dapat dihapus individual dengan 1-klik.
+- **Sort Options**: Relevansi, Terlaris, Harga Rendah->Tinggi, Harga Tinggi->Rendah, Rating Tertinggi.
+- **Product Card Grid**: 2 kolom di mobile, 4 kolom di desktop. Menampilkan gambar, badge Verified Seller, rating, harga lokal, estimasi ongkir ter-murah, dan tombol Quick View.
+
+### 4.4 Sliding Cart Drawer & Cart Page (`snippets/cart-drawer.liquid`, `sections/cart.liquid`)
+- **Free Shipping Progress Bar**: Progress bar dinamis (misal: *"Tambah Rp 50.000 lagi untuk Gratis Ongkir"*).
+- **Cart Line Items**: Gambar, nama varian, kontrol kuantitas (+/-), harga per item, tombol hapus.
+- **In-Cart 1-Click Upsells**: Carousel produk aksesoris rekomendasi dengan tombol instant "Add".
+- **Transparent Fee Breakdown**: Rincian jelas (Subtotal + Estimasi Ongkir + Estimasi Pajak/Bea Cukai = **Total Akhir**). Zero Hidden Fees.
+- **Express Payment Buttons**: Shop Pay, Apple Pay, Google Pay, PayPal Express.
+
+### 4.5 Customer Portal & Order Tracking Page (`templates/customers/*.liquid`)
+- **Order Timeline Tracker**: Progress visual 5-step (*Diproses -> Dikirim Seller -> Transit Internasional -> Tiba Negara Tujuan -> Selesai*).
+- **Release Escrow Fund Button**: Tombol *"Konfirmasi Diterima & Lepas Dana ke Seller"*.
+- **Dispute / Refund Request Form**: Form klaim jika barang rusak / belum tiba melebihi batas garansi.
 
 ---
 
