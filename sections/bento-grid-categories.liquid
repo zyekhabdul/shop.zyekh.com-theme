@@ -31,6 +31,8 @@
                 <img
                   src="{{ card_image | image_url: width: 800 }}"
                   alt="{{ card_title | escape }}"
+                  width="{{ card_image.width | default: 800 }}"
+                  height="{{ card_image.height | default: 600 }}"
                   loading="lazy"
                   class="bento-img"
                 >

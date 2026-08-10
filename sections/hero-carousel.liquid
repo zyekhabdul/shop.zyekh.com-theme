@@ -14,6 +14,8 @@
                     {{ block.settings.image | image_url: width: 1920 }} 1920w"
             sizes="100vw"
             alt="{{ block.settings.heading | escape }}"
+            width="{{ block.settings.image.width | default: 1920 }}"
+            height="{{ block.settings.image.height | default: 1080 }}"
             class="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           >
