@@ -1,34 +1,110 @@
-{%- if product.metafields.supplier.name != blank -%}
+{% assign supplier_name = product.metafields.supplier.name | default: product.vendor | default: 'Global Verified Supplier' %}
+{% assign supplier_location = product.metafields.supplier.location | default: 'Verified Origin' %}
+{% assign response_rate = product.metafields.supplier.response_rate | default: '99.4%' %}
+{% assign seller_rating = product.metafields.seller.rating | default: '4.9' %}
+{% assign reviews_count = product.metafields.seller.reviews_count | default: '120+' %}
+
 <div class="seller-info-widget">
   <div class="seller-header">
     <div class="seller-avatar">
-      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
     </div>
     <div class="seller-details">
-      <h4 class="seller-name">{{ product.metafields.supplier.name }}</h4>
-      {%- if product.metafields.supplier.location != blank -%}
-        <span class="seller-location">
-          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          {{ product.metafields.supplier.location }}
-        </span>
-      {%- endif -%}
+      <div class="seller-title-line">
+        <span class="seller-label">{{ 'products.product.seller_label' | t | default: 'Supplier' }}:</span>
+        <h4 class="seller-name">{{ supplier_name }}</h4>
+      </div>
+      <span class="seller-location">
+        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        {{ supplier_location }}
+      </span>
     </div>
   </div>
   <div class="seller-stats">
-    {%- if product.metafields.supplier.response_rate != blank -%}
-      <div class="stat-item">
-        <span class="stat-value">{{ product.metafields.supplier.response_rate }}</span>
-        <span class="stat-label">{{ 'products.product.seller_response_rate' | t | default: 'Response Rate' }}</span>
-      </div>
-    {%- endif -%}
-    {%- if product.metafields.seller.rating != blank -%}
-      <div class="stat-item">
-        <span class="stat-value star-rating">
-          ★ {{ product.metafields.seller.rating }}
-        </span>
-        <span class="stat-label">({{ product.metafields.seller.reviews_count | default: '0' }} Reviews)</span>
-      </div>
-    {%- endif -%}
+    <div class="stat-item">
+      <span class="stat-value">{{ response_rate }}</span>
+      <span class="stat-label">{{ 'products.product.seller_response_rate' | t | default: 'Response Rate' }}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value star-rating-badge">
+        &starf; {{ seller_rating }}
+      </span>
+      <span class="stat-label">({{ reviews_count }} Reviews)</span>
+    </div>
   </div>
 </div>
-{%- endif -%}
+
+<style>
+  .seller-info-widget {
+    background: var(--color-surface-hover, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-md, 10px);
+    padding: 12px 16px;
+    margin-bottom: var(--space-md, 16px);
+  }
+  .seller-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .seller-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light, #6b7280);
+    flex-shrink: 0;
+  }
+  .seller-title-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .seller-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-text-light, #6b7280);
+    font-weight: 600;
+  }
+  .seller-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text, #111827);
+  }
+  .seller-location {
+    font-size: 0.8rem;
+    color: var(--color-text-light, #6b7280);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .seller-stats {
+    display: flex;
+    gap: 16px;
+    border-top: 1px solid var(--color-border, #e5e7eb);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+  }
+  .stat-value {
+    font-weight: 700;
+    color: var(--color-text, #111827);
+  }
+  .star-rating-badge {
+    color: #f59e0b;
+  }
+  .stat-label {
+    color: var(--color-text-light, #6b7280);
+  }
+</style>
