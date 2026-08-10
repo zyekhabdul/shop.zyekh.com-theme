@@ -1,0 +1,298 @@
+{% comment %}
+  Flash Sale Countdown Bar Component (ZYEKH Engine Standard)
+  Features: Vanilla ES6+ countdown timer, ARIA accessibility, responsive product row.
+{% endcomment %}
+
+<div class="shopify-section section-flash-sale" id="FlashSale-{{ section.id }}" data-end-date="{{ section.settings.end_date | escape }}">
+  <div class="flash-sale-wrapper">
+    <div class="flash-sale-header">
+      <div class="flash-sale-title-group">
+        <span class="flash-sale-badge">{{ section.settings.badge_text | default: 'FLASH SALE' | escape }}</span>
+        <h2 class="flash-sale-heading">{{ section.settings.heading | default: 'sections.flash_sale.title' | t | escape }}</h2>
+      </div>
+
+      <div class="flash-sale-timer-container" aria-live="polite" aria-label="Flash sale countdown">
+        <span class="timer-label">{{ 'sections.flash_sale.ends_in' | t }}:</span>
+        <div class="timer-boxes">
+          <div class="timer-box">
+            <span class="timer-val" data-timer-hours>00</span>
+            <span class="timer-unit">{{ 'sections.flash_sale.hours' | t }}</span>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-box">
+            <span class="timer-val" data-timer-minutes>00</span>
+            <span class="timer-unit">{{ 'sections.flash_sale.minutes' | t }}</span>
+          </div>
+          <span class="timer-colon">:</span>
+          <div class="timer-box">
+            <span class="timer-val" data-timer-seconds>00</span>
+            <span class="timer-unit">{{ 'sections.flash_sale.seconds' | t }}</span>
+          </div>
+        </div>
+      </div>
+
+      {% if section.settings.show_button %}
+        <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="flash-sale-cta-btn">
+          {{ section.settings.button_text | default: 'sections.flash_sale.shop_all' | t | escape }} &rarr;
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="flash-sale-products">
+      {% assign collection = collections[section.settings.collection] %}
+      {% if collection != blank and collection.products_count > 0 %}
+        <div class="flash-sale-grid">
+          {% for product in collection.products limit: section.settings.products_to_show %}
+            {% render 'product-card', product: product %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="flash-sale-grid">
+          {% for i in (1..section.settings.products_to_show) %}
+            <div class="product-card placeholder-card">
+              <div class="product-image-wrapper placeholder-image">
+                Flash Item {{ i }}
+              </div>
+              <div class="product-info">
+                <h3 class="product-title">Flash Sale Product Sample</h3>
+                <div class="product-price"><s style="opacity: 0.6;">$49.99</s> <strong>$29.99</strong></div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .section-flash-sale {
+    padding: var(--space-xl) var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .flash-sale-wrapper {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.03) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+  }
+  .flash-sale-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+  .flash-sale-title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .flash-sale-badge {
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .flash-sale-heading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--color-text, #111827);
+  }
+  .flash-sale-timer-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .timer-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-light, #6b7280);
+  }
+  .timer-boxes {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .timer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-sm, 6px);
+    min-width: 44px;
+    padding: 4px 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .timer-val {
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: #ef4444;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-unit {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: var(--color-text-light, #6b7280);
+    font-weight: 600;
+  }
+  .timer-colon {
+    font-weight: 700;
+    color: #ef4444;
+  }
+  .flash-sale-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ef4444;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 10px 18px;
+    border-radius: var(--radius-md, 8px);
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .flash-sale-cta-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+  }
+  .flash-sale-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  @media (min-width: 640px) {
+    .flash-sale-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .flash-sale-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function() {
+    function initFlashSaleTimer() {
+      const section = document.getElementById('FlashSale-{{ section.id }}');
+      if (!section) return;
+
+      const endDateAttr = section.getAttribute('data-end-date');
+      let targetTime;
+
+      if (endDateAttr && !isNaN(Date.parse(endDateAttr))) {
+        targetTime = new Date(endDateAttr).getTime();
+      } else {
+        // Default to 24 hours from now if no valid date provided
+        targetTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+      }
+
+      const hrsEl = section.querySelector('[data-timer-hours]');
+      const minsEl = section.querySelector('[data-timer-minutes]');
+      const secsEl = section.querySelector('[data-timer-seconds]');
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const distance = targetTime - now;
+
+        if (distance <= 0) {
+          if (hrsEl) hrsEl.textContent = '00';
+          if (minsEl) minsEl.textContent = '00';
+          if (secsEl) secsEl.textContent = '00';
+          return;
+        }
+
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (hrsEl) hrsEl.textContent = String(hours).padStart(2, '0');
+        if (minsEl) minsEl.textContent = String(minutes).padStart(2, '0');
+        if (secsEl) secsEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFlashSaleTimer);
+    } else {
+      initFlashSaleTimer();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Flash Sale Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Flash Sale Deals"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "LIMITED TIME"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date (YYYY-MM-DDTHH:mm:ss)",
+      "info": "Example: 2026-12-31T23:59:59. Leave blank for rolling 24h timer."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 2,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop All Deals"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flash Sale Bar"
+    }
+  ]
+}
+{% endschema %}

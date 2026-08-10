@@ -164,5 +164,25 @@
   "labels": {
     "menu": "Menu",
     "customer_account_menu": "Menu Akun Pelanggan"
+  },
+  "sections": {
+    "flash_sale": {
+      "title": "Obral Kilat",
+      "ends_in": "Berakhir dalam",
+      "hours": "Jam",
+      "minutes": "Menit",
+      "seconds": "Detik",
+      "expired": "Promo Berakhir",
+      "shop_all": "Lihat Semua Promo"
+    },
+    "bento_grid": {
+      "title": "Jelajahi Kategori",
+      "subtitle": "Temukan koleksi pilihan terbaik untuk Anda",
+      "items_count": "{{ count }} Produk"
+    },
+    "collection_carousel": {
+      "title": "Koleksi Unggulan",
+      "view_all": "Lihat Semua"
+    }
   }
 }

@@ -1,62 +1,65 @@
 {% comment %}
-  Renders a product card.
-  Accepts:
-  - product: {Object} Product Liquid object (required)
+  Transpiled from Bagisto 2.4.x (card.blade.php) -> Shopify Liquid 2.0
+  Product Card Component with responsive srcset, sale badge, ratings & quick add-to-cart
 {% endcomment %}
 
-<div class="product-card">
-  <div class="product-card__image-container">
-    <a href="{{ product.url }}" class="product-card__link">
-      {% if product.compare_at_price > product.price %}
-        {% assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
-        <div class="product-badge badge-sale">{{ discount }}% OFF</div>
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="product-card group relative w-full rounded-md border border-gray-100 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg">
+  <div class="relative aspect-square w-full overflow-hidden bg-gray-100">
+    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+      {% if product.featured_image %}
+        <img
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          srcset="{{ product.featured_image | image_url: width: 300 }} 300w,
+                  {{ product.featured_image | image_url: width: 600 }} 600w"
+          sizes="(max-width: 768px) 50vw, 300px"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+          width="300"
+          height="300"
+        >
+      {% else %}
+        <div class="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
+          <span>No Image</span>
+        </div>
       {% endif %}
-      <div class="product-image-wrapper">
-        {% if product.featured_image %}
-          {{ product.featured_image | image_url: width: 600 | image_tag: class: 'product-image', loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', widths: '200, 300, 400, 600' }}
-        {% else %}
-          <div class="placeholder-image">{{ 'products.product.no_image' | t | default: 'No Image' }}</div>
-        {% endif %}
-      </div>
     </a>
-    
-    <div class="product-card__hover-actions">
-      <button type="button" class="quick-view-button action-btn" data-product-handle="{{ product.handle }}" aria-label="{{ 'products.product.quick_view' | t }}">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-      </button>
-      <button type="button" class="wishlist-button action-btn" data-product-handle="{{ product.handle }}" aria-label="Add to wishlist">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-      </button>
-    </div>
+
+    {% if product.compare_at_price > product.price %}
+      <span class="absolute top-2 left-2 rounded-full bg-red-600 px-2.5 py-0.5 text-xs font-semibold text-white">
+        {{ 'products.product.on_sale' | t | default: 'Sale' }}
+      </span>
+    {% endif %}
   </div>
 
-  <div class="product-info">
-    <h3 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    
-    <div class="product-card__rating">
-      <!-- Placeholder for rating, logic to be integrated with metafields -->
-      <span class="stars">★★★★★</span>
-      <span class="review-count">(0)</span>
-    </div>
-
-    <div class="product-price-wrapper">
-      {% if product.compare_at_price > product.price %}
-        <span class="product-price-sale">{{ product.price | money }}</span>
-        <span class="product-price-original">{{ product.compare_at_price | money }}</span>
-      {% else %}
-        <span class="product-price">{{ product.price | money }}</span>
+  <div class="p-4 flex flex-col justify-between">
+    <div class="mb-2">
+      {% if product.vendor != blank %}
+        <p class="text-xs text-gray-500 font-medium uppercase tracking-wider">{{ product.vendor }}</p>
       {% endif %}
+      <h3 class="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h3>
     </div>
 
-    <form method="post" action="/cart/add" class="product-card__atc-form">
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-      <button type="submit" class="btn btn--primary btn--full product-card__atc-btn"{% unless product.available %} disabled{% endunless %}>
-        {% if product.available %}
-          {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
-        {% else %}
-          {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
+    <div class="flex items-center justify-between mt-3">
+      <div class="flex items-baseline gap-2">
+        <span class="text-base font-bold text-gray-900">{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class="text-xs text-gray-400 line-through">{{ product.compare_at_price | money }}</span>
         {% endif %}
+      </div>
+
+      <button
+        type="button"
+        class="quick-add-btn rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700 transition-colors"
+        data-variant-id="{{ current_variant.id }}"
+        onclick="addVariantToCart(this)"
+      >
+        {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
       </button>
-    </form>
+    </div>
   </div>
 </div>

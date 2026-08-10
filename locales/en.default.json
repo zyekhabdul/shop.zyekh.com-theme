@@ -164,5 +164,25 @@
   "labels": {
     "menu": "Menu",
     "customer_account_menu": "Customer Account Menu"
+  },
+  "sections": {
+    "flash_sale": {
+      "title": "Flash Sale Deals",
+      "ends_in": "Ends in",
+      "hours": "Hours",
+      "minutes": "Mins",
+      "seconds": "Secs",
+      "expired": "Sale Ended",
+      "shop_all": "Shop All Deals"
+    },
+    "bento_grid": {
+      "title": "Explore Categories",
+      "subtitle": "Discover top collections curated for you",
+      "items_count": "{{ count }} Items"
+    },
+    "collection_carousel": {
+      "title": "Featured Collection",
+      "view_all": "View All"
+    }
   }
 }

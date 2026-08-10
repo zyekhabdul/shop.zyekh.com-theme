@@ -17,23 +17,41 @@
       "type": "category-carousel",
       "settings": {}
     },
+    "flash_sale": {
+      "type": "flash-sale-bar",
+      "settings": {
+        "heading": "Flash Sale Deals",
+        "badge_text": "LIMITED TIME",
+        "products_to_show": 4
+      }
+    },
+    "bento_categories": {
+      "type": "bento-grid-categories",
+      "settings": {
+        "heading": "Explore Categories",
+        "subtitle": "Discover top collections curated for you"
+      }
+    },
+    "featured_carousel": {
+      "type": "featured-collection-carousel",
+      "settings": {
+        "title": "Featured Collection",
+        "subtitle": "Handpicked items just for you",
+        "products_to_show": 8
+      }
+    },
     "services": {
       "type": "services-grid",
       "settings": {}
-    },
-    "trending": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Trending Now",
-        "collection": "trending-picks"
-      }
     }
   },
   "order": [
     "hero_carousel",
     "announcement",
     "category_carousel",
-    "services",
-    "trending"
+    "flash_sale",
+    "bento_categories",
+    "featured_carousel",
+    "services"
   ]
 }
