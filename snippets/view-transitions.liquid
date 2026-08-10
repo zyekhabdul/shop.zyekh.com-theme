@@ -1,0 +1,59 @@
+{% comment %}
+  View Transitions API & Page Transition Engine (ZYEKH Engine Phase 5 Standard)
+  Enables native browser View Transitions API for sub-second smooth page morphing.
+{% endcomment %}
+
+<style>
+  /* Native View Transitions API Styles */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: zyekhFadeOut;
+  }
+  ::view-transition-new(root) {
+    animation-name: zyekhFadeIn;
+  }
+
+  @keyframes zyekhFadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.98); }
+  }
+
+  @keyframes zyekhFadeIn {
+    from { opacity: 0; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    // Check View Transitions API support
+    if (!document.startViewTransition) return;
+
+    // Intercept internal link clicks for smooth view transitions
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.getAttribute('target') === '_blank') return;
+      if (link.origin !== window.location.origin) return;
+
+      e.preventDefault();
+      document.startViewTransition(() => {
+        window.location.href = href;
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,79 @@
+{% comment %}
+  Global Toast Notification System (ZYEKH Engine Phase 5 Standard)
+  Provides window.ZYEKHToast(message, type) for live action feedback.
+{% endcomment %}
+
+<div class="toast-container" id="ZYEKHToastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<style>
+  .toast-container {
+    position: fixed;
+    bottom: var(--space-lg, 24px);
+    right: var(--space-lg, 24px);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs, 8px);
+    pointer-events: none;
+  }
+
+  .zyekh-toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm, 12px);
+    background: var(--color-surface, #ffffff);
+    color: var(--color-text, #111827);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-md, 8px);
+    padding: 12px 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    font-size: 0.875rem;
+    font-weight: 500;
+    pointer-events: auto;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .zyekh-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .zyekh-toast-success {
+    border-left: 4px solid #22c55e;
+  }
+
+  .zyekh-toast-error {
+    border-left: 4px solid #ef4444;
+  }
+
+  .zyekh-toast-info {
+    border-left: 4px solid #3b82f6;
+  }
+</style>
+
+<script>
+  window.ZYEKHToast = function(message, type = 'success', duration = 4000) {
+    const container = document.getElementById('ZYEKHToastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `zyekh-toast zyekh-toast-${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+    
+    // Trigger entrance transition
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }, duration);
+  };
+</script>

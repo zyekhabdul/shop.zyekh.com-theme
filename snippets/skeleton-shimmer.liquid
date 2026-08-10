@@ -1,0 +1,40 @@
+{% comment %}
+  Skeleton Shimmer Loading Utility (ZYEKH Engine Phase 5 Standard)
+  Provides reusable skeleton placeholder DOM & CSS animation rules for AJAX/page transitions.
+{% endcomment %}
+
+<style>
+  @keyframes zyekhShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+    background-size: 200% 100%;
+    animation: zyekhShimmer 1.5s infinite linear;
+    border-radius: var(--radius-sm, 6px);
+  }
+
+  .skeleton-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-lg, 12px);
+    background: var(--color-surface, #ffffff);
+  }
+  .skeleton-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+  .skeleton-title {
+    width: 80%;
+    height: 16px;
+  }
+  .skeleton-price {
+    width: 40%;
+    height: 14px;
+  }
+</style>
