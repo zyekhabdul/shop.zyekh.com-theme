@@ -4,16 +4,15 @@ Dokumen ini adalah aturan main wajib bagi seluruh AI agent (AGY CLI, Claude Code
 
 ---
 
-## 1. Prinsip Utama Execution Workflow
+## 1. Adaptive Execution Workflow (Smart Batch Execution)
 
-> **DILARANG KERAS langsung melakukan coding hanya karena membaca PRD atau user prompt.**
-> Selalu lewati tahap: **PRD → PLAN.md → Review & Approval → Eksekusi Chunk → Verifikasi → Human Review**.
+> **"Planning Sekali di Awal, Eksekusi Otonom Beruntun, Berhenti Hanya di Strategic Checkpoint."**
 
 Alur Wajib:
 ```
-PRD.md → PLAN.md (breakdown teknis per chunk) → Review & Approval User
-        → Eksekusi 1 Chunk → Verifikasi (shopify theme check) → Lapor & Tunggu Lanjut
-        → Human Review sebelum git push / deploy
+PRD / Ide → PLAN.md (Sub-detail Chunks) → Single Upfront Approval 
+        → Otonom Batch Eksekusi (Verifikasi Latar Belakang) 
+        → Strategic Checkpoint (Git Push / Deploy / Critical Action)
 ```
 
 ---
@@ -23,38 +22,28 @@ PRD.md → PLAN.md (breakdown teknis per chunk) → Review & Approval User
 | File | Fungsi | Dibuat / Dikelola Oleh |
 |---|---|---|
 | `PRD.md` | Requirement level "What & Why" | User / PM |
-| `PLAN.md` | Breakdown teknis & task list level "How" per chunk | AI agent (Direview User) |
+| `PLAN.md` | Breakdown sub-detail chunks & plan teknis | AI agent (Direview User di awal) |
 | `AGENTS.md` (file ini) | Aturan main permanen repo | User / Maintainer |
-| `DEVELOPMENT.md` | SOP & log keputusan difiksasi (KF-001..005) | Maintainer / AI agent |
+| `DEVELOPMENT.md` | SOP & log keputusan difiksasi (KF-001..007) | Maintainer / AI agent |
 | `CHANGELOG.md` | History log per sesi | AI agent |
 
 ---
 
-## 3. Tahapan Kerja Wajib AI Agent
+## 3. Tahapan Kerja Adaptif AI Agent
 
-### Tahap 1 — Baca PRD & Buat `PLAN.md` (DILARANG KODING)
-Ketika menerima requirement baru atau `PRD.md`:
-- Tulis rencana teknis ke `PLAN.md` yang berisi:
-  - List task mikro (< 100 baris kode per task chunk).
-  - List file target yang akan dibuat/diubah per chunk.
-  - Urutan dependency antar chunk.
-  - Definition of Done (DoD) per chunk.
-- **JANGAN mengubah kode apa pun di tahap ini.**
-- Berhenti dan minta approval dari user.
+### Tahap 1 — Buat Sub-detail `PLAN.md` & Minta Approval Sekali di Awal
+- AI menyusun ide/fitur beserta sub-detail chunks-nya dalam `PLAN.md`.
+- AI meminta persetujuan pengguna untuk rencana fitur tersebut secara menyeluruh.
 
-### Tahap 2 — Tunggu Approval Eksplisit
-- Berhenti dan jangan koding sebelum user mengatakan: *"Plan oke, jalankan Chunk #X"*.
+### Tahap 2 — Eksekusi Otonom Beruntun (Batch Mode)
+- Setelah plan disetujui, AI mengeksekusi Chunk 1 ➔ Chunk 2 ➔ Chunk 3 secara berurutan dalam 1 jalan.
+- **Verifikasi Latar Belakang**: `shopify theme check` berjalan otomatis di setiap chunk. Jika ada error, AI memperbaikinya sendiri tanpa mengganggu pengguna.
 
-### Tahap 3 — Eksekusi Satu Chunk per Step
-- Kerjakan **HANYA SATU CHUNK** dari `PLAN.md` dalam satu waktu.
-- Dilarang scope creep atau mengubah file di luar chunk aktif.
-
-### Tahap 4 — Verifikasi Otomatis
-- Setelah chunk selesai, jalankan `shopify theme check`.
-- Wajib 0 Error sebelum melaporkan task selesai.
-
-### Tahap 5 — Checkpoint Log & Report
-- Berikan ringkasan perubahan dan tunggu persetujuan user sebelum lanjut ke chunk berikutnya.
+### Tahap 3 — Berhenti HANYA di Strategic Checkpoint
+- AI hanya berhenti untuk meminta persetujuan pengguna pada titik strategis:
+  - Sebelum `git push` ke remote repository.
+  - Sebelum deploy ke production (`shopify theme push`).
+  - Laporan penyelesaian fitur akhir.
 
 ---
 
