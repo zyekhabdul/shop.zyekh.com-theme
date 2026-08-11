@@ -2,17 +2,17 @@
 
 - **Repository**: `shop.zyekh.com-theme`
 - **PRD Reference**: `PRD.md` (v5.1 Standalone)
-- **Status**: Draft (Awaiting User Approval)
+- **Status**: In Progress (Chunk 1 Completed)
 
 ---
 
 ## Task Chunks Breakdown
 
-### Chunk 1: End-to-End Visual & Interactive Audit (Local Dev Server)
+### [x] Chunk 1: End-to-End Visual & Interactive Audit (Local Dev Server)
 - **Target Files**: `sections/hero-carousel.liquid`, `sections/bento-grid-categories.liquid`, `sections/main-product.liquid`, `snippets/cart-drawer.liquid`
 - **Task Description**: Launch local Shopify CLI dev server (`shopify theme dev --store jdidjn-c3.myshopify.com`) and perform visual verification of homepage carousels, PDP buy box, and cart drawer interactive UI.
 - **Dependencies**: None.
-- **Definition of Done (DoD)**: Dev server runs clean, zero console errors, responsive layouts verified.
+- **Definition of Done (DoD)**: Dev server runs clean (HTTP 200 OK), zero console errors, responsive layouts verified. (VERIFIED ✅)
 
 ---
 
