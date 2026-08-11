@@ -119,7 +119,22 @@ body {
   grid-column: 2;
 }
 
-/* Child elements that use the full-width utility class span the entire viewport. */
+/* Full-width sections break out of the 3-column grid */
+.shopify-section-group-header-group,
+.shopify-section-group-footer-group,
+.shopify-section:has(.full-width),
+#shopify-section-header,
+#shopify-section-announcement-bar,
+.shopify-section.full-width {
+  display: block !important;
+  width: 100% !important;
+}
+
+.shopify-section-group-header-group > *,
+.shopify-section-group-footer-group > *,
+.shopify-section:has(.full-width) > *,
+#shopify-section-header > *,
+#shopify-section-announcement-bar > *,
 .shopify-section > .full-width,
 .full-width {
   grid-column: 1 / -1 !important;
