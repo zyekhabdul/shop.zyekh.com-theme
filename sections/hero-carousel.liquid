@@ -1,46 +1,209 @@
 {% comment %}
-  Transpiled from Bagisto 2.4.x (carousel/index.blade.php) -> Shopify Liquid 2.0 Section
+  Bagisto 2.4.x / Amazon Style Hero Carousel (ZYEKH Engine Standard)
+  Zero Tailwind dependency, Vanilla CSS flexbox slider.
 {% endcomment %}
 
-<div class="hero-carousel full-width relative w-full overflow-hidden bg-gray-900 text-white">
-  <div class="carousel-container flex transition-transform duration-500 ease-in-out" id="heroSlider-{{ section.id }}">
-    {% for block in section.blocks %}
-      <div class="w-full flex-shrink-0 relative min-h-[400px] md:min-h-[550px]" {{ block.shopify_attributes }}>
-        {% if block.settings.image != blank %}
-          <img
-            src="{{ block.settings.image | image_url: width: 1920 }}"
-            srcset="{{ block.settings.image | image_url: width: 768 }} 768w,
-                    {{ block.settings.image | image_url: width: 1280 }} 1280w,
-                    {{ block.settings.image | image_url: width: 1920 }} 1920w"
-            sizes="100vw"
-            alt="{{ block.settings.heading | escape }}"
-            width="{{ block.settings.image.width | default: 1920 }}"
-            height="{{ block.settings.image.height | default: 1080 }}"
-            class="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
-          >
-          <div class="absolute inset-0 bg-black/40"></div>
-        {% else %}
-          <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900"></div>
-        {% endif %}
+<div class="shopify-section hero-carousel-section full-width">
+  <div class="hero-carousel-wrapper" id="HeroCarousel-{{ section.id }}">
+    <div class="hero-carousel-track" id="heroSlider-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="hero-slide-item" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 1920 | image_tag: class: 'hero-slide-bg', loading: 'lazy', alt: block.settings.heading }}
+            <div class="hero-slide-overlay"></div>
+          {% else %}
+            <div class="hero-slide-gradient"></div>
+          {% endif %}
 
-        <div class="relative container mx-auto px-6 h-full flex flex-col justify-center items-start text-left z-10 py-20">
-          {% if block.settings.heading != blank %}
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 max-w-xl">{{ block.settings.heading }}</h2>
-          {% endif %}
-          {% if block.settings.subheading != blank %}
-            <p class="text-lg md:text-xl text-gray-200 mb-6 max-w-lg">{{ block.settings.subheading }}</p>
-          {% endif %}
-          {% if block.settings.button_link != blank and block.settings.button_label != blank %}
-            <a href="{{ block.settings.button_link }}" class="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100 transition-colors shadow-md">
-              {{ block.settings.button_label }}
-            </a>
-          {% endif %}
+          <div class="hero-slide-content">
+            <div class="hero-slide-badge">
+              <span class="pulse-dot"></span> {{ 'general.meta.trending' | t | default: 'MARKETPLACE DEALS' }}
+            </div>
+            {% if block.settings.heading != blank %}
+              <h2 class="hero-slide-heading">{{ block.settings.heading | escape }}</h2>
+            {% endif %}
+            {% if block.settings.subheading != blank %}
+              <p class="hero-slide-subheading">{{ block.settings.subheading | escape }}</p>
+            {% endif %}
+            {% if block.settings.button_link != blank and block.settings.button_label != blank %}
+              <a href="{{ block.settings.button_link }}" class="btn-primary hero-slide-btn">
+                {{ block.settings.button_label | escape }} &rarr;
+              </a>
+            {% endif %}
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <button type="button" class="hero-carousel-nav hero-nav-prev" id="HeroPrev-{{ section.id }}" aria-label="Previous Slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="hero-carousel-nav hero-nav-next" id="HeroNext-{{ section.id }}" aria-label="Next Slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    {% endif %}
   </div>
 </div>
+
+{% stylesheet %}
+  .hero-carousel-section {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    background: #0f172a;
+    color: #ffffff;
+  }
+  .hero-carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+  }
+  .hero-slide-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    padding: 3rem var(--space-md);
+  }
+  .hero-slide-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%);
+    z-index: 0;
+  }
+  .hero-slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    z-index: 1;
+  }
+  .hero-slide-content {
+    position: relative;
+    z-index: 2;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 var(--page-margin);
+  }
+  .hero-slide-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  .hero-slide-heading {
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 650px;
+    color: #ffffff;
+  }
+  .hero-slide-subheading {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: 0.9;
+    max-width: 550px;
+    margin-bottom: 1.75rem;
+    color: #e2e8f0;
+  }
+  .hero-slide-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .hero-slide-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    background: #f8fafc;
+  }
+  .hero-carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background var(--transition), transform var(--transition);
+  }
+  .hero-carousel-nav:hover {
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.08);
+  }
+  .hero-nav-prev { left: 1.25rem; }
+  .hero-nav-next { right: 1.25rem; }
+{% endstylesheet %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('heroSlider-{{ section.id }}');
+    const prevBtn = document.getElementById('HeroPrev-{{ section.id }}');
+    const nextBtn = document.getElementById('HeroNext-{{ section.id }}');
+    if (!track) return;
+
+    let currentIndex = 0;
+    const slides = track.querySelectorAll('.hero-slide-item');
+    const totalSlides = slides.length;
+    if (totalSlides <= 1) return;
+
+    function updateSlider() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlider();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlider();
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
@@ -77,7 +240,7 @@
           "type": "text",
           "id": "button_label",
           "label": "Button Label",
-          "default": "Shop Now"
+          "default": "Shop Marketplace"
         }
       ]
     }

@@ -1,5 +1,11 @@
 {
   "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Welcome to shop.zyekh.com - Free shipping on orders over $50! COD Available."
+      }
+    },
     "hero_carousel": {
       "type": "hero-carousel",
       "blocks": {
@@ -8,7 +14,7 @@
           "settings": {
             "heading": "Elevate Your Lifestyle",
             "subheading": "Discover curated premium items with fast worldwide shipping.",
-            "button_label": "Shop Collection",
+            "button_label": "Shop Marketplace",
             "button_link": "/collections/all"
           }
         },
@@ -22,25 +28,69 @@
           }
         }
       },
-      "block_order": ["slide_1", "slide_2"]
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ]
     },
-    "announcement": {
-      "type": "announcement-bar",
-      "settings": {
-        "text": "Welcome to shop.zyekh.com - Free shipping on orders over $50!"
-      }
+    "services": {
+      "type": "services-grid",
+      "settings": {}
     },
     "category_carousel": {
       "type": "category-carousel",
       "blocks": {
-        "cat_1": { "type": "category", "settings": { "title": "Electronics", "url": "/collections/all" } },
-        "cat_2": { "type": "category", "settings": { "title": "Fashion", "url": "/collections/all" } },
-        "cat_3": { "type": "category", "settings": { "title": "Home & Living", "url": "/collections/all" } },
-        "cat_4": { "type": "category", "settings": { "title": "Beauty", "url": "/collections/all" } },
-        "cat_5": { "type": "category", "settings": { "title": "Accessories", "url": "/collections/all" } },
-        "cat_6": { "type": "category", "settings": { "title": "Gadgets", "url": "/collections/all" } }
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Electronics",
+            "url": "/collections/all"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Fashion",
+            "url": "/collections/all"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Home & Living",
+            "url": "/collections/all"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "Beauty",
+            "url": "/collections/all"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Accessories",
+            "url": "/collections/all"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Gadgets",
+            "url": "/collections/all"
+          }
+        }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5", "cat_6"]
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6"
+      ]
     },
     "flash_sale": {
       "type": "flash-sale-bar",
@@ -60,23 +110,19 @@
     "featured_carousel": {
       "type": "featured-collection-carousel",
       "settings": {
-        "title": "Featured Collection",
+        "title": "Featured Marketplace Products",
         "subtitle": "Handpicked items just for you",
         "products_to_show": 8
       }
-    },
-    "services": {
-      "type": "services-grid",
-      "settings": {}
     }
   },
   "order": [
-    "hero_carousel",
     "announcement",
+    "hero_carousel",
+    "services",
     "category_carousel",
     "flash_sale",
     "bento_categories",
-    "featured_carousel",
-    "services"
+    "featured_carousel"
   ]
 }

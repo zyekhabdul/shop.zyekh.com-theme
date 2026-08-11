@@ -117,6 +117,9 @@
     "language_label": "Language"
   },
   "general": {
+    "meta": {
+      "trending": "MARKETPLACE DEALS"
+    },
     "mega_menu": {
       "promo_badge": "New",
       "explore": "Explore",

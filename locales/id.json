@@ -117,6 +117,9 @@
     "language_label": "Bahasa"
   },
   "general": {
+    "meta": {
+      "trending": "PROMO MARKETPLACE"
+    },
     "mega_menu": {
       "promo_badge": "Baru",
       "explore": "Jelajahi",
