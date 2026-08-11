@@ -35,7 +35,7 @@
                     <button type="button" class="qty-btn qty-plus" data-id="updates_{{ item.key }}">+</button>
                   </div>
                   
-                  <a href="{{ item.url_to_remove }}" class="cart-item-remove">Hapus</a>
+                  <a href="{{ item.url_to_remove }}" class="cart-item-remove">{{ 'cart.remove' | t | default: 'Remove' }}</a>
                 </div>
               </div>
               
@@ -48,7 +48,7 @@
 
         <div class="cart-summary">
           <div class="cart-summary-row">
-            <span>Subtotal</span>
+            <span>{{ 'cart.subtotal' | t | default: 'Subtotal' }}</span>
             <strong>{{ cart.total_price | money }}</strong>
           </div>
           <p class="cart-shipping-note">{{ 'cart.shipping_note' | t | default: 'Shipping and taxes calculated at checkout.' }}</p>

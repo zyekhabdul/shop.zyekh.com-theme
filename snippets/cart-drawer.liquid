@@ -287,15 +287,34 @@
     if (!cartLink) return;
     let sup = cartLink.querySelector('sup');
     if (count > 0) {
-      if (sup) {
-        sup.textContent = count;
-      } else {
-        sup = document.createElement('sup');
-        sup.textContent = count;
         cartLink.appendChild(sup);
       }
     } else {
       if (sup) sup.remove();
     }
   }
+
+  window.addVariantToCart = async function(btn) {
+    const variantId = btn.getAttribute('data-variant-id');
+    if (!variantId) return;
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: 1 })
+      });
+      if (response.ok) {
+        await fetchCart();
+        openCartDrawer();
+      }
+    } catch(err) {
+      console.error('Failed to add variant to cart:', err);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  };
 </script>
