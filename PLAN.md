@@ -1,39 +1,49 @@
-# PLAN.md — Homepage Marketplace Architecture Standardization & Refactor
+# PLAN.md — Enterprise Bagisto 2.4.x / Velocity Replica Standardization Plan
 
-## Reference Specs & Comparison
-- **Architecture Spec**: [`HOMEPAGE_STRUCTURE.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/HOMEPAGE_STRUCTURE.md)
-- **Comparison & Audit Analysis**: [`HOMEPAGE_STRUCTURE_COMPARISON.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/HOMEPAGE_STRUCTURE_COMPARISON.md)
+## Reference Specification
+- **PRD Source**: [`PRD.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/PRD.md) & [`01-Dokumen/PRD-shop.zyekh.com-theme.md`](file:///home/fuckadmin/Documents/Obsidian%20Vault/01-Dokumen/PRD-shop.zyekh.com-theme.md)
+- **Workflow Standard**: [`AGENTS (1).md`](file:///home/fuckadmin/Downloads/AGENTS%20%281%29.md)
 
 ---
 
-## Hyper-Granular Task Chunks
+## Hyper-Granular Task Breakdown
 
-### Chunk 1: Synchronize `templates/index.json` with Marketplace Standard
+### Chunk 1: Synchronize `templates/index.json` with PRD v5.1 Sequence
 - **Target File**: [`templates/index.json`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/templates/index.json)
-- **Action**: Update `order` and default blocks strictly per Bagisto/Amazon marketplace standard:
+- **Scope**: Align root JSON `order` array to match PRD v5.1 exact sequence:
   1. `announcement` (`sections/announcement-bar.liquid`)
   2. `hero_carousel` (`sections/hero-carousel.liquid` with 2 slide blocks)
-  3. `services` (`sections/services-grid.liquid`)
-  4. `category_carousel` (`sections/category-carousel.liquid` with 6 category blocks)
-  5. `flash_sale` (`sections/flash-sale-bar.liquid`)
-  6. `bento_categories` (`sections/bento-grid-categories.liquid`)
-  7. `featured_carousel` (`sections/featured-collection-carousel.liquid`)
-- **DoD**: Valid JSON structure, verified section order matching `HOMEPAGE_STRUCTURE.md`.
+  3. `category_carousel` (`sections/category-carousel.liquid` with 6 circle category blocks)
+  4. `flash_sale` (`sections/flash-sale-bar.liquid`)
+  5. `bento_categories` (`sections/bento-grid-categories.liquid`)
+  6. `featured_carousel` (`sections/featured-collection-carousel.liquid`)
+  7. `services` (`sections/services-grid.liquid`)
+- **Data Contract**: Valid JSON schema with default block settings.
+- **Definition of Done (DoD)**: JSON parser passes without syntax errors, order matches L17-L23 of `PRD.md`.
 
-### Chunk 2: Pure Vanilla CSS Refactor for `sections/hero-carousel.liquid`
+### Chunk 2: Refactor `sections/hero-carousel.liquid` to Scoped ZYEKH Vanilla CSS
 - **Target File**: [`sections/hero-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid)
-- **Action**: Replace unparsed Tailwind utility classes with scoped Vanilla CSS in `{% stylesheet %}` block:
-  - Dark gradient background (`linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)`).
-  - Typography scaling (`var(--font-size-3xl)`), white CTA button, responsive slide padding, and nav buttons (`<` and `>`).
-- **DoD**: Hero slider renders with rich styling and zero unstyled Tailwind text.
+- **Scope**:
+  - Replace unparsed Tailwind classes with ZYEKH Engine Vanilla CSS in `{% stylesheet %}` block.
+  - CSS selector specs: `.hero-carousel-wrapper` (min-height 380px), `.hero-slide-gradient` (`linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)`), `.hero-slide-heading` (clamp 1.8rem to 3.2rem), `.hero-slide-btn` (background `#ffffff`, color `#0f172a`).
+  - JS slider navigation hook: `HeroPrev-{{ section.id }}` & `HeroNext-{{ section.id }}`.
+- **Definition of Done (DoD)**: Zero Tailwind class remnants, `shopify theme check` L0 errors on file.
 
-### Chunk 3: Flexbox Centering for `sections/category-carousel.liquid`
+### Chunk 3: Refactor `sections/category-carousel.liquid` Flexbox Avatar Centering
 - **Target File**: [`sections/category-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid)
-- **Action**: Update CSS layout in `{% stylesheet %}`:
-  - Flexbox centering: `display: flex; align-items: center; justify-content: center; gap: 1.5rem; width: 100%; max-width: var(--page-width); margin: 0 auto;`.
-  - Avatar circle styling: `width: 80px; height: 80px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--border-color);`.
-- **DoD**: Category circle items are neatly centered and scrollable between `<` and `>` arrows.
+- **Scope**:
+  - Add scoped `{% stylesheet %}` block for flexbox centering.
+  - CSS specs: `.category-carousel-wrapper` (`display: flex; align-items: center; justify-content: center; gap: 0.75rem; max-width: var(--page-width); margin: 0 auto; padding: 1.5rem var(--page-margin)`).
+  - Avatar circle specs: `.category-carousel__avatar` (`width: 80px; height: 80px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--border-color)`).
+- **Definition of Done (DoD)**: Flexbox layout verified, `shopify theme check` L0 errors on file.
 
-### Chunk 4: Verification & Quality Gate
-- **Command**: `shopify theme check`
-- **DoD**: 0 ERRORS across all Liquid and JSON files.
+### Chunk 4: Full Automated Theme Check & Verification Gate
+- **Target Scope**: Entire theme directory (79 files)
+- **Execution Command**: `shopify theme check`
+- **Definition of Done (DoD)**: 0 ERRORS across all inspected files.
+
+---
+
+## Strategic Checkpoint & Safety Rails
+- **Commit Strategy**: `git commit` created after completion of each chunk.
+- **Stop Condition (Tahap 3B)**: Immediate total halt if any theme check error is encountered or sensitive files are touched.

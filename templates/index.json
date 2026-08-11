@@ -33,10 +33,6 @@
         "slide_2"
       ]
     },
-    "services": {
-      "type": "services-grid",
-      "settings": {}
-    },
     "category_carousel": {
       "type": "category-carousel",
       "blocks": {
@@ -114,15 +110,19 @@
         "subtitle": "Handpicked items just for you",
         "products_to_show": 8
       }
+    },
+    "services": {
+      "type": "services-grid",
+      "settings": {}
     }
   },
   "order": [
     "announcement",
     "hero_carousel",
-    "services",
     "category_carousel",
     "flash_sale",
     "bento_categories",
-    "featured_carousel"
+    "featured_carousel",
+    "services"
   ]
 }

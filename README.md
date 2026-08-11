@@ -12,6 +12,18 @@ A minimal, carefully structured Shopify theme designed to help you quickly get s
   <a href="./actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shopify/skeleton-theme/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
+## Documentation & Governance
+
+This project adheres to strict AI Agent and Global Project standards:
+
+- 📋 [**PRD.md**](./PRD.md) — Product Requirements Document (What & Why)
+- ⚙️ [**AGENTS.md**](./AGENTS.md) — Mandatory Workflows & Execution Safety Rules
+- 🔒 [**GEMINI.md**](./GEMINI.md) — Binding Project Rules & Architecture Constraints
+- 🛠️ [**DEVELOPMENT.md**](./DEVELOPMENT.md) — Active Task Checklist & Fixed Technical ADRs
+- 🎨 [**DESIGN_SYSTEM.md**](./DESIGN_SYSTEM.md) — Design Tokens & UI/UX Rules
+- 📜 [**CHANGELOG.md**](./CHANGELOG.md) — Session Log & Historical Changes
+
+
 ## Getting started
 
 ### Prerequisites

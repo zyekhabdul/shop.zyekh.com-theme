@@ -1,5 +1,18 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: d23686ee-d0f8-4b08-b416-923f33c1d3ef
+
+**Global Project Standards & Automated Pre-Commit Hook Enforcement:**
+- Menambahkan `GLOBAL-PROJECT-STANDARD.md` ke Obsidian Vault (`09-Panduan-Projek/`).
+- Meng-update `WORKFLOW-AI-AGENT-STANDARD.md` di Obsidian Vault dengan alur batch otonom, silent verification, hard stop, dan anti context-drift.
+- Meng-update `AGENTS.md` di workspace proyek lokal dengan aturan alur kerja terkini dan Shopify theme check.
+- Memperbarui `README.md` dengan section Documentation & Governance yang menautkan file-file wajib (`PRD.md`, `AGENTS.md`, `GEMINI.md`, dll).
+- Membuat `.env.example` sebagai template environment variable.
+- Memasang dan mengaktifkan Git Pre-Commit Hook (`.git/hooks/pre-commit` + `chmod +x`) untuk menjamin ketersediaan file wajib dan update changelog secara otomatis.
+- Meng-update RAG Memory `DECISIONS.md` dengan entri ADR `KF-010`.
+
+---
+
 ### Session: 133e922f-e2fd-4439-9278-d02c73ae105c
 
 **Tahap 1: Persiapan Struktur Dasar & Header (Bagisto Replica)**
