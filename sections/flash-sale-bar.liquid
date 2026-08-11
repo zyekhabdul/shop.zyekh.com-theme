@@ -3,12 +3,18 @@
   Features: Vanilla ES6+ countdown timer, ARIA accessibility, responsive product row.
 {% endcomment %}
 
-<div class="shopify-section section-flash-sale" id="FlashSale-{{ section.id }}" data-end-date="{{ section.settings.end_date | escape }}">
+<div class="shopify-section section-flash-sale full-width" id="FlashSale-{{ section.id }}" data-end-date="{{ section.settings.end_date | escape }}">
   <div class="flash-sale-wrapper">
     <div class="flash-sale-header">
       <div class="flash-sale-title-group">
         <span class="flash-sale-badge">{{ section.settings.badge_text | default: 'FLASH SALE' | escape }}</span>
-        <h2 class="flash-sale-heading">{{ section.settings.heading | default: 'sections.flash_sale.title' | t | escape }}</h2>
+        <h2 class="flash-sale-heading">
+          {%- if section.settings.heading != blank -%}
+            {{ section.settings.heading | escape }}
+          {%- else -%}
+            {{ 'sections.flash_sale.title' | t }}
+          {%- endif -%}
+        </h2>
       </div>
 
       <div class="flash-sale-timer-container" aria-live="polite" aria-label="Flash sale countdown">
@@ -33,7 +39,11 @@
 
       {% if section.settings.show_button %}
         <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="flash-sale-cta-btn">
-          {{ section.settings.button_text | default: 'sections.flash_sale.shop_all' | t | escape }} &rarr;
+          {%- if section.settings.button_text != blank -%}
+            {{ section.settings.button_text | escape }}
+          {%- else -%}
+            {{ 'sections.flash_sale.shop_all' | t }}
+          {%- endif -%} &rarr;
         </a>
       {% endif %}
     </div>
