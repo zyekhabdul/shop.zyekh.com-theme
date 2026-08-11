@@ -1,5 +1,14 @@
 # GEMINI.md — shop.zyekh.com-theme
 
+## IDENTITAS PROYEK (BACA INI PERTAMA)
+- Proyek ini adalah **Shopify Liquid 2.0 frontend catalog theme** yang **BERDIRI SENDIRI**.
+- **TIDAK ADA** koneksi ke `bagisto-testing`, Laravel, VPS, Neon PostgreSQL, atau backend apapun.
+- Store: `jdidjn-c3.myshopify.com` / `shop.zyekh.com`
+- Obsidian RAG folder: `00-AGY-Memory/shop-zyekh-theme/`
+- PRD Standalone: `01-Dokumen/PRD-shop-zyekh-com-theme-STANDALONE.md`
+- **JANGAN** merujuk ke `PRD-CURRENT-MASTER.md` atau file dari `bagisto-testing` — itu proyek lain.
+- Baca `.agents/rules/rag-isolation.md` untuk aturan lengkap isolasi konteks.
+
 ## ATURAN PALING PENTING (BACA INI DULU)
 
 ### JANGAN EDIT TANPA VALIDASI
