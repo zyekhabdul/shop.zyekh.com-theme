@@ -2,9 +2,9 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Dokumentasi & RAG Context Recording (KF-012 & KF-013):**
+**Dokumentasi & Live Main Theme Push (ID #152467832910):**
 - Perekaman Keputusan Arsitektur: Mencatat `KF-012` (Standar 3D Product Avatar Kategori & Navigasi Mobile) dan `KF-013` (Hero Banner AI Photography & High-Contrast Mobile Overlay) di [DEVELOPMENT.md](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/DEVELOPMENT.md#L168) dan Obsidian Vault RAG memory (`DECISIONS.md`, `STATE.md`, `INDEX.md`).
-- Deployment Shopify Live: Seluruh pembaruan tema telah **di-push secara sukses ke Shopify Live Store** (`jdidjn-c3.myshopify.com` / Theme ID `152405803086`).
+- Live Main Theme Push: Mengunggah dan menimpa langsung kode tema lokal ke **Live Main Theme resmi `shop.zyekh.com`** (Theme ID `152467832910` / `Zendrop`) via `shopify theme push --live --allow-live`. Domain `shop.zyekh.com` sekarang 100% menampilkan tampilan tema Liquid 2.0 terbaru!
 - Redesign Header Flash Sale Deals ([sections/flash-sale-bar.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/flash-sale-bar.liquid#L95)): Mengubah layout header Flash Sale pada mode mobile & desktop. Lencana `FLASH SALE` diatur seragam 800-bold, timer `Ends in:` menggunakan box minimalis putih bergaris merah transparan, dan tombol `Shop All Deals →` menggunakan pill button kapsul (`border-radius: 9999px`) dengan efek shadow.
 - Standardisasi Tombol Kartu Flash Sale: Mengganti warna tombol `Add to Cart` dari biru elektrik menjadi warna **Dark Slate** (`background: #1e293b; color: #fff; border-radius: 9999px`) yang padu dengan kartu produk.
 - Penyelarasan Judul Kotak Kategori ([sections/bento-grid-categories.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/bento-grid-categories.liquid#L230)): Menyeragamkan skala judul section `clamp(1.2rem, 2.5vw, 1.6rem)` dan mengunci judul kartu bento `font-size: 1.15rem` dengan `line-clamp: 2`. Seluruh judul kotak kategori sekarang berukuran konsisten dan simetris tanpa ada yang terlalu besar/kecil.
