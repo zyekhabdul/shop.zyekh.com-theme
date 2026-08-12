@@ -2,14 +2,14 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Audit Re-evaluasi, Category Carousel, & Redesign Cookie Consent Popup:**
+**Audit Re-evaluasi, Product Card Typography, & Social Proof Anti-Spam:**
+- Refactor `snippets/product-card.liquid` & `assets/critical.css`: Mengganti class Tailwind unparsed dengan BEM `.product-card__title` (14px font size, `font-weight: 600`, 2-line clamp) dan `.product-card__price` (`var(--text-main)`).
+- Menyesuaikan tombol ATC dari biru elektrik ke warna DNA hitam ZYEKH (`var(--color-btn-bg)`).
+- Synchronize placeholder cards pada `sections/featured-collection-carousel.liquid` agar menggunakan BEM class 14px seragam.
+- Control `snippets/social-proof-toast.liquid`: Menghapus loop `setInterval` 20 detik yang spammy, membatasi toast hanya muncul **1 kali per sesi** (`sessionStorage`), dan menambahkan proteksi bentrokan UI agar tidak muncul saat Cookie Banner sedang aktif.
 - Menambahkan deteksi overflow dinamis Vanilla JS pada `sections/category-carousel.liquid` (`data-overflow="true/false"`).
-- Menyembunyikan tombol navigasi panah saat item kategori muat di layar tanpa scroll overflow.
-- Memposisikan tombol panah sebagai overlay halus pada sisi kiri dan kanan saat terjadi overflow di layar kecil/mobile.
-- Menambahkan fallback ikon SVG kontekstual spesifik per kategori ("Electronics", "Fashion", "Home & Living", "Beauty", "Accessories", "Gadgets").
-- Redesign total `snippets/consent-banner.liquid` (Cookie Consent Popup): Glassmorphism floating card UI (`bottom: 1.5rem`), collapsible granular preferences drawer (Essential, Analytics, Marketing), entry animation `consentSlideUp`, dan WCAG accessibility dialog.
-- Eksplorasi & penambahan translation keys untuk privacy & accessibility pada `locales/en.default.json` dan `locales/id.json`.
-- Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** across 79 files.
+- Redesign total `snippets/consent-banner.liquid` (Cookie Consent Popup) dengan floating card UI (`bottom: 1.5rem`), collapsible granular preferences drawer, dan WCAG accessibility dialog.
+- Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** (79 files).
 
 ---
 

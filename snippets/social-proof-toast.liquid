@@ -1,14 +1,19 @@
+{% comment %}
+  Social Proof Purchase Toast (ZYEKH Engine Standard)
+  Features: Non-spammy single session trigger, collision check with cookie banner.
+{% endcomment %}
+
 <div class="social-proof-toast" id="SocialProofToast" aria-hidden="true" role="status">
   <div class="toast-content">
     <div class="toast-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
     </div>
     <div class="toast-text">
       <span class="toast-message" id="ToastMessage">
         <!-- Text injected dynamically -->
       </span>
     </div>
-    <button class="toast-close" id="ToastClose" aria-label="{{ 'general.accessibility.close_modal' | t }}">
+    <button class="toast-close" id="ToastClose" aria-label="{{ 'general.accessibility.close_modal' | t | default: 'Close' }}">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
   </div>
@@ -16,31 +21,40 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Mocking Storefront API data for demonstration
-    const mockLocations = ['London', 'New York', 'Tokyo', 'Jakarta', 'Sydney'];
     const toast = document.getElementById('SocialProofToast');
     const toastMessage = document.getElementById('ToastMessage');
     const toastClose = document.getElementById('ToastClose');
 
     if (!toast || !toastMessage) return;
 
+    // Strict Anti-Spam Control: Show ONLY ONCE per user session
+    if (sessionStorage.getItem('socialProofShown')) return;
+
+    const mockLocations = ['London', 'New York', 'Tokyo', 'Jakarta', 'Sydney', 'Singapore', 'Melbourne'];
+
     function showToast() {
+      // Check if Cookie Consent Banner is currently visible (prevent UI collision)
+      const cookieBanner = document.getElementById('consent-banner');
+      if (cookieBanner && cookieBanner.style.display !== 'none' && window.getComputedStyle(cookieBanner).display !== 'none') {
+        // Postpone check by 5 seconds
+        setTimeout(showToast, 5000);
+        return;
+      }
+
       const randomLocation = mockLocations[Math.floor(Math.random() * mockLocations.length)];
       const randomTime = Math.floor(Math.random() * 59) + 1;
       
-      // We would normally fetch this via Storefront API, using locale string dynamically:
-      // This is a simplified replacement for the mock demo. Liquid parsing happens server-side, 
-      // so we use a JS template approach if needed, or pass strings in a data object.
-      const templateStr = {{ 'products.social_proof.toast' | t | json }};
+      const templateStr = {{ 'products.social_proof.toast' | t | default: 'Someone in {{ location }} just bought this {{ time }}m ago' | json }};
       const message = templateStr.replace(/\{\{\s*location\s*\}\}/g, randomLocation).replace(/\{\{\s*time\s*\}\}/g, randomTime);
       
       toastMessage.innerHTML = message;
       toast.setAttribute('aria-hidden', 'false');
       toast.classList.add('visible');
+      sessionStorage.setItem('socialProofShown', 'true');
 
       setTimeout(() => {
         hideToast();
-      }, 5000); // Hide after 5 seconds
+      }, 6000); // Hide after 6 seconds
     }
 
     function hideToast() {
@@ -52,12 +66,7 @@
       toastClose.addEventListener('click', hideToast);
     }
 
-    // Show toast every 20-30 seconds
-    setInterval(() => {
-      showToast();
-    }, Math.floor(Math.random() * 10000) + 20000);
-    
-    // Initial delay
-    setTimeout(showToast, 5000);
+    // Trigger ONCE after 8 seconds initial delay (no repeating interval spam)
+    setTimeout(showToast, 8000);
   });
 </script>

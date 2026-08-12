@@ -42,12 +42,24 @@
           {% for i in (1..8) %}
             <div class="carousel-slide">
               <div class="product-card placeholder-card">
-                <div class="product-image-wrapper placeholder-image">
-                  Sample Product {{ i }}
+                <div class="product-card__image-wrapper product-card__no-image">
+                  <span>Sample Product {{ i }}</span>
                 </div>
-                <div class="product-info">
-                  <h3 class="product-title">Trending Item {{ i }}</h3>
-                  <div class="product-price">$39.99</div>
+                <div class="product-card__content">
+                  <div class="product-card__header">
+                    <p class="product-card__vendor">Marketplace</p>
+                    <h3 class="product-card__title">
+                      <a href="#">Trending Item {{ i }}</a>
+                    </h3>
+                  </div>
+                  <div class="product-card__footer">
+                    <div class="product-card__prices">
+                      <span class="product-card__price">$39.99</span>
+                    </div>
+                    <button type="button" class="product-card__atc-btn">
+                      {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

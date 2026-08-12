@@ -1,44 +1,44 @@
-# PLAN.md — Category Carousel Refactor & Shopify Live Store Launch Plan
+# PLAN.md — Product Typography & Social Proof Toast Control Plan
 
 ## Reference Specification
 - **PRD Source**: [`PRD.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/PRD.md)
 - **Workflow Standard**: [`AGENTS.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/AGENTS.md)
-- **Visual Audit**: Screenshot defect fix (`category-carousel.liquid` whitespace & navigation arrows).
+- **User Directives**:
+  1. Perbaiki ukuran teks judul kartu produk dari 24px raksasa menjadi 14px proporsional.
+  2. Atur/matikan popup social proof pembeli ("Someone in Sydney just bought...") di kiri bawah agar tidak seperti spam dan tidak bentrok dengan cookie banner.
 
 ---
 
 ## Hyper-Granular Task Breakdown
 
-### Chunk 1: Refactor `sections/category-carousel.liquid` Layout & Dynamic Overflow
-- **Target File**: [`sections/category-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid)
+### Chunk 1: Perbaikan Ukuran Teks Kartu Produk (`snippets/product-card.liquid`)
+- **Target File**: [`snippets/product-card.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/snippets/product-card.liquid) & [`assets/critical.css`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/assets/critical.css)
 - **Scope**:
-  - Implement Vanilla JS overflow detection: set `data-overflow="true/false"` on `.category-carousel-wrapper` based on `carousel.scrollWidth > carousel.clientWidth`.
-  - Scoped CSS: Hide nav arrows (`display: none`) when `data-overflow="false"`. When `data-overflow="true"`, position nav buttons as overlay controls.
-  - Add category-specific SVG icon fallbacks for default categories ("Electronics", "Fashion", "Home & Living", "Beauty", "Accessories", "Gadgets") when `block.settings.image` is blank.
-- **Definition of Done (DoD)**: Nav arrows auto-hide when items fit without overflow, zero awkward whitespace gaps, category icons distinct, `shopify theme check` 0 errors.
+  - Ganti class Tailwind unparsed dengan BEM `.product-card__title` (font size `0.875rem` / 14px, `font-weight: 600`, line height 1.35, 2-line clamp).
+  - Terapkan `.product-card__price` dengan CSS variable `var(--text-main)` (15px bold).
+  - Ganti warna tombol ATC dari biru elektrik `#0000ff` ke `var(--color-btn-bg)` (DNA hitam ZYEKH).
+- **Definition of Done (DoD)**: Judul kartu produk berukuran 14px, zero unparsed Tailwind, 100% ZYEKH CSS variables, `shopify theme check` 0 errors.
 
-### Chunk 2: Polishing Homepage Sections Grid Alignment
-- **Target Files**:
-  - [`sections/hero-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid)
-  - [`sections/bento-grid-categories.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/bento-grid-categories.liquid)
-  - [`sections/flash-sale-bar.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/flash-sale-bar.liquid)
-  - [`sections/featured-collection-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/featured-collection-carousel.liquid)
-- **Scope**: Verify consistent max-width (`var(--page-width)`), padding (`var(--page-margin)`), and seamless vertical rhythm across all homepage sections.
-- **Definition of Done (DoD)**: Responsive grid alignment clean across 360px, 768px, 1280px breakpoints.
+### Chunk 2: Sinkronisasi Placeholder Cards (`sections/featured-collection-carousel.liquid`)
+- **Target File**: [`sections/featured-collection-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/featured-collection-carousel.liquid)
+- **Scope**:
+  - Ubah class HTML placeholder cards ("Trending Item 1..8") agar menggunakan `.product-card__title` (14px).
+- **Definition of Done (DoD)**: Kartu placeholder berukuran 14px seragam dengan kartu produk asli.
 
-### Chunk 3: Quality Gate & Automated Theme Audit
-- **Target Scope**: Entire theme directory (79 files)
-- **Execution Command**: `shopify theme check`
-- **Definition of Done (DoD)**: 0 ERRORS across all inspected files.
+### Chunk 3: Penanganan Social Proof Spam Toast (`snippets/social-proof-toast.liquid`)
+- **Target File**: [`snippets/social-proof-toast.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/snippets/social-proof-toast.liquid)
+- **Scope**:
+  - Hapus loop `setInterval` otomatis 20 detik yang mengganggu (anti-pattern spam).
+  - Batasi toast hanya muncul maksimal **1 kali per sesi** (`sessionStorage.getItem('socialProofShown')`) setelah delay 8 detik, DAN disembunyikan jika Cookie Consent Banner sedang terbuka.
+  - Sediakan opsi saklar nonaktifkan via settings jika dibutuhkan.
+- **Definition of Done (DoD)**: Toast tidak lagi melakukan spam berulang, tidak bentrok dengan cookie banner.
 
-### Chunk 4: Git Local Commit & Shopify Live Push
-- **Target Command**: `git commit` & `shopify theme push --store jdidjn-c3.myshopify.com`
-- **Scope**: Save progress locally and publish theme to Shopify store `jdidjn-c3.myshopify.com` (Main Theme ID `152405803086`).
-- **Definition of Done (DoD)**: Live storefront `shop.zyekh.com` updated with latest theme build.
+### Chunk 4: Quality Gate & Local Checkpoint
+- **Scope**: Run `shopify theme check` (0 error) & `git commit` di lokal (tanpa push live).
+- **Definition of Done (DoD)**: Checkpoint tersimpan di git lokal.
 
 ---
 
 ## Strategic Checkpoint & Safety Rails
-- **Commit Strategy**: `git commit` after Chunk 1 & Chunk 2.
-- **Push Permission**: `git push` to remote GitHub remains restricted unless user explicitly says "push". `shopify theme push` to Shopify store executes upon approval.
-- **Stop Condition (Tahap 3B)**: Immediate total halt if any theme check error occurs.
+- **Commit Strategy**: `git commit` setelah Chunk 3.
+- **Push Control**: `git push` & `shopify theme push` ditahan secara lokal.
