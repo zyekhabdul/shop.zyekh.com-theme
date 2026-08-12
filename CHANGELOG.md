@@ -2,13 +2,11 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Audit Re-evaluasi, Product Card Typography, Social Proof Anti-Spam & Decision KF-011:**
-- Menetapkan dan mencatat Keputusan Difiksasi **`KF-011`** (Seasonal Campaign Layer Protocol) di `DEVELOPMENT.md` dan Obsidian Vault (`DECISIONS.md`). Event seasonal (Halloween, Black Friday, dll) wajib ditangani via kontent/banner layer di Shopify Admin, DILARANG merombak arsitektur Liquid/CSS theme dasar.
-- Refactor `snippets/product-card.liquid` & `assets/critical.css`: Mengganti class Tailwind unparsed dengan BEM `.product-card__title` (14px font size, `font-weight: 600`, 2-line clamp) dan `.product-card__price` (`var(--text-main)`).
-- Menyesuaikan tombol ATC dari biru elektrik ke warna DNA hitam ZYEKH (`var(--color-btn-bg)`).
-- Synchronize placeholder cards pada `sections/featured-collection-carousel.liquid` agar menggunakan BEM class 14px seragam.
-- Control `snippets/social-proof-toast.liquid`: Menghapus loop `setInterval` 20 detik yang spammy, membatasi toast hanya muncul **1 kali per sesi** (`sessionStorage`), dan menambahkan proteksi bentrokan UI agar tidak muncul saat Cookie Banner sedang aktif.
-- Menambahkan deteksi overflow dinamis Vanilla JS pada `sections/category-carousel.liquid` (`data-overflow="true/false"`).
+**Audit Re-evaluasi, Systemic Product Card Refactor, & Decision KF-011:**
+- Systemic Refactor Kartu Produk: Membatasi font size global `.product-title` di `assets/critical.css` menjadi 14px (`0.875rem`, `font-weight: 600`, line-height 1.35) dan `.product-price` menjadi 15px (`var(--text-main)`).
+- Synchronize placeholder cards pada `sections/flash-sale-bar.liquid` dan `sections/featured-collection.liquid` agar menggunakan markup class BEM `.product-card` 14px yang sama, menghilangkan teks raksasa 24px dan warna biru elektrik.
+- Menetapkan dan mencatat Keputusan Difiksasi **`KF-011`** (Seasonal Campaign Layer Protocol) di `DEVELOPMENT.md` dan Obsidian Vault (`DECISIONS.md`).
+- Control `snippets/social-proof-toast.liquid`: Menghapus loop `setInterval` 20 detik yang spammy, membatasi toast hanya muncul **1 kali per sesi** (`sessionStorage`).
 - Redesign total `snippets/consent-banner.liquid` (Cookie Consent Popup) dengan floating card UI (`bottom: 1.5rem`), collapsible granular preferences drawer, dan WCAG accessibility dialog.
 - Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** (79 files).
 

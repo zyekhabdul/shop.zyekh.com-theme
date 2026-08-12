@@ -60,12 +60,25 @@
         <div class="flash-sale-grid">
           {% for i in (1..section.settings.products_to_show) %}
             <div class="product-card placeholder-card">
-              <div class="product-image-wrapper placeholder-image">
-                Flash Item {{ i }}
+              <div class="product-card__image-wrapper product-card__no-image">
+                <span>Flash Item {{ i }}</span>
               </div>
-              <div class="product-info">
-                <h3 class="product-title">Flash Sale Product Sample</h3>
-                <div class="product-price"><s style="opacity: 0.6;">$49.99</s> <strong>$29.99</strong></div>
+              <div class="product-card__content">
+                <div class="product-card__header">
+                  <p class="product-card__vendor">Flash Deal</p>
+                  <h3 class="product-card__title">
+                    <a href="#">Flash Sale Product Sample</a>
+                  </h3>
+                </div>
+                <div class="product-card__footer">
+                  <div class="product-card__prices">
+                    <span class="product-card__price">$29.99</span>
+                    <span class="product-card__compare-price">$49.99</span>
+                  </div>
+                  <button type="button" class="product-card__atc-btn">
+                    {{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}
+                  </button>
+                </div>
               </div>
             </div>
           {% endfor %}
