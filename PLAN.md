@@ -1,49 +1,44 @@
-# PLAN.md — Enterprise Bagisto 2.4.x / Velocity Replica Standardization Plan
+# PLAN.md — Category Carousel Refactor & Shopify Live Store Launch Plan
 
 ## Reference Specification
-- **PRD Source**: [`PRD.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/PRD.md) & [`01-Dokumen/PRD-shop.zyekh.com-theme.md`](file:///home/fuckadmin/Documents/Obsidian%20Vault/01-Dokumen/PRD-shop.zyekh.com-theme.md)
-- **Workflow Standard**: [`AGENTS (1).md`](file:///home/fuckadmin/Downloads/AGENTS%20%281%29.md)
+- **PRD Source**: [`PRD.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/PRD.md)
+- **Workflow Standard**: [`AGENTS.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/AGENTS.md)
+- **Visual Audit**: Screenshot defect fix (`category-carousel.liquid` whitespace & navigation arrows).
 
 ---
 
 ## Hyper-Granular Task Breakdown
 
-### Chunk 1: Synchronize `templates/index.json` with PRD v5.1 Sequence
-- **Target File**: [`templates/index.json`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/templates/index.json)
-- **Scope**: Align root JSON `order` array to match PRD v5.1 exact sequence:
-  1. `announcement` (`sections/announcement-bar.liquid`)
-  2. `hero_carousel` (`sections/hero-carousel.liquid` with 2 slide blocks)
-  3. `category_carousel` (`sections/category-carousel.liquid` with 6 circle category blocks)
-  4. `flash_sale` (`sections/flash-sale-bar.liquid`)
-  5. `bento_categories` (`sections/bento-grid-categories.liquid`)
-  6. `featured_carousel` (`sections/featured-collection-carousel.liquid`)
-  7. `services` (`sections/services-grid.liquid`)
-- **Data Contract**: Valid JSON schema with default block settings.
-- **Definition of Done (DoD)**: JSON parser passes without syntax errors, order matches L17-L23 of `PRD.md`.
-
-### Chunk 2: Refactor `sections/hero-carousel.liquid` to Scoped ZYEKH Vanilla CSS
-- **Target File**: [`sections/hero-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid)
-- **Scope**:
-  - Replace unparsed Tailwind classes with ZYEKH Engine Vanilla CSS in `{% stylesheet %}` block.
-  - CSS selector specs: `.hero-carousel-wrapper` (min-height 380px), `.hero-slide-gradient` (`linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)`), `.hero-slide-heading` (clamp 1.8rem to 3.2rem), `.hero-slide-btn` (background `#ffffff`, color `#0f172a`).
-  - JS slider navigation hook: `HeroPrev-{{ section.id }}` & `HeroNext-{{ section.id }}`.
-- **Definition of Done (DoD)**: Zero Tailwind class remnants, `shopify theme check` L0 errors on file.
-
-### Chunk 3: Refactor `sections/category-carousel.liquid` Flexbox Avatar Centering
+### Chunk 1: Refactor `sections/category-carousel.liquid` Layout & Dynamic Overflow
 - **Target File**: [`sections/category-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid)
 - **Scope**:
-  - Add scoped `{% stylesheet %}` block for flexbox centering.
-  - CSS specs: `.category-carousel-wrapper` (`display: flex; align-items: center; justify-content: center; gap: 0.75rem; max-width: var(--page-width); margin: 0 auto; padding: 1.5rem var(--page-margin)`).
-  - Avatar circle specs: `.category-carousel__avatar` (`width: 80px; height: 80px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--border-color)`).
-- **Definition of Done (DoD)**: Flexbox layout verified, `shopify theme check` L0 errors on file.
+  - Implement Vanilla JS overflow detection: set `data-overflow="true/false"` on `.category-carousel-wrapper` based on `carousel.scrollWidth > carousel.clientWidth`.
+  - Scoped CSS: Hide nav arrows (`display: none`) when `data-overflow="false"`. When `data-overflow="true"`, position nav buttons as overlay controls.
+  - Add category-specific SVG icon fallbacks for default categories ("Electronics", "Fashion", "Home & Living", "Beauty", "Accessories", "Gadgets") when `block.settings.image` is blank.
+- **Definition of Done (DoD)**: Nav arrows auto-hide when items fit without overflow, zero awkward whitespace gaps, category icons distinct, `shopify theme check` 0 errors.
 
-### Chunk 4: Full Automated Theme Check & Verification Gate
+### Chunk 2: Polishing Homepage Sections Grid Alignment
+- **Target Files**:
+  - [`sections/hero-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid)
+  - [`sections/bento-grid-categories.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/bento-grid-categories.liquid)
+  - [`sections/flash-sale-bar.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/flash-sale-bar.liquid)
+  - [`sections/featured-collection-carousel.liquid`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/featured-collection-carousel.liquid)
+- **Scope**: Verify consistent max-width (`var(--page-width)`), padding (`var(--page-margin)`), and seamless vertical rhythm across all homepage sections.
+- **Definition of Done (DoD)**: Responsive grid alignment clean across 360px, 768px, 1280px breakpoints.
+
+### Chunk 3: Quality Gate & Automated Theme Audit
 - **Target Scope**: Entire theme directory (79 files)
 - **Execution Command**: `shopify theme check`
 - **Definition of Done (DoD)**: 0 ERRORS across all inspected files.
 
+### Chunk 4: Git Local Commit & Shopify Live Push
+- **Target Command**: `git commit` & `shopify theme push --store jdidjn-c3.myshopify.com`
+- **Scope**: Save progress locally and publish theme to Shopify store `jdidjn-c3.myshopify.com` (Main Theme ID `152405803086`).
+- **Definition of Done (DoD)**: Live storefront `shop.zyekh.com` updated with latest theme build.
+
 ---
 
 ## Strategic Checkpoint & Safety Rails
-- **Commit Strategy**: `git commit` created after completion of each chunk.
-- **Stop Condition (Tahap 3B)**: Immediate total halt if any theme check error is encountered or sensitive files are touched.
+- **Commit Strategy**: `git commit` after Chunk 1 & Chunk 2.
+- **Push Permission**: `git push` to remote GitHub remains restricted unless user explicitly says "push". `shopify theme push` to Shopify store executes upon approval.
+- **Stop Condition (Tahap 3B)**: Immediate total halt if any theme check error occurs.

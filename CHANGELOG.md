@@ -1,6 +1,17 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
-### Session: d23686ee-d0f8-4b08-b416-923f33c1d3ef
+### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
+
+**Audit Re-evaluasi & Perbaikan Layout Category Carousel:**
+- Menambahkan deteksi overflow dinamis Vanilla JS pada `sections/category-carousel.liquid` (`data-overflow="true/false"`).
+- Menyembunyikan tombol navigasi panah saat item kategori muat di layar tanpa scroll overflow, menghilangkan ruang kosong canggung (defect pada screenshot user).
+- Memposisikan tombol panah sebagai overlay halus pada sisi kiri dan kanan saat terjadi overflow di layar kecil/mobile.
+- Menambahkan fallback ikon SVG kontekstual spesifik per kategori ("Electronics", "Fashion", "Home & Living", "Beauty", "Accessories", "Gadgets") jika gambar koleksi belum diset di Shopify Admin.
+- Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** across 79 files.
+- Meng-update `PLAN.md` untuk mencatat langkah audit dan checkpoint lokal.
+
+---
+
 
 **Global Project Standards & Automated Pre-Commit Hook Enforcement:**
 - Menambahkan `GLOBAL-PROJECT-STANDARD.md` ke Obsidian Vault (`09-Panduan-Projek/`).
