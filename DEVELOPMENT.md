@@ -162,6 +162,13 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 
 **Keputusan**: `shop.zyekh.com-theme` adalah repo terpisah, bukan subfolder dari `zyekh.com`.
 
+### KF-011: Seasonal Campaign Layer Protocol (Anti-Overhaul Rule)
+**Tanggal**: 2026-08-12
+**Konteks**: Event seasonal (Halloween, Black Friday, Christmas, Ramadhan) sering memicu keinginan merombak struktur theme secara destruktif.
+
+**Keputusan**: Event seasonal WAJIB ditangani via **Seasonal Campaign Layer** (mengubah banner, teks announcement, koleksi, dan badge promo via Shopify Admin), DILARANG MEROMBAK arsitektur Liquid/CSS theme dasar.
+
+
 ---
 
 ## Anti-Pattern Register (JANGAN LAKUKAN)

@@ -2,7 +2,8 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Audit Re-evaluasi, Product Card Typography, & Social Proof Anti-Spam:**
+**Audit Re-evaluasi, Product Card Typography, Social Proof Anti-Spam & Decision KF-011:**
+- Menetapkan dan mencatat Keputusan Difiksasi **`KF-011`** (Seasonal Campaign Layer Protocol) di `DEVELOPMENT.md` dan Obsidian Vault (`DECISIONS.md`). Event seasonal (Halloween, Black Friday, dll) wajib ditangani via kontent/banner layer di Shopify Admin, DILARANG merombak arsitektur Liquid/CSS theme dasar.
 - Refactor `snippets/product-card.liquid` & `assets/critical.css`: Mengganti class Tailwind unparsed dengan BEM `.product-card__title` (14px font size, `font-weight: 600`, 2-line clamp) dan `.product-card__price` (`var(--text-main)`).
 - Menyesuaikan tombol ATC dari biru elektrik ke warna DNA hitam ZYEKH (`var(--color-btn-bg)`).
 - Synchronize placeholder cards pada `sections/featured-collection-carousel.liquid` agar menggunakan BEM class 14px seragam.
