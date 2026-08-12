@@ -1,22 +1,408 @@
+{% comment %}
+  Enterprise Announcement Bar Section (ZYEKH Engine Standard)
+  Features:
+  - Multi-slide rotating promo ticker (4s interval) with pause on hover
+  - Integrated Track Order quick link & Shopify Markets currency/language selector
+  - Accessible dismiss button (sessionStorage memory)
+  - 100% Vanilla JS & CSS Variables (zero external dependencies)
+{% endcomment %}
+
+{%- if section.settings.show_announcement -%}
+  <div
+    class="announcement-bar-section"
+    id="AnnouncementBar-{{ section.id }}"
+    style="--announcement-bg: {{ section.settings.bg_color | default: 'var(--bg-main)' }}; --announcement-text: {{ section.settings.text_color | default: 'var(--text-main)' }};"
+  >
+    <div class="announcement-bar__container">
+      <!-- Left: Rotating Announcement Slider -->
+      <div class="announcement-bar__left">
+        {%- if section.blocks.size > 0 -%}
+          <div class="announcement-ticker" id="AnnouncementTicker-{{ section.id }}" data-auto-play="{{ section.settings.auto_rotate }}" data-interval="{{ section.settings.change_interval | times: 1000 }}">
+            <div class="announcement-ticker__wrapper">
+              {%- for block in section.blocks -%}
+                <div
+                  class="announcement-ticker__item {% if forloop.first %}is-active{% endif %}"
+                  data-index="{{ forloop.index0 }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.link != blank -%}
+                    <a href="{{ block.settings.link }}" class="announcement-ticker__link">
+                  {%- endif -%}
+
+                  {%- if block.settings.icon != 'none' -%}
+                    <span class="announcement-ticker__icon" aria-hidden="true">
+                      {%- case block.settings.icon -%}
+                        {%- when 'shipping' -%}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                        {%- when 'shield' -%}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        {%- when 'support' -%}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        {%- when 'tag' -%}
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                      {%- endcase -%}
+                    </span>
+                  {%- endif -%}
+
+                  <span class="announcement-ticker__text">{{ block.settings.text | escape }}</span>
+
+                  {%- if block.settings.link != blank -%}
+                    </a>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <div class="announcement-ticker__item is-active">
+            <span class="announcement-ticker__text">{{ 'announcement.free_shipping' | t | default: 'Free Shipping Worldwide on Orders Over $50' }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right: Utility Links & Localization -->
+      <div class="announcement-bar__right">
+        {%- if section.settings.show_track_order -%}
+          <a href="{{ section.settings.track_order_url | default: '/pages/track-order' }}" class="announcement-utility__link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>{{ 'announcement.track_order' | t | default: 'Track Order' }}</span>
+          </a>
+        {%- endif -%}
+
+        {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+          <div class="announcement-localization">
+            {%- if localization.available_countries.size > 1 -%}
+              <localization-form>
+                {%- form 'localization', id: 'AnnouncementCountryForm' -%}
+                  <div class="announcement-select-wrapper">
+                    <select name="country_code" class="announcement-select" aria-label="{{ 'localization.country_label' | t }}">
+                      {%- for country in localization.available_countries -%}
+                        <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                          {{ country.currency.iso_code }} ({{ country.currency.symbol }})
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endform -%}
+              </localization-form>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_dismiss_btn -%}
+          <button type="button" class="announcement-dismiss-btn" id="AnnouncementDismiss-{{ section.id }}" aria-label="Close Announcement">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .announcement-bar-section {
+      background-color: var(--announcement-bg);
+      color: var(--announcement-text);
+      font-size: 0.8rem;
+      border-bottom: 1px solid var(--border-color, #e5e7eb);
+      position: relative;
+      z-index: 40;
+    }
+    .announcement-bar-section.is-hidden {
+      display: none !important;
+    }
+    .announcement-bar__container {
+      max-width: var(--page-width, 1280px);
+      margin: 0 auto;
+      padding: var(--space-xs, 0.5rem) var(--page-margin, 1rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 36px;
+      gap: var(--space-md, 1rem);
+    }
+    .announcement-bar__left {
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .announcement-ticker {
+      position: relative;
+      height: 22px;
+      overflow: hidden;
+    }
+    .announcement-ticker__wrapper {
+      position: relative;
+      height: 100%;
+    }
+    .announcement-ticker__item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .announcement-ticker__item.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .announcement-ticker__link {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .announcement-ticker__link:hover {
+      text-decoration: underline;
+    }
+    .announcement-ticker__icon {
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-primary, #000);
+      flex-shrink: 0;
+    }
+    .announcement-ticker__text {
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .announcement-bar__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md, 1rem);
+      flex-shrink: 0;
+    }
+    .announcement-utility__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: inherit;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+    .announcement-utility__link:hover {
+      opacity: 0.8;
+    }
+    .announcement-select {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding-right: 0.25rem;
+    }
+    .announcement-select:focus {
+      outline: none;
+    }
+    .announcement-dismiss-btn {
+      background: transparent;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      padding: 2px;
+      display: inline-flex;
+      align-items: center;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+    .announcement-dismiss-btn:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .announcement-bar__right .announcement-utility__link span {
+        display: none;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const section = document.getElementById('AnnouncementBar-{{ section.id }}');
+      if(!section) return;
+
+      // Dismiss logic
+      if(sessionStorage.getItem('announcementDismissed') === 'true') {
+        section.classList.add('is-hidden');
+        return;
+      }
+
+      const dismissBtn = document.getElementById('AnnouncementDismiss-{{ section.id }}');
+      if(dismissBtn) {
+        dismissBtn.addEventListener('click', () => {
+          section.classList.add('is-hidden');
+          sessionStorage.setItem('announcementDismissed', 'true');
+        });
+      }
+
+      // Ticker auto-rotate
+      const ticker = document.getElementById('AnnouncementTicker-{{ section.id }}');
+      if(!ticker) return;
+      
+      const items = ticker.querySelectorAll('.announcement-ticker__item');
+      if(items.length <= 1) return;
+
+      const autoPlay = ticker.dataset.autoPlay === 'true';
+      const intervalTime = parseInt(ticker.dataset.interval, 10) || 4000;
+      let currentIndex = 0;
+      let timer = null;
+
+      function showSlide(index) {
+        items.forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % items.length;
+        showSlide(currentIndex);
+      }
+
+      function startAutoPlay() {
+        if(autoPlay && !timer) {
+          timer = setInterval(nextSlide, intervalTime);
+        }
+      }
+
+      function stopAutoPlay() {
+        if(timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      startAutoPlay();
+      ticker.addEventListener('mouseenter', stopAutoPlay);
+      ticker.addEventListener('mouseleave', startAutoPlay);
+    });
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Announcement Bar",
   "settings": [
     {
-      "type": "text",
-      "id": "text",
-      "label": "Announcement Text",
-      "default": "Welcome to our store"
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate announcements",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change interval",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_track_order",
+      "label": "Show 'Track Order' link",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "track_order_url",
+      "label": "Track Order link URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dismiss_btn",
+      "label": "Allow visitors to dismiss bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Announcement Text",
+          "default": "Free Shipping Worldwide on Orders Over $50"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "shipping", "label": "Shipping Truck" },
+            { "value": "shield", "label": "Escrow Shield" },
+            { "value": "support", "label": "24/7 Support" },
+            { "value": "tag", "label": "Discount Tag" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Slide Link (Optional)"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Announcement Bar"
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Free Shipping Worldwide on Orders Over $50",
+            "icon": "shipping"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "COD & Buyer Escrow Protection Available",
+            "icon": "shield"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "24/7 Customer Support & 30-Day Money Back Guarantee",
+            "icon": "support"
+          }
+        }
+      ]
     }
   ]
 }
 {% endschema %}
-
-<div class="announcement-bar full-width" style="background: var(--color-primary, #000); color: #fff; text-align: center; padding: 10px;">
-  {{ section.settings.text | escape }}
-</div>

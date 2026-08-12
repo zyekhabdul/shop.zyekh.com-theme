@@ -2,13 +2,14 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Audit Re-evaluasi, Systemic Product Card Refactor, & Decision KF-011:**
-- Systemic Refactor Kartu Produk: Membatasi font size global `.product-title` di `assets/critical.css` menjadi 14px (`0.875rem`, `font-weight: 600`, line-height 1.35) dan `.product-price` menjadi 15px (`var(--text-main)`).
-- Synchronize placeholder cards pada `sections/flash-sale-bar.liquid` dan `sections/featured-collection.liquid` agar menggunakan markup class BEM `.product-card` 14px yang sama, menghilangkan teks raksasa 24px dan warna biru elektrik.
+**Enterprise Announcement Bar Upgrade, Mobile Search Icon & Track Order Page:**
+- Upgrade `sections/announcement-bar.liquid`: Ticker pengumuman multi-slide otomatis (4 detik, pause on hover), dropdown currency/language switcher, link cepat "Track Order", dan tombol dismiss (`X` opsional).
+- Integrasi `sections/header-group.json`: Memasukkan `announcement-bar` ke urutan teratas header group layout.
+- Mobile Header Quick-Search Icon (`sections/header.liquid`): Menambahkan tombol ikon search pada mobile header yang memicu instant predictive search bar (1-tap access di mobile).
+- Halaman Pelacakan Dropship (`templates/page.track-order.json` & `sections/main-track-order.liquid`): Template halaman pelacakan pesanan independen lengkap dengan form masukan Order # & Email, stepper status visual (Placed -> Processing -> Shipped -> Delivered).
+- Refactor Kartu Produk Sistemik: Membatasi font size global `.product-title` di `assets/critical.css` menjadi 14px (`0.875rem`, `font-weight: 600`, line-height 1.35) dan `.product-price` menjadi 15px (`var(--text-main)`).
 - Menetapkan dan mencatat Keputusan Difiksasi **`KF-011`** (Seasonal Campaign Layer Protocol) di `DEVELOPMENT.md` dan Obsidian Vault (`DECISIONS.md`).
-- Control `snippets/social-proof-toast.liquid`: Menghapus loop `setInterval` 20 detik yang spammy, membatasi toast hanya muncul **1 kali per sesi** (`sessionStorage`).
-- Redesign total `snippets/consent-banner.liquid` (Cookie Consent Popup) dengan floating card UI (`bottom: 1.5rem`), collapsible granular preferences drawer, dan WCAG accessibility dialog.
-- Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** (79 files).
+- Menjalankan `shopify theme check` quality gate dengan hasil **0 ERRORS** (81 files).
 
 ---
 

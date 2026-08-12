@@ -1,22 +1,52 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
-  "name": "t:general.header",
+  "name": "Header Group",
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "slide-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free Shipping Worldwide on Orders Over $50",
+            "icon": "shipping"
+          }
+        },
+        "slide-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "COD & Buyer Escrow Protection Available",
+            "icon": "shield"
+          }
+        },
+        "slide-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "24/7 Customer Support & 30-Day Money Back Guarantee",
+            "icon": "support"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
+      "settings": {
+        "show_announcement": true,
+        "auto_rotate": true,
+        "change_interval": 4,
+        "show_track_order": true,
+        "show_dismiss_btn": true
+      }
+    },
     "header": {
       "type": "header",
       "settings": {}
     }
   },
   "order": [
+    "announcement-bar",
     "header"
-  ],
+  ]
 }

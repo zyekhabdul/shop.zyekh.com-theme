@@ -4,6 +4,12 @@
     "not_found": "Page not found.",
     "back_to_shopping": "Back to shopping"
   },
+  "announcement": {
+    "track_order": "Track Order",
+    "free_shipping": "Free Shipping Worldwide on Orders Over $50",
+    "escrow_protection": "COD & Buyer Escrow Protection Available",
+    "support_guarantee": "24/7 Customer Support & 30-Day Money Back"
+  },
   "blog": {
     "article_comments": "Comments",
     "article_metadata_html": "{{ date }} by {{ author }}",

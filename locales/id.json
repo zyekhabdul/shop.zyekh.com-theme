@@ -4,6 +4,12 @@
     "not_found": "Halaman tidak ditemukan.",
     "back_to_shopping": "Kembali belanja"
   },
+  "announcement": {
+    "track_order": "Lacak Pesanan",
+    "free_shipping": "Gratis Ongkir Seluruh Dunia untuk Pesanan di atas $50",
+    "escrow_protection": "Tersedia Pembayaran COD & Proteksi Rekber Buyer",
+    "support_guarantee": "Layanan CS 24/7 & Garansi 30 Hari Uang Kembali"
+  },
   "blog": {
     "article_comments": "Komentar",
     "article_metadata_html": "{{ date }} oleh {{ author }}",

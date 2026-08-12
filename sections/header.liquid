@@ -36,6 +36,10 @@
         </a>
       {% endif %}
 
+      <button type="button" class="header-icon mobile-search-toggle mobile-only" id="MobileSearchToggle" aria-label="Search" style="background:none; border:none; cursor:pointer; color:inherit; display:flex; align-items:center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+
       <a href="{{ routes.cart_url }}" class="header-icon cart-link">
         {{ 'icon-cart.svg' | inline_asset_content }}
         <span class="icon-counter cart-count">
@@ -44,6 +48,10 @@
         <span class="visually-hidden">Cart</span>
       </a>
     </div>
+  </div>
+
+  <div class="mobile-search-bar mobile-only" id="MobileSearchBar" style="display:none; padding: var(--space-xs) var(--page-margin); border-top: 1px solid var(--border-color, #e5e7eb); background-color: inherit;">
+    {% render 'predictive-search' %}
   </div>
 
   <nav class="header-nav-bottom desktop-only" style="background-color: {{ settings.header_bg | default: 'var(--bg-card)' }};">
@@ -106,6 +114,20 @@
     if(toggle) toggle.addEventListener('click', () => toggleMenu());
     if(closeBtn) closeBtn.addEventListener('click', () => toggleMenu(false));
     if(overlay) overlay.addEventListener('click', () => toggleMenu(false));
+
+    // Mobile Quick Search Toggle
+    const mobileSearchToggle = document.getElementById('MobileSearchToggle');
+    const mobileSearchBar = document.getElementById('MobileSearchBar');
+    if(mobileSearchToggle && mobileSearchBar) {
+      mobileSearchToggle.addEventListener('click', () => {
+        const isHidden = mobileSearchBar.style.display === 'none' || mobileSearchBar.style.display === '';
+        mobileSearchBar.style.display = isHidden ? 'block' : 'none';
+        if(isHidden) {
+          const input = mobileSearchBar.querySelector('input[type="search"]');
+          if(input) input.focus();
+        }
+      });
+    }
 
     // Cart Drawer Integration
     const cartLink = document.querySelector('.cart-link');

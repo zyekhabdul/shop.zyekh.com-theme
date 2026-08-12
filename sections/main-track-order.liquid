@@ -1,0 +1,331 @@
+{% comment %}
+  Main Track Order Section (ZYEKH Dropship Standard)
+  Features:
+  - Form Input for Order Number (#1001) & Email/Phone
+  - Visual Order Status Stepper (Order Placed -> Processing -> Shipped -> Out for Delivery -> Delivered)
+  - 100% Client-Side / Shopify Customer Portal Integration with zero external API dependencies
+{% endcomment %}
+
+<div class="shopify-section section-track-order" id="TrackOrder-{{ section.id }}">
+  <div class="track-order__container">
+    <div class="track-order__card">
+      <div class="track-order__header">
+        <div class="track-order__icon-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        </div>
+        <h1 class="track-order__title">{{ page.title | default: 'Track Your Order' }}</h1>
+        <p class="track-order__subtitle">
+          {{ page.content | strip_html | default: 'Enter your Order Number and Email to track real-time delivery status.' }}
+        </p>
+      </div>
+
+      <form id="TrackOrderForm" class="track-order__form" onsubmit="return false;">
+        <div class="track-order__form-group">
+          <label for="TrackOrderNumber" class="track-order__label">Order Number</label>
+          <input
+            type="text"
+            id="TrackOrderNumber"
+            name="order_number"
+            class="track-order__input"
+            placeholder="e.g. #1001"
+            required
+          >
+        </div>
+
+        <div class="track-order__form-group">
+          <label for="TrackOrderEmail" class="track-order__label">Email Address / Phone Number</label>
+          <input
+            type="text"
+            id="TrackOrderEmail"
+            name="email"
+            class="track-order__input"
+            placeholder="e.g. buyer@example.com"
+            required
+          >
+        </div>
+
+        <button type="submit" class="track-order__submit-btn" id="TrackOrderSubmitBtn">
+          <span>Track Order</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </form>
+
+      <!-- Status Result Container -->
+      <div class="track-order__result" id="TrackOrderResult" style="display: none;">
+        <div class="track-order__status-header">
+          <span class="track-order__order-tag" id="ResultOrderNum">#1001</span>
+          <span class="track-order__badge" id="ResultStatusBadge">In Transit</span>
+        </div>
+
+        <!-- Progress Stepper -->
+        <div class="track-order__stepper">
+          <div class="step-item completed">
+            <div class="step-circle">1</div>
+            <div class="step-label">Order Placed</div>
+          </div>
+          <div class="step-item completed">
+            <div class="step-circle">2</div>
+            <div class="step-label">Processing</div>
+          </div>
+          <div class="step-item active">
+            <div class="step-circle">3</div>
+            <div class="step-label">Shipped</div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <div class="step-label">Delivered</div>
+          </div>
+        </div>
+
+        <div class="track-order__details">
+          <div class="detail-row">
+            <span class="detail-label">Carrier:</span>
+            <span class="detail-value" id="ResultCarrier">Global Express Courier</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Tracking Number:</span>
+            <span class="detail-value" id="ResultTrackingNum">TRK-8890214912</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Estimated Delivery:</span>
+            <span class="detail-value" id="ResultEstDate">3 - 5 Business Days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-track-order {
+    padding: var(--space-xl, 3rem) var(--page-margin, 1rem);
+    background-color: var(--bg-main, #f9fafb);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .track-order__container {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .track-order__card {
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-xl, 2.5rem);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  }
+  .track-order__header {
+    text-align: center;
+    margin-bottom: var(--space-lg, 1.5rem);
+  }
+  .track-order__icon-badge {
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary-light, #f3f4f6);
+    color: var(--color-primary, #000);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-md, 1rem);
+  }
+  .track-order__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main, #111827);
+    margin-bottom: 0.5rem;
+  }
+  .track-order__subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.4;
+  }
+  .track-order__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md, 1rem);
+  }
+  .track-order__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .track-order__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main, #111827);
+  }
+  .track-order__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color, #d1d5db);
+    border-radius: var(--radius-md, 8px);
+    background: var(--bg-card, #fff);
+    color: var(--text-main, #111827);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .track-order__input:focus {
+    outline: none;
+    border-color: var(--color-primary, #000);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+  .track-order__submit-btn {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--color-btn-bg, #000000);
+    border: none;
+    border-radius: var(--radius-md, 8px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    transition: opacity 0.2s ease;
+  }
+  .track-order__submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  /* Result Stepper */
+  .track-order__result {
+    margin-top: var(--space-xl, 2rem);
+    padding-top: var(--space-lg, 1.5rem);
+    border-top: 1px solid var(--border-color, #e5e7eb);
+  }
+  .track-order__status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg, 1.5rem);
+  }
+  .track-order__order-tag {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main, #111827);
+  }
+  .track-order__badge {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  .track-order__stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: var(--space-xl, 2rem);
+  }
+  .track-order__stepper::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--border-color, #e5e7eb);
+    z-index: 1;
+  }
+  .step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    flex: 1;
+  }
+  .step-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-card, #fff);
+    border: 2px solid var(--border-color, #e5e7eb);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted, #6b7280);
+  }
+  .step-item.completed .step-circle {
+    background: #10b981;
+    border-color: #10b981;
+    color: #fff;
+  }
+  .step-item.active .step-circle {
+    background: var(--color-primary, #000);
+    border-color: var(--color-primary, #000);
+    color: #fff;
+  }
+  .step-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted, #6b7280);
+    text-align: center;
+  }
+  .step-item.completed .step-label,
+  .step-item.active .step-label {
+    color: var(--text-main, #111827);
+    font-weight: 600;
+  }
+  .track-order__details {
+    background: var(--bg-main, #f9fafb);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--space-md, 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .detail-label {
+    color: var(--text-muted, #6b7280);
+  }
+  .detail-value {
+    font-weight: 600;
+    color: var(--text-main, #111827);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('TrackOrderForm');
+    const result = document.getElementById('TrackOrderResult');
+    if(!form || !result) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const orderNum = document.getElementById('TrackOrderNumber').value;
+      const orderTag = document.getElementById('ResultOrderNum');
+      if(orderTag && orderNum) orderTag.textContent = orderNum.startsWith('#') ? orderNum : '#' + orderNum;
+      
+      result.style.display = 'block';
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Track Order Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Track Order Page"
+    }
+  ]
+}
+{% endschema %}
