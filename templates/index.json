@@ -1,11 +1,5 @@
 {
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
-      "settings": {
-        "text": "Welcome to shop.zyekh.com - Free shipping on orders over $50! COD Available."
-      }
-    },
     "hero_carousel": {
       "type": "hero-carousel",
       "blocks": {
@@ -117,7 +111,6 @@
     }
   },
   "order": [
-    "announcement",
     "hero_carousel",
     "category_carousel",
     "flash_sale",
