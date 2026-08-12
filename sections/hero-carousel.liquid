@@ -195,6 +195,40 @@
   .hero-nav-prev { left: 1.5rem; }
   .hero-nav-next { right: 1.5rem; }
 
+  @media (max-width: 768px) {
+    .hero-carousel-wrapper {
+      min-height: 320px;
+    }
+    .hero-slide-item {
+      min-height: 320px;
+      padding: 2rem 1rem;
+    }
+    .hero-slide-overlay {
+      background: linear-gradient(180deg, rgba(9, 13, 22, 0.92) 0%, rgba(15, 23, 42, 0.82) 100%);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .hero-slide-badge {
+      margin-bottom: 0.65rem;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.68rem;
+    }
+    .hero-slide-heading {
+      font-size: 1.65rem !important;
+      margin-bottom: 0.65rem !important;
+      line-height: 1.2 !important;
+    }
+    .hero-slide-subheading {
+      font-size: 0.88rem !important;
+      margin-bottom: 1.25rem !important;
+      line-height: 1.4 !important;
+    }
+    .hero-slide-btn {
+      padding: 0.65rem 1.5rem !important;
+      font-size: 0.85rem !important;
+    }
+  }
+
   @media (max-width: 640px) {
     .hero-carousel-nav {
       display: none !important;

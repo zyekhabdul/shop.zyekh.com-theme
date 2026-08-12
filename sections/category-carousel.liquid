@@ -118,6 +118,29 @@
   .category-carousel__avatar {
     width: 84px;
     height: 84px;
+
+  @media (max-width: 768px) {
+    .category-carousel-section {
+      padding: var(--space-sm) 0 !important;
+    }
+    .category-carousel {
+      justify-content: flex-start !important;
+      padding: 0.5rem 1rem !important;
+      gap: 1rem !important;
+    }
+    .category-carousel__item {
+      width: 76px !important;
+      scroll-snap-align: start !important;
+    }
+    .category-carousel__avatar {
+      width: 68px !important;
+      height: 68px !important;
+    }
+    .category-carousel__title {
+      font-size: 0.72rem !important;
+      margin-top: 0.35rem !important;
+    }
+  }
     border-radius: 50%;
     background: var(--bg-card, #ffffff);
     border: 3px solid #ffffff;
