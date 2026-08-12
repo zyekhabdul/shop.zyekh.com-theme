@@ -120,9 +120,14 @@
     height: 84px;
 
   @media (max-width: 768px) {
+    .category-carousel-wrapper[data-overflow="true"] .category-carousel__nav,
+    .category-carousel__nav {
+      display: none !important;
+    }
     .category-carousel-section {
       padding: var(--space-sm) 0 !important;
     }
+    .category-carousel-wrapper[data-overflow="true"] .category-carousel,
     .category-carousel {
       justify-content: flex-start !important;
       padding: 0.5rem 1rem !important;

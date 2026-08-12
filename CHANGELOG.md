@@ -2,7 +2,8 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Mobile Index Responsiveness & Hero/Category Alignment:**
+**Mobile Category Floating Nav Button Removal:**
+- Auto-Hide Tombol Panah Kategori di Mobile: Menambahkan aturan `.category-carousel__nav { display: none !important; }` pada media query mobile (`< 768px`) di [sections/category-carousel.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid#L123). Mengeliminasi tombol lingkaran panah biru/putih (`<` & `>`) yang mengapung dan menutupi foto avatar kategori di layar HP, sehingga tampilan lingkaran produk 100% bersih, rapi, dan dinavigasi murni dengan geseran jari.
 - Align Kategori Mobile Left (`justify-content: flex-start`): Mengubah aligment [sections/category-carousel.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid#L120) pada mode mobile (`< 768px`) menjadi `flex-start !important` dengan avatar `68px x 68px`. Memastikan kategori pertama (`Electronics`) selalu tampil 100% utuh dari tepi kiri layar tanpa ada yang terpotong ke kiri luar layar.
 - Hero Mobile High-Contrast Overlay & Compact Height: Menyesuaikan [sections/hero-carousel.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid#L198) pada mode mobile dengan `min-height: 320px`, overlay `linear-gradient(180deg, rgba(9,13,22,0.92) 0%, rgba(15,23,42,0.82) 100%)` & `backdrop-filter: blur(2px)`, serta skala teks judul `1.65rem` (26px) agar teks judul Liquid berdiri kontras tinggi dan tidak menabrak teks bawaan foto AI.
 - Announcement Bar Mobile Padding: Menyesuaikan padding & font size `0.72rem` pada [sections/announcement-bar.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/announcement-bar.liquid#L225) agar teks promo ticker dan link Track Order muat dalam 1 baris bersih di layar HP 360px-430px.
