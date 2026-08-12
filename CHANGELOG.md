@@ -3,6 +3,7 @@
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
 **Enterprise Announcement Bar Upgrade, Mobile Search Icon & Track Order Page:**
+- Fix Duplikasi Announcement Bar & Strip Hitam: Menghapus panggilan legacy `{% render 'header-top' %}` dari [sections/header.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/header.liquid#L1) yang menyebabkan Announcement Bar muncul 2x dan menghasilkan strip hitam tak terpakai di bawahnya.
 - Upgrade `sections/announcement-bar.liquid`: Ticker pengumuman multi-slide otomatis (4 detik, pause on hover), dropdown currency/language switcher, link cepat "Track Order", dan tombol dismiss (`X` opsional).
 - Integrasi `sections/header-group.json`: Memasukkan `announcement-bar` ke urutan teratas header group layout.
 - Mobile Header Quick-Search Icon (`sections/header.liquid`): Menambahkan tombol ikon search pada mobile header yang memicu instant predictive search bar (1-tap access di mobile).
