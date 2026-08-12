@@ -162,12 +162,20 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 
 **Keputusan**: `shop.zyekh.com-theme` adalah repo terpisah, bukan subfolder dari `zyekh.com`.
 
-### KF-011: Seasonal Campaign Layer Protocol (Anti-Overhaul Rule)
+### KF-011: Seasonal Campaign Layer Protocol (Anti-Theme Overhaul Rule)
 **Tanggal**: 2026-08-12
-**Konteks**: Event seasonal (Halloween, Black Friday, Christmas, Ramadhan) sering memicu keinginan merombak struktur theme secara destruktif.
+**Konteks**: Event musiman (Halloween, Black Friday, Ramadhan) tidak boleh merusak arsitektur dasar tema.
+**Keputusan**: Event musiman WAJIB dikerjakan via Campaign Layer (banner Admin, promo text, collection links). DILARANG membongkar arsitektur tema.
 
-**Keputusan**: Event seasonal WAJIB ditangani via **Seasonal Campaign Layer** (mengubah banner, teks announcement, koleksi, dan badge promo via Shopify Admin), DILARANG MEROMBAK arsitektur Liquid/CSS theme dasar.
+### KF-012: Standar 3D Product Avatar Kategori & Responsifitas Mobile
+**Tanggal**: 2026-08-12
+**Konteks**: Ikon wireframe kategori terlihat kurang rapi.
+**Keputusan**: Kategori menggunakan Standar A (Shopee/Tokopedia/Amazon 3D Real Studio Product Photos). Khusus layar HP (< 768px), tombol panah lingkaran melayang (< & >) DILARANG MUNCUL (display: none !important) agar tidak menutupi avatar produk. Navigasi HP 100% menggunakan usapan jari secara alami.
 
+### KF-013: Hero Banner AI Photography & High-Contrast Overlay
+**Tanggal**: 2026-08-12
+**Konteks**: Banner hero membutuhkan fotografi e-commerce kelas tinggi dan perlindungan keterbacaan teks di HP.
+**Keputusan**: Menggunakan gambar AI fotografi studio 8K (hero-banner-1.jpg, hero-banner-2.jpg, hero-banner-3.jpg). Pada layar HP (< 768px), overlay menggunakan linear-gradient(180deg, rgba(9,13,22,0.92) 0%, rgba(15,23,42,0.82) 100%) & backdrop-filter: blur(2px) agar teks judul Liquid berdiri dengan kontras tinggi tanpa menabrak foto.
 
 ---
 
