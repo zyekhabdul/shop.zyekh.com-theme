@@ -95,8 +95,8 @@
     margin: 0 auto;
   }
   .flash-sale-wrapper {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.03) 100%);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(220, 38, 38, 0.02) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.18);
     border-radius: var(--radius-lg, 16px);
     padding: var(--space-lg);
   }
@@ -111,31 +111,33 @@
   .flash-sale-title-group {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: 0.75rem;
   }
   .flash-sale-badge {
     background: #ef4444;
     color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 5px 12px;
     border-radius: 9999px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
   .flash-sale-heading {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
     font-weight: 800;
     margin: 0;
+    letter-spacing: -0.02em;
     color: var(--color-text, #111827);
   }
   .flash-sale-timer-container {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: 0.5rem;
   }
   .timer-label {
-    font-size: 0.875rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--color-text-light, #6b7280);
   }
@@ -150,50 +152,97 @@
     align-items: center;
     justify-content: center;
     background: var(--color-surface, #ffffff);
-    border: 1px solid var(--color-border, #e5e7eb);
+    border: 1px solid rgba(239, 68, 68, 0.25);
     border-radius: var(--radius-sm, 6px);
-    min-width: 44px;
-    padding: 4px 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    min-width: 42px;
+    padding: 3px 6px;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.08);
   }
   .timer-val {
-    font-size: 1.125rem;
+    font-size: 1.05rem;
     font-weight: 800;
     color: #ef4444;
     font-variant-numeric: tabular-nums;
   }
   .timer-unit {
-    font-size: 0.625rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
     color: var(--color-text-light, #6b7280);
-    font-weight: 600;
+    font-weight: 700;
   }
   .timer-colon {
-    font-weight: 700;
+    font-weight: 800;
     color: #ef4444;
   }
   .flash-sale-cta-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     background: #ef4444;
     color: #ffffff;
-    font-weight: 600;
-    font-size: 0.875rem;
-    padding: 10px 18px;
-    border-radius: var(--radius-md, 8px);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 20px;
+    border-radius: 9999px;
     text-decoration: none;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
   }
   .flash-sale-cta-btn:hover {
     background: #dc2626;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
   }
+
   .flash-sale-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
   }
+
+  /* Product Card Button inside Flash Sale Bar */
+  .section-flash-sale .product-card__atc-btn {
+    background: #1e293b !important;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 9999px !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .section-flash-sale .product-card__atc-btn:hover {
+    background: #0f172a !important;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .flash-sale-wrapper {
+      padding: 1rem;
+    }
+    .flash-sale-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+    .flash-sale-title-group {
+      justify-content: flex-start;
+    }
+    .flash-sale-timer-container {
+      justify-content: space-between;
+      width: 100%;
+      background: rgba(255,255,255,0.6);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+    }
+    .flash-sale-cta-btn {
+      width: 100%;
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+  }
+
   @media (min-width: 640px) {
     .flash-sale-grid {
       grid-template-columns: repeat(3, 1fr);
