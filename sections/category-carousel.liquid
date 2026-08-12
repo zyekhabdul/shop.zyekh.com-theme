@@ -15,24 +15,41 @@
         <a href="{{ block.settings.url | default: '#' }}" class="category-carousel__item" {{ block.shopify_attributes }}>
           <div class="category-carousel__avatar">
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 200 | image_tag: class: 'category-carousel__image', loading: 'lazy', alt: block.settings.title }}
+              {{ block.settings.image | image_url: width: 200, height: 200 | image_tag: class: 'category-carousel__image', loading: 'lazy', alt: block.settings.title }}
             {% else %}
-              <div class="category-carousel__icon-fallback">
-                {% if cat_title_lower contains 'electronic' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                {% elsif cat_title_lower contains 'fashion' or cat_title_lower contains 'cloth' or cat_title_lower contains 'apparel' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
-                {% elsif cat_title_lower contains 'home' or cat_title_lower contains 'living' or cat_title_lower contains 'house' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 0 2 2H5a2 2 0 0 0-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                {% elsif cat_title_lower contains 'beauty' or cat_title_lower contains 'cosmetic' or cat_title_lower contains 'care' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.8 6.8 2.4-6.8 2.4L12 20.4l-2.4-6.8-6.8-2.4 6.8-2.4z"/></svg>
-                {% elsif cat_title_lower contains 'accessory' or cat_title_lower contains 'jewel' or cat_title_lower contains 'watch' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13.5 13.5"/><path d="M9 2h6l.5 4h-7z"/><path d="M9 22h6l.5-4h-7z"/></svg>
-                {% elsif cat_title_lower contains 'gadget' or cat_title_lower contains 'phone' or cat_title_lower contains 'mobile' %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                {% else %}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                {% endif %}
+              {% assign cat_title_lower = block.settings.title | downcase %}
+              {% assign cat_type = 'general' %}
+              {% if cat_title_lower contains 'electronic' %}
+                {% assign cat_type = 'electronics' %}
+              {% elsif cat_title_lower contains 'fashion' or cat_title_lower contains 'cloth' or cat_title_lower contains 'apparel' %}
+                {% assign cat_type = 'fashion' %}
+              {% elsif cat_title_lower contains 'home' or cat_title_lower contains 'living' or cat_title_lower contains 'house' %}
+                {% assign cat_type = 'home' %}
+              {% elsif cat_title_lower contains 'beauty' or cat_title_lower contains 'cosmetic' or cat_title_lower contains 'care' %}
+                {% assign cat_type = 'beauty' %}
+              {% elsif cat_title_lower contains 'accessory' or cat_title_lower contains 'jewel' or cat_title_lower contains 'watch' %}
+                {% assign cat_type = 'accessories' %}
+              {% elsif cat_title_lower contains 'gadget' or cat_title_lower contains 'phone' or cat_title_lower contains 'mobile' %}
+                {% assign cat_type = 'gadgets' %}
+              {% endif %}
+
+              <div class="category-carousel__icon-fallback" data-cat-type="{{ cat_type }}">
+                {% case cat_type %}
+                  {% when 'electronics' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  {% when 'fashion' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+                  {% when 'home' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 0 2 2H5a2 2 0 0 0-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  {% when 'beauty' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.8 6.8 2.4-6.8 2.4L12 20.4l-2.4-6.8-6.8-2.4 6.8-2.4z"/></svg>
+                  {% when 'accessories' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13.5 13.5"/><path d="M9 2h6l.5 4h-7z"/><path d="M9 22h6l.5-4h-7z"/></svg>
+                  {% when 'gadgets' %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                  {% else %}
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                {% endcase %}
               </div>
             {% endif %}
           </div>
@@ -55,7 +72,7 @@
     justify-content: center;
     max-width: var(--page-width);
     margin: 0 auto;
-    padding: 1.5rem var(--page-margin);
+    padding: 2rem var(--page-margin);
     width: 100%;
     box-sizing: border-box;
   }
@@ -63,12 +80,12 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 1.75rem;
+    gap: 2rem;
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 0.5rem 0;
+    padding: 0.75rem 0.5rem;
     width: 100%;
   }
   .category-carousel::-webkit-scrollbar {
@@ -81,7 +98,7 @@
 
   .category-carousel-wrapper[data-overflow="true"] .category-carousel {
     justify-content: flex-start;
-    padding: 0.5rem 2.5rem;
+    padding: 0.75rem 2.5rem;
   }
 
   .category-carousel-wrapper[data-overflow="true"] .category-carousel__nav {
@@ -105,43 +122,83 @@
     align-items: center;
     text-decoration: none;
     flex-shrink: 0;
-    width: 90px;
-    transition: transform var(--transition);
+    width: 96px;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .category-carousel__item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
   }
   .category-carousel__avatar {
-    width: 80px;
-    height: 80px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
-    background: var(--bg-surface, #ffffff);
-    border: 2px solid var(--border-color, #e5e7eb);
-    box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
+    background: var(--bg-card, #ffffff);
+    border: 3px solid #ffffff;
+    outline: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: border-color var(--transition), box-shadow var(--transition);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, outline-color 0.3s ease;
   }
   .category-carousel__item:hover .category-carousel__avatar {
-    border-color: var(--color-primary, #111827);
-    box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+    outline-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.14);
   }
   .category-carousel__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
   }
+  .category-carousel__item:hover .category-carousel__image {
+    transform: scale(1.08);
+  }
+
+  /* Pastel Duotone Badges */
   .category-carousel__icon-fallback {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    color: var(--text-muted, #6b7280);
-    background: var(--bg-surface, #f9fafb);
-    transition: color var(--transition);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .category-carousel__icon-fallback svg {
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .category-carousel__item:hover .category-carousel__icon-fallback svg {
+    transform: scale(1.12);
+  }
+
+  .category-carousel__icon-fallback[data-cat-type="electronics"] {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    color: #2563eb;
+  }
+  .category-carousel__icon-fallback[data-cat-type="fashion"] {
+    background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+    color: #e11d48;
+  }
+  .category-carousel__icon-fallback[data-cat-type="home"] {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    color: #d97706;
+  }
+  .category-carousel__icon-fallback[data-cat-type="beauty"] {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    color: #059669;
+  }
+  .category-carousel__icon-fallback[data-cat-type="accessories"] {
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+    color: #7c3aed;
+  }
+  .category-carousel__icon-fallback[data-cat-type="gadgets"] {
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+    color: #4f46e5;
+  }
+  .category-carousel__icon-fallback[data-cat-type="general"] {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    color: #475569;
   }
   .category-carousel__item:hover .category-carousel__icon-fallback {
     color: var(--color-primary, #111827);

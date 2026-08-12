@@ -2,8 +2,10 @@
 
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
-**Enterprise Announcement Bar Upgrade, Mobile Search Icon & Track Order Page:**
-- Fix Akar Masalah Double Announcement Bar: Menghapus section `"announcement"` dari [templates/index.json](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/templates/index.json#L3). Pengumuman sekarang murni terisolasi 1x di `sections/header-group.json` (posisi teratas seluruh halaman), menghilangkan bar kedua yang sebelumnya berada di atas hero banner homepage.
+**Category Circle Badges & Hero Banner Modern Redesign:**
+- Redesign Category Circle Avatars ([sections/category-carousel.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/category-carousel.liquid)): Mengganti wireframe SVG kasar dengan pastel duotone gradients per kategori (Soft Blue, Soft Rose, Soft Amber, Soft Emerald, Soft Violet, Soft Indigo), icon duotone stroke `stroke-width="1.8"`, double-ring elevated border (`border: 3px solid #fff; outline: 1px solid rgba(0,0,0,0.08)`), dan animasi hover scale `transform: translateY(-5px) scale(1.04)`.
+- Redesign Hero Banner Carousel ([sections/hero-carousel.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/hero-carousel.liquid)): Menghapus gradient ungu polos `#1e1b4b`. Menggantinya dengan **Slate Glass Mesh Gradient** (`linear-gradient(135deg, #090d16 0%, #1e293b 50%, #0f172a 100%)`) dilengkapi radial spotlight aura, glassmorphic blur badge (`backdrop-filter: blur(12px)`), glowing pulse dot hijau, pill CTA button (`border-radius: 999px`), dan tombol panah navigasi glassmorphic circular.
+- Fix Akar Masalah Double Announcement Bar: Menghapus section `"announcement"` dari [templates/index.json](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/templates/index.json#L3). Pengumuman sekarang murni terisolasi 1x di `sections/header-group.json`.
 - Fix Duplikasi Header Top: Menghapus panggilan legacy `{% render 'header-top' %}` dari [sections/header.liquid](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/sections/header.liquid#L1) dan menghapus snippet nganggur `snippets/header-top.liquid`.
 - Upgrade `sections/announcement-bar.liquid`: Ticker pengumuman multi-slide otomatis (4 detik, pause on hover), dropdown currency/language switcher, link cepat "Track Order", dan tombol dismiss (`X` opsional).
 - Integrasi `sections/header-group.json`: Memasukkan `announcement-bar` ke urutan teratas header group layout.
