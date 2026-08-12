@@ -12,7 +12,8 @@
             {{ block.settings.image | image_url: width: 1920 | image_tag: class: 'hero-slide-bg', loading: 'lazy', alt: block.settings.heading }}
             <div class="hero-slide-overlay"></div>
           {% else %}
-            <div class="hero-slide-gradient"></div>
+            <img src="{{ 'hero-banner-1.jpg' | asset_url }}" width="1920" height="1080" class="hero-slide-bg" loading="eager" alt="{{ block.settings.heading | escape }}">
+            <div class="hero-slide-overlay"></div>
           {% endif %}
 
           <div class="hero-slide-content">
