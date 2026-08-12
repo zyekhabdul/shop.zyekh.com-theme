@@ -12,7 +12,13 @@
             {{ block.settings.image | image_url: width: 1920 | image_tag: class: 'hero-slide-bg', loading: 'lazy', alt: block.settings.heading }}
             <div class="hero-slide-overlay"></div>
           {% else %}
-            <img src="{{ 'hero-banner-1.jpg' | asset_url }}" width="1920" height="1080" class="hero-slide-bg" loading="eager" alt="{{ block.settings.heading | escape }}">
+            {% assign fallback_banner = 'hero-banner-1.jpg' %}
+            {% if forloop.index == 2 %}
+              {% assign fallback_banner = 'hero-banner-2.jpg' %}
+            {% elsif forloop.index == 3 %}
+              {% assign fallback_banner = 'hero-banner-3.jpg' %}
+            {% endif %}
+            <img src="{{ fallback_banner | asset_url }}" width="1920" height="1080" class="hero-slide-bg" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" alt="{{ block.settings.heading | escape }}">
             <div class="hero-slide-overlay"></div>
           {% endif %}
 
