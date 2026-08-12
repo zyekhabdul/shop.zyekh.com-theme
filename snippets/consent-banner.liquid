@@ -1,22 +1,304 @@
-<div id="consent-banner" class="consent-banner" style="display: none;">
-  <div class="consent-content">
-    <p>{{ 'general.privacy.consent_message' | t }}</p>
+{% comment %}
+  Cookie Consent Banner Popup (ZYEKH Engine Standard)
+  Features: Modern floating card UI, collapsible granular preferences, zero hardcoded hex, WCAG accessible dialog.
+{% endcomment %}
+
+<div id="consent-banner" class="consent-banner-wrapper" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-desc" style="display: none;">
+  <div class="consent-card">
+    <div class="consent-header">
+      <div class="consent-title-wrapper">
+        <svg class="consent-shield-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <h3 id="consent-title" class="consent-title">{{ 'general.privacy.title' | t | default: 'Cookie & Privacy Preferences' }}</h3>
+      </div>
+      <button type="button" id="consent-close" class="consent-close-btn" aria-label="{{ 'general.accessibility.close' | t | default: 'Close' }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <p id="consent-desc" class="consent-body">
+      {{ 'general.privacy.consent_message' | t | default: 'We use cookies to improve site performance, analyze traffic, and personalize content. You can manage your preferences at any time.' }}
+    </p>
+
+    <!-- Collapsible Preferences Drawer -->
+    <div id="consent-preferences" class="consent-preferences" style="display: none;">
+      <div class="consent-option">
+        <div class="consent-option-info">
+          <span class="consent-option-label">{{ 'general.privacy.essential' | t | default: 'Strictly Necessary' }}</span>
+          <span class="consent-option-desc">{{ 'general.privacy.essential_desc' | t }}</span>
+        </div>
+        <input type="checkbox" class="consent-toggle" checked disabled aria-label="{{ 'general.privacy.essential' | t }}">
+      </div>
+      <div class="consent-option">
+        <div class="consent-option-info">
+          <span class="consent-option-label">{{ 'general.privacy.analytics' | t | default: 'Analytics & Performance' }}</span>
+          <span class="consent-option-desc">{{ 'general.privacy.analytics_desc' | t }}</span>
+        </div>
+        <input type="checkbox" id="consent-analytics" class="consent-toggle" checked aria-label="{{ 'general.privacy.analytics' | t }}">
+      </div>
+      <div class="consent-option">
+        <div class="consent-option-info">
+          <span class="consent-option-label">{{ 'general.privacy.marketing' | t | default: 'Marketing & Targeting' }}</span>
+          <span class="consent-option-desc">{{ 'general.privacy.marketing_desc' | t }}</span>
+        </div>
+        <input type="checkbox" id="consent-marketing" class="consent-toggle" checked aria-label="{{ 'general.privacy.marketing' | t }}">
+      </div>
+    </div>
+
     <div class="consent-actions">
-      <button id="accept-cookies" class="btn btn--primary">{{ 'general.privacy.accept' | t }}</button>
-      <button id="decline-cookies" class="btn btn--secondary">{{ 'general.privacy.decline' | t }}</button>
+      <button type="button" id="accept-cookies" class="consent-btn consent-btn--primary">
+        {{ 'general.privacy.accept' | t | default: 'Accept All' }}
+      </button>
+      <button type="button" id="decline-cookies" class="consent-btn consent-btn--secondary">
+        {{ 'general.privacy.decline' | t | default: 'Essential Only' }}
+      </button>
+      <button type="button" id="manage-cookies" class="consent-btn consent-btn--tertiary">
+        {{ 'general.privacy.manage' | t | default: 'Preferences' }}
+      </button>
     </div>
   </div>
 </div>
-<script>
-  if (!localStorage.getItem('cookieConsent')) {
-    document.getElementById('consent-banner').style.display = 'block';
+
+{% stylesheet %}
+  .consent-banner-wrapper {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 9999;
+    max-width: 440px;
+    width: calc(100% - 3rem);
+    box-sizing: border-box;
+    animation: consentSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  document.getElementById('accept-cookies').addEventListener('click', function() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('consent-banner').style.display = 'none';
-  });
-  document.getElementById('decline-cookies').addEventListener('click', function() {
-    localStorage.setItem('cookieConsent', 'declined');
-    document.getElementById('consent-banner').style.display = 'none';
-  });
+
+  @keyframes consentSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes consentSlideDown {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+    }
+  }
+
+  .consent-card {
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: var(--radius-lg, 12px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+    color: var(--text-main, #111827);
+  }
+
+  .consent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .consent-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .consent-shield-icon {
+    color: var(--color-primary, #111827);
+    flex-shrink: 0;
+  }
+
+  .consent-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main, #111827);
+  }
+
+  .consent-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted, #6b7280);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm, 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition), background var(--transition);
+  }
+
+  .consent-close-btn:hover {
+    color: var(--text-main, #111827);
+    background: var(--bg-dark, #f3f4f6);
+  }
+
+  .consent-body {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-muted, #4b5563);
+    margin: 0 0 1rem 0;
+  }
+
+  .consent-preferences {
+    border-top: 1px solid var(--border-color, #e5e7eb);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .consent-option {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .consent-option-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .consent-option-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main, #111827);
+  }
+
+  .consent-option-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .consent-toggle {
+    accent-color: var(--color-primary, #111827);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+
+  .consent-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .consent-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    border-radius: var(--radius-md, 6px);
+    cursor: pointer;
+    transition: all var(--transition);
+    border: 1px solid transparent;
+  }
+
+  .consent-btn--primary {
+    background: var(--color-btn-bg, #111827);
+    color: var(--color-btn-text, #ffffff);
+    flex: 1 0 auto;
+    text-align: center;
+  }
+
+  .consent-btn--primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .consent-btn--secondary {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #e5e7eb);
+    color: var(--text-main, #111827);
+  }
+
+  .consent-btn--secondary:hover {
+    background: var(--bg-dark, #f3f4f6);
+  }
+
+  .consent-btn--tertiary {
+    background: none;
+    color: var(--text-muted, #6b7280);
+    padding: 0.5rem 0.4rem;
+    text-decoration: underline;
+  }
+
+  .consent-btn--tertiary:hover {
+    color: var(--text-main, #111827);
+  }
+
+  @media (max-width: 640px) {
+    .consent-banner-wrapper {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .consent-card {
+      border-radius: var(--radius-lg, 12px) var(--radius-lg, 12px) 0 0;
+      border-bottom: none;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function() {
+    const banner = document.getElementById('consent-banner');
+    if (!banner) return;
+
+    if (!localStorage.getItem('cookieConsent')) {
+      setTimeout(() => {
+        banner.style.display = 'block';
+      }, 1200);
+    }
+
+    const hideConsentBanner = (status) => {
+      localStorage.setItem('cookieConsent', status);
+      banner.style.animation = 'consentSlideDown 0.3s ease forwards';
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 300);
+    };
+
+    const acceptBtn = document.getElementById('accept-cookies');
+    const declineBtn = document.getElementById('decline-cookies');
+    const closeBtn = document.getElementById('consent-close');
+    const manageBtn = document.getElementById('manage-cookies');
+    const preferencesDrawer = document.getElementById('consent-preferences');
+
+    if (acceptBtn) acceptBtn.addEventListener('click', () => hideConsentBanner('accepted'));
+    if (declineBtn) declineBtn.addEventListener('click', () => hideConsentBanner('declined'));
+    if (closeBtn) closeBtn.addEventListener('click', () => hideConsentBanner('essential_only'));
+
+    if (manageBtn && preferencesDrawer) {
+      manageBtn.addEventListener('click', () => {
+        const isHidden = preferencesDrawer.style.display === 'none';
+        preferencesDrawer.style.display = isHidden ? 'flex' : 'none';
+        manageBtn.textContent = isHidden
+          ? '{{ "general.privacy.save" | t | default: "Save Preferences" }}'
+          : '{{ "general.privacy.manage" | t | default: "Preferences" }}';
+        if (!isHidden) {
+          hideConsentBanner('custom_preferences');
+        }
+       });
+    }
+  })();
 </script>

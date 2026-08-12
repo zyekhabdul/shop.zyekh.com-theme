@@ -126,12 +126,23 @@
       "promo_desc": "Discover our latest collection."
     },
     "accessibility": {
+      "close": "Close",
       "close_modal": "Close modal"
     },
     "privacy": {
-      "consent_message": "We use cookies to improve your experience.",
-      "accept": "Accept",
-      "decline": "Decline"
+      "title": "Cookie & Privacy Preferences",
+      "consent_message": "We use cookies to improve site performance, analyze traffic, and personalize content. You can manage your preferences at any time.",
+      "accept": "Accept All",
+      "decline": "Essential Only",
+      "manage": "Preferences",
+      "preferences_title": "Manage Cookie Preferences",
+      "save": "Save Preferences",
+      "essential": "Strictly Necessary",
+      "essential_desc": "Required for core site functions like cart, checkout, and security.",
+      "analytics": "Analytics & Performance",
+      "analytics_desc": "Helps us measure traffic and improve your shopping experience.",
+      "marketing": "Marketing & Targeting",
+      "marketing_desc": "Used to deliver relevant offers and targeted promotions."
     },
     "filters": "Filters",
     "clear_all": "Clear all",

@@ -126,12 +126,23 @@
       "promo_desc": "Temukan koleksi terbaru kami."
     },
     "accessibility": {
+      "close": "Tutup",
       "close_modal": "Tutup modal"
     },
     "privacy": {
-      "consent_message": "Kami menggunakan cookie untuk meningkatkan pengalaman Anda.",
-      "accept": "Terima",
-      "decline": "Tolak"
+      "title": "Privasi & Preferensi Cookie",
+      "consent_message": "Kami menggunakan cookie untuk meningkatkan performa toko, menganalisis traffic, dan menyajikan konten personal. Anda dapat mengelola preferensi kapan saja.",
+      "accept": "Terima Semua",
+      "decline": "Hanya Esensial",
+      "manage": "Pengaturan",
+      "preferences_title": "Kelola Preferensi Cookie",
+      "save": "Simpan Preferensi",
+      "essential": "Sangat Diperlukan",
+      "essential_desc": "Diperlukan untuk fungsi dasar toko seperti keranjang, checkout, dan keamanan.",
+      "analytics": "Analitik & Performa",
+      "analytics_desc": "Membantu kami mengukur lalu lintas dan meningkatkan pengalaman belanja Anda.",
+      "marketing": "Pemasaran & Iklan",
+      "marketing_desc": "Bermanfaat untuk menampilkan penawaran dan promosi yang relevan."
     },
     "filters": "Filter",
     "clear_all": "Hapus semua",
