@@ -194,6 +194,12 @@
   }
   .hero-nav-prev { left: 1.5rem; }
   .hero-nav-next { right: 1.5rem; }
+
+  @media (max-width: 640px) {
+    .hero-carousel-nav {
+      display: none !important;
+    }
+  }
 {% endstylesheet %}
 
 <script>
@@ -225,6 +231,27 @@
         updateSlider();
       });
     }
+
+    // Touch Swipe Gesture for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) {
+          currentIndex = (currentIndex + 1) % totalSlides;
+        } else {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        }
+        updateSlider();
+      }
+    }, { passive: true });
   });
 </script>
 
