@@ -1,5 +1,12 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
+### Session: 9915ea1c-3309-4be2-83e2-f0cb11d50a98
+
+**Formulasi & Fiksasi Keputusan KF-014 (Single-Product Funnel & Marketplace Dual-Mode Architecture):**
+- Formulasi strategi UI/UX untuk calon pembeli non-tech-savvy (gaptek) dari iklan TikTok/Meta Ads agar tidak mengalami *choice paralysis*.
+- Menetapkan **Keputusan Arsitektur `KF-014`** di [`DEVELOPMENT.md`](file:///home/fuckadmin/Projects/shop.zyekh.com-theme/DEVELOPMENT.md) dan RAG Obsidian (`DECISIONS.md`, `STATE.md`): Mode ganda toko via sakelar Admin `settings_schema.json` dan template ad landing page `templates/product.landing.json` dengan link pendukung ke seluruh katalog marketplace.
+- Menolak solusi JS/URL redirects terpisah demi menjaga Core Web Vitals, SEO, dan integritas tracking piksel/cart session.
+
 ### Session: 226893a7-cdd5-484a-8e9c-68a822e914e8
 
 **Dokumentasi & Live Main Theme Push (ID #152467832910):**

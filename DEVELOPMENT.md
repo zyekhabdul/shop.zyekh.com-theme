@@ -177,6 +177,15 @@ CLI akan generate verification code + URL. User buka URL, masukkan code, login.
 **Konteks**: Banner hero membutuhkan fotografi e-commerce kelas tinggi dan perlindungan keterbacaan teks di HP.
 **Keputusan**: Menggunakan gambar AI fotografi studio 8K (hero-banner-1.jpg, hero-banner-2.jpg, hero-banner-3.jpg). Pada layar HP (< 768px), overlay menggunakan linear-gradient(180deg, rgba(9,13,22,0.92) 0%, rgba(15,23,42,0.82) 100%) & backdrop-filter: blur(2px) agar teks judul Liquid berdiri dengan kontras tinggi tanpa menabrak foto.
 
+### KF-014: Single-Product Funnel & Marketplace Dual-Mode Architecture
+**Tanggal**: 2026-08-14
+**Konteks**: Traffic dropshipping dari iklan sosial media (TikTok/Meta Ads) membutuhkan tampilan sederhana fokus 1 produk untuk mencegah choice paralysis pengguna non-tech-savvy (gaptek), tanpa merusak akses katalog toko lengkap.
+**Keputusan**: Mengadopsi arsitektur Dual-Mode:
+1. Sakelar `settings_schema.json` untuk memilih mode toko (`Single Product Funnel` vs `Full Marketplace`).
+2. Template khusus `templates/product.landing.json` untuk ad-traffic landing page (minimalist header, instant Buy Box, escrow shield, direct checkout, dan link halus ke seluruh katalog marketplace).
+3. DILARANG menggunakan JS/URL redirects terpisah demi menjaga Core Web Vitals, SEO, dan integritas tracking piksel/cart session.
+
+
 ---
 
 ## Anti-Pattern Register (JANGAN LAKUKAN)
