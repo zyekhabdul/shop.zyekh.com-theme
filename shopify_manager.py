@@ -20,7 +20,7 @@ def load_credentials():
                     if "=" in line:
                         k, v = line.strip().split("=", 1)
                         if k == "SHOPIFY_SHOP_DOMAIN": shop_domain = v.strip("\"'")
-                        if k in ["SHOPIFY_ADMIN_API_ACCESS_TOKEN", "SHOPIFY_ACCESS_TOKEN"]: access_token = v.strip("\"'")
+                        if k in ["SHOPIFY_ADMIN_API_ACCESS_TOKEN", "SHOPIFY_ADMIN_ACCESS_TOKEN", "SHOPIFY_ACCESS_TOKEN"]: access_token = v.strip("\"'")
 
         # Check MCP Config Extended
         mcp_file = "/home/fuckadmin/.gemini/config/mcp_config_extended.json"
