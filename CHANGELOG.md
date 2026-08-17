@@ -1,6 +1,11 @@
 # CHANGELOG.md — shop.zyekh.com-theme
 
-### Session: 9915ea1c-3309-4be2-83e2-f0cb11d50a98
+### Session: 6391d4c2-ef0c-48a8-9c88-fde5e243a3f9
+
+**Standar Aturan AI VPS & Integrasi Multi-Project Guidelines:**
+- Membuat file `STANDAR_ATURAN_AI_VPS.md` siap pakai berisi rangkuman komprehensif arsitektur Shopify Liquid 2.0, 10 hukum design system, keputusan tetap KF-001 s/d KF-014, zero emoji, dan SOP alur kerja AI di VPS.
+- Melakukan sinkronisasi SCP file standar aturan ke VPS `fuckadmin@serv.zyekh.com:~/Trash/STANDAR_ATURAN_AI_SHOP_ZYEKH.md`.
+
 
 **Formulasi & Fiksasi Keputusan KF-014 (Single-Product Funnel & Marketplace Dual-Mode Architecture):**
 - Formulasi strategi UI/UX untuk calon pembeli non-tech-savvy (gaptek) dari iklan TikTok/Meta Ads agar tidak mengalami *choice paralysis*.
