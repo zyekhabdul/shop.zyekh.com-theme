@@ -36,3 +36,12 @@ Berdasarkan arsitektur tema Shopify `shop.zyekh.com-theme` (Zendrop Theme, Vanil
 ## 5. Performance & Mobile First Optimization
 - [ PROPOSED ] **Zero-Layout-Shift (CLS 0) Product Card Refactoring**:
   - Optimasi kartu produk di mobile untuk memastikan kecepatan muat < 800ms dan rasio konversi mobile maksimum.
+
+---
+
+## 6. Mobile App & Play Store Distribution (PWA / TWA)
+- [ PROPOSED ] **Trusted Web Activity (TWA) E-Commerce Android APK**:
+  - Mengemas `shop.zyekh.com` menjadi aplikasi Android mandiri via Google Bubblewrap/TWA.
+  - **Push Notification Broadcast**: Integrasi Web Push untuk pengumuman flash drop, diskon kilat, dan status verifikasi transaksi Pakasir otomatis.
+  - **Instant Payment Deep-Link**: Dukungan deep-linking langsung ke aplikasi e-wallet (GoPay, OVO, Dana, BCA Mobile) saat checkout QRIS.
+  - **Add-to-Homescreen PWA Banner**: Prompt instalasi otomatis untuk pengguna iOS Safari dan Chrome tanpa wajib lewat App Store.
